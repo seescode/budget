@@ -1,0 +1,12 @@
+Setup new application for budgeting 
+-get the dumb components displaying
+  -just pass along dummy data 
+-remove all reducers except one 
+-attempt to use a material design component 
+-delete other unused directories 
+-get routing working again 
+-refactor all components so that have their own 
+directory with associated unit tests
+-enable the storedb so that you can save all 
+budget info to the store.   
+-get this put on production using surge.io 
