@@ -1,4 +1,8 @@
-import { BudgetHeaderComponent } from './components/budget-header';
+import { CategoryTransactionsComponent } from './components/category-transactions/category-transactions';
+import { NewCategoryComponent } from './components/new-category/new-category';
+import { FormsModule } from '@angular/forms';
+import { CategoryComponent } from './components/category/category';
+import { BudgetHeaderComponent } from './components/budget-header/budget-header';
 import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,23 +16,16 @@ import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule } from '@angular/material';
 
-import { ComponentsModule } from './components';
-import { BookEffects } from './effects/book';
-import { CollectionEffects } from './effects/collection';
-import { BookExistsGuard } from './guards/book-exists';
-
-import { AppComponent } from './containers/app';
-import { FindBookPageComponent } from './containers/find-book-page';
-import { ViewBookPageComponent } from './containers/view-book-page';
-import { SelectedBookPageComponent } from './containers/selected-book-page';
-import { CollectionPageComponent } from './containers/collection-page';
-import { NotFoundPageComponent } from './containers/not-found-page';
-
 import { GoogleBooksService } from './services/google-books';
 
 import { routes } from './routes';
 import { reducer } from './reducers';
 import { schema } from './db';
+import { BudgetListPageComponent } from './containers/budget-list-page/budget-list-page.component';
+import { CreateBudgetPageComponent } from './containers/create-budget-page/create-budget-page.component';
+import { BudgetingPageComponent } from './containers/budgeting-page/budgeting-page.component';
+import { EditCategoryPageComponent } from './containers/edit-category-page/edit-category-page.component';
+import { AppComponent } from './containers/app/app.component';
 
 
 
@@ -38,8 +35,8 @@ import { schema } from './db';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    //ComponentsModule,
-    //RouterModule.forRoot(routes, { useHash: true }),
+    FormsModule,
+    RouterModule.forRoot(routes, { useHash: false }),
 
     /**
      * StoreModule.provideStore is imported once in the root module, accepting a reducer
@@ -48,7 +45,7 @@ import { schema } from './db';
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    //StoreModule.provideStore(reducer),
+    StoreModule.provideStore(reducer),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store and uses
@@ -66,7 +63,7 @@ import { schema } from './db';
      *
      * See: https://github.com/zalmoxisus/redux-devtools-extension
      */
-    //StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
     /**
      * EffectsModule.run() sets up the effects class to be initialized
@@ -81,12 +78,18 @@ import { schema } from './db';
      * `provideDB` sets up @ngrx/db with the provided schema and makes the Database
      * service available.
      */
-    //DBModule.provideDB(schema),
+    DBModule.provideDB(schema)
   ],
   declarations: [
-    AppComponent,
     BudgetHeaderComponent,
-    NotFoundPageComponent
+    CategoryComponent,
+    NewCategoryComponent,
+    CategoryTransactionsComponent,
+    BudgetListPageComponent,
+    CreateBudgetPageComponent,
+    BudgetingPageComponent,
+    EditCategoryPageComponent,
+    AppComponent
   ],
   providers: [
   ],

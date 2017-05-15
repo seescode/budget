@@ -1,0 +1,11 @@
+<div>
+  <div>
+    <button>^</button>
+    <span>{{categoryName}}</span>
+    <span>{{total | currency:'USD':true:'1.2-2'}}</span>
+  </div>
+  <div>
+    Amount: <input #amountInput type="text" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount">    Name: <input #amountName type="text" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="name">
+    <button type="button" (click)="addTransaction(amountInput.value, amountName.value)">Add</button>
+  </div>
+</div>

@@ -1,14 +1,16 @@
 export interface Category {
   name: string;
-  id: number;
+  id?: number;
+  budgetId: number;
 }
 
 export interface Transaction {
   name: string;
-  _id?: string;
+  id?: string;
   amount: number;
-  timestamp: Date;
+  timestamp?: Date;
   categoryId: number;
+  budgetId: number;
 }
 
 export interface Budget {
@@ -16,8 +18,6 @@ export interface Budget {
   name: string;
   details: string;
   budgetAmount: number;
-  transactions: Array<Transaction>;
-  categories: Array<Category>; 
 }
 
 export interface ActiveDate {

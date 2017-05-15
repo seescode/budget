@@ -1,7 +1,7 @@
 {
-  "name": "@ngrx/example-app",
+  "name": "budget",
   "version": "1.0.0",
-  "description": "Example application demoing the @ngrx platform",
+  "description": "An application for budgeting",
   "main": "index.ts",
   "scripts": {
     "ng": "ng",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ngrx/example-app.git"
+    "url": "git+https://github.com/seescode/budget.git"
   },
-  "author": "Mike Ryan",
+  "author": "Yong Choi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ngrx/example-app/issues"
+    "url": "https://github.com/seescode/budget/issues"
   },
-  "homepage": "https://github.com/ngrx/example-app#readme",
+  "homepage": "https://github.com/seescode/budget#readme",
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"

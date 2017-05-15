@@ -6,11 +6,20 @@ import { DBSchema } from '@ngrx/db';
  */
 export const schema: DBSchema = {
   version: 1,
-  name: 'books_app',
+  name: 'budget',
   stores: {
-    books: {
+    budget: {
       autoIncrement: true,
       primaryKey: 'id'
-    }
+    },
+    category: {
+      autoIncrement: true,
+      primaryKey: 'id'
+    },
+    transaction: {
+      autoIncrement: true,
+      primaryKey: 'id'
+    },
+
   }
 };

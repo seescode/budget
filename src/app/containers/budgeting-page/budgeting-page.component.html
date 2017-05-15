@@ -1,0 +1,18 @@
+  <div>
+    <h1>Hello Budget World</h1>
+    <yb-budget-header [budgetAmount]="budgetAmount$" [activeDate]="selectedMonthAndYear$"
+      [remainingYearlyBudget]="remainingYearlyBudget$"
+      [remainingMonthlyBudget]="remainingMonthlyBudget$"
+      [spentThisYear]="spentThisYear$"
+      [spentThisMonth]="spentThisMonth$"
+      [getRunningSurplus]="getRunningSurplus$"
+      (previous)="previousMonth($event)"
+      (next)="nextMonth($event)"></yb-budget-header>
+    <yb-category *ngFor="let cat of categoryData$" 
+      [categoryName]="cat.categoryName"
+      [categoryId]="cat.categoryId"
+      [total]="cat.total"
+      [categoryUrl]="cat.categoryUrl"
+      (add)="addTransaction($event)"></yb-category>
+    <yb-new-category (add)="addCategory($event)"></yb-new-category>
+  </div>

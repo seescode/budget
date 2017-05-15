@@ -1,27 +1,26 @@
+import { CreateBudgetPageComponent } from './containers/create-budget-page/create-budget-page.component';
+import { EditCategoryPageComponent } from './containers/edit-category-page/edit-category-page.component';
+import { BudgetingPageComponent } from './containers/budgeting-page/budgeting-page.component';
+import { BudgetListPageComponent } from './containers/budget-list-page/budget-list-page.component';
 import { Routes } from '@angular/router';
-
-import { BookExistsGuard } from './guards/book-exists';
-import { FindBookPageComponent } from './containers/find-book-page';
-import { ViewBookPageComponent } from './containers/view-book-page';
-import { CollectionPageComponent } from './containers/collection-page';
-import { NotFoundPageComponent } from './containers/not-found-page';
 
 export const routes: Routes = [
   {
-    path: '',
-    component: CollectionPageComponent
+    path: 'budget-list',
+    component: BudgetListPageComponent
   },
   {
-    path: 'book/find',
-    component: FindBookPageComponent
+    path: 'budgeting',
+    component: BudgetingPageComponent
   },
   {
-    path: 'book/:id',
-    canActivate: [ BookExistsGuard ],
-    component: ViewBookPageComponent
+    path: 'create-budget',
+    // canActivate: [ BookExistsGuard ],
+    component: CreateBudgetPageComponent
   },
   {
-    path: '**',
-    component: NotFoundPageComponent
-  }
+    path: 'edit-category/:categoryId',
+    component: EditCategoryPageComponent
+  },
+  { path: '**', redirectTo: 'budget-list', pathMatch: 'full' }
 ];

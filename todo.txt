@@ -1,12 +1,72 @@
-Setup new application for budgeting 
--get the dumb components displaying
-  -just pass along dummy data 
--remove all reducers except one 
--attempt to use a material design component 
--delete other unused directories 
--get routing working again 
--refactor all components so that have their own 
-directory with associated unit tests
--enable the storedb so that you can save all 
-budget info to the store.   
--get this put on production using surge.io 
+Setup new application for budgeting
+
+-Get routing working 
+  -create app component with router-outlet on it
+  -budget-list 
+  -budgeting/{year}/{month}
+  -create-budget 
+  -edit-category/{category-id}
+
+
+-Get UI working 
+  -we need to create budget page first 
+    -make the component 
+    -hook up to routing 
+    -have it render with nothing 
+    -then modify to add in the correct form data 
+    -console.log on submit 
+    -hook up to the store 
+      -this page needs to add the budget to the budget store. 
+  -we need to render our main page using empty data from the store 
+  instead of using  the mock data.
+    -
+  -get the page to render with 0 data in the store.
+
+-Have the router prevent you from going to the 
+main budget page if you haven't created a budget 
+yet.
+
+-Let's create some selectors 
+  -calculate stuff
+  -get specific month of stuff 
+-integrate with the smart component to make it work 
+-Explore adding an interface to the action in the reducers 
+-Figure out shape of the store data: 
+  -I think I need to first study indexeddb and understand how to 
+  efficiently store and query data in there.  Once you do then you can 
+  just normalize whatever you get back from the indexeddb.
+-Wait we can't really normalize what we get back from indexeddb because 
+the data is already normalized.  I think the main normalization is 
+querying transactions by date and then saving it into an object with 
+keys.  Actually rarely would we have that many objects with keys 
+so probably a traditional array would be better.  Actually we would 
+have a ton because the reducer for keeping track of the total remaining 
+budget would be an operation on the whole year of transactions which 
+is a lot.  
+
+
+-implement the store!
+  -read example.txt which contains an example of the store data. 
+
+
+-get routing working again
+-enable the storedb so that you can save all
+budget info to the store.
+-get this put on production using surge.io
+-write unit tests
+-make keyboard accessible
+-make screenreader accessible
+-make responsive
+-add styling to make it look nicer 
+-attempt to use a material design component to replace the dumb components
+  -Get familiar with all of the components. 
+  -List here possible components you might use:
+    -Input
+    -Button 
+    
+  -for each piece of UI you have think of what a good material design 
+  component replacement might be.
+  -Refactor to use the material design component. 
+
+-fix linting errors 
+
