@@ -5,7 +5,6 @@ export function BudgetReducer(state: Budget[] = [], action: any) {
     case 'LOAD_BUDGET_COMPLETE':
       return action.payload;
     case 'ADD_BUDGET_COMPLETE':
-      console.log('ADD_BUDGET_COMPLETE', action);
       return [...state, action.payload];
     case 'UPDATE_BUDGET':
       return state.map(budget => {

@@ -33,12 +33,19 @@ export class BudgetingPageComponent implements OnInit {
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute) {
     this.categories$ = this.store.select(s => s.category);
+
+    this.categories$.subscribe(n => console.log('categories', n));
   }
 
   ngOnInit() {
 
     this.activatedRoute.params.subscribe(params => {
-      this.budgetId = params['budgetId']
+      this.budgetId = params['budgetId'];
+
+      this.store.dispatch({
+        type: 'LOAD_BUDGET_DATA',
+        payload: this.budgetId
+      });
     });
   }
 

@@ -18,11 +18,6 @@ import 'rxjs/add/operator/toArray';
 @Injectable()
 export class BudgetEffects {
 
-
-  // We want to open the db
-  // We want to pull out the budgets and put them into the store
-  // 
-
   @Effect()
   openDB$: Observable<any> = defer(() => {
     return this.db.open('budget-db')
@@ -35,6 +30,28 @@ export class BudgetEffects {
         payload: budgets
       }));
   });
+
+  @Effect()
+  budgetData$: Observable<Action> = this.actions$
+    .ofType('LOAD_BUDGET_DATA')
+    .map(toPayload)
+    .mergeMap((budgetId: string) => {
+      return this.db.query('category', n => n.budgetId === budgetId)
+        .toArray()
+        .mergeMap((categories: Category[]) => {
+          return this.db.query('transaction', n => n.budgetId === budgetId)
+            .toArray()
+            .map((transactions: Transaction[]) => ({
+              type: 'LOAD_BUDGET_DATA_COMPLETE',
+              payload: {
+                categories: categories,
+                transactions: transactions
+              }
+            }));
+        });
+    });
+    // TODO handle catches
+    // .catch();
 
   @Effect()
   budget$: Observable<Action> = this.actions$
