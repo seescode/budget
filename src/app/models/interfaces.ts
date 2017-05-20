@@ -18,6 +18,8 @@ export interface Budget {
   name: string;
   details: string;
   budgetAmount: number;
+  startDate: Date;
+  endDate: Date;
 }
 
 export interface ActiveDate {

@@ -1,3 +1,22 @@
-<p>
-  create-budget-page works!
-</p>
+<h1>
+  Create a new Budget
+</h1>
+
+<div>
+  Name: <input type="text">
+</div>
+<div>
+  Details: <input type="text" size="64" maxlength="64">
+</div>
+<div>
+  Budget Amount: <input type="text">
+</div>
+<div>
+  Time Span Start: <input type="text">
+  <p> (We should use angular material calendar) </p>
+</div>
+<div>
+  Time Span End: <input type="text">
+</div>
+
+<button (click)="create()">Create</button>

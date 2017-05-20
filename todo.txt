@@ -1,18 +1,10 @@
 Setup new application for budgeting
 
--Get routing working 
-  -create app component with router-outlet on it
-  -budget-list 
-  -budgeting/{year}/{month}
-  -create-budget 
-  -edit-category/{category-id}
+-research how to do angular2 forms.
 
 
 -Get UI working 
   -we need to create budget page first 
-    -make the component 
-    -hook up to routing 
-    -have it render with nothing 
     -then modify to add in the correct form data 
     -console.log on submit 
     -hook up to the store 
@@ -69,4 +61,4 @@ budget info to the store.
   -Refactor to use the material design component. 
 
 -fix linting errors 
-
+-Use constants for your action types

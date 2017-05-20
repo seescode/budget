@@ -10,6 +10,7 @@ export const routes: Routes = [
     component: BudgetListPageComponent
   },
   {
+    // path: 'budgeting/:year/:month'
     path: 'budgeting',
     component: BudgetingPageComponent
   },
