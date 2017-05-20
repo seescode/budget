@@ -42,7 +42,10 @@ export class BudgetingPageComponent implements OnInit {
   }
 
   addTransaction(transaction: Transaction) {
-
+    this.store.dispatch({
+      type: 'ADD_TRANSACTION',
+      payload: transaction
+    });
   }
 
   addCategory(categoryName: any) {

@@ -22,14 +22,14 @@ export class CategoryComponent {
 
 
   onKeyPress(event: any, amount: string, name: string) {
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       this.addTransaction(amount, name);
     }
   }
 
   addTransaction(amount: string, name: string) {
     if (parseFloat(amount) > 0) {
-      var newTransaction: Transaction = {
+      const newTransaction: Transaction = {
         name: name,
         amount: parseFloat(amount),
         categoryId: this.categoryId,
