@@ -4,7 +4,7 @@
 
 <div *ngFor="let budget of budgets$ | async">
   <span>{{budget.name}}</span>
-  <button [routerLink]="['/budgeting', budget.id]">Open</button>
+  <button (click)="openBudget(budget.id)">Open</button>
   <button>Delete</button>
   <button>Make Default</button>
 </div>

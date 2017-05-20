@@ -10,8 +10,7 @@ export const routes: Routes = [
     component: BudgetListPageComponent
   },
   {
-    // path: 'budgeting/:year/:month'
-    path: 'budgeting/:budgetId',
+    path: 'budgeting/:budgetId/:year/:month',
     component: BudgetingPageComponent
   },
   {

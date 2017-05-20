@@ -22,7 +22,7 @@ export class BudgetingPageComponent implements OnInit {
   remainingYearlyBudget$: number = 10000;
   remainingMonthlyBudget$: number = 2000;
   selectedMonthAndYear$: ActiveDate = {
-    month: 5,
+    month: 3,
     year: 2017
   };
   spentThisYear$: number = 30000;
@@ -30,17 +30,23 @@ export class BudgetingPageComponent implements OnInit {
   getRunningSurplus$: number = 200;
 
   budgetId: string;
+  currentMonth: string;
+  currentYear: string;
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute) {
     this.categories$ = this.store.select(s => s.category);
 
-    this.categories$.subscribe(n => console.log('categories', n));
   }
 
   ngOnInit() {
 
     this.activatedRoute.params.subscribe(params => {
       this.budgetId = params['budgetId'];
+
+      this.selectedMonthAndYear$  = {
+        month: params['month'],
+        year: params['year']
+      };
 
       this.store.dispatch({
         type: 'LOAD_BUDGET_DATA',
