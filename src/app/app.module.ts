@@ -1,3 +1,4 @@
+import { BudgetEffects } from './effects/budget.effects';
 import { CategoryTransactionsComponent } from './components/category-transactions/category-transactions';
 import { NewCategoryComponent } from './components/new-category/new-category';
 import { FormsModule } from '@angular/forms';
@@ -71,8 +72,7 @@ import { AppComponent } from './containers/app/app.component';
      *
      * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
      */
-    //EffectsModule.run(BookEffects),
-    //EffectsModule.run(CollectionEffects),
+    EffectsModule.run(BudgetEffects),
 
     /**
      * `provideDB` sets up @ngrx/db with the provided schema and makes the Database

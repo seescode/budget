@@ -8,12 +8,10 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 })
 export class NewCategoryComponent {
   @Output() add = new EventEmitter<any>();
-  @Input() budgetId: number;
 
   addCategory(newCategoryName: string) {
-    var newCategory:Category  = {
-      name: newCategoryName,
-      budgetId: this.budgetId
+    const newCategory: Category = {
+      name: newCategoryName
     };
 
     this.add.emit(newCategory);

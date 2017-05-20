@@ -2,7 +2,7 @@ import { Category } from './../models/interfaces';
 
 export function CategoryReducer(state: Category[] = [], action: any) {
   switch (action.type) {
-    case 'ADD_CATEGORY':
+    case 'ADD_CATEGORY_COMPLETE':
       return [...state, action.payload];
     case 'UPDATE_CATEGORY':
       return state.map(category => {

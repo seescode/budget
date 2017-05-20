@@ -2,7 +2,7 @@ import { Transaction } from './../models/interfaces';
 
 export function TransactionReducer(state: Transaction[] = [], action: any) {
   switch (action.type) {
-    case 'ADD_TRANSACTION':
+    case 'ADD_TRANSACTION_COMPLETE':
       return [...state, action.payload];
     case 'UPDATE_TRANSACTION':
       return state.map(transaction => {

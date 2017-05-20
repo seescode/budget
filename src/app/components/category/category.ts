@@ -8,9 +8,8 @@ import { Transaction, ActiveDate } from './../../models/interfaces';
 })
 export class CategoryComponent {
   @Input() categoryName: string;
-  @Input() categoryId: number;
+  @Input() categoryId: string;
   @Input() total: number;
-  @Input() budgetId: number;
   @ViewChild('amountInput') amountInput: ElementRef;
   @Output() add = new EventEmitter<Transaction>();
 
@@ -19,7 +18,6 @@ export class CategoryComponent {
   constructor(private renderer: Renderer) {
 
   }
-
 
   onKeyPress(event: any, amount: string, name: string) {
     if (event.key === 'Enter') {
@@ -32,8 +30,7 @@ export class CategoryComponent {
       const newTransaction: Transaction = {
         name: name,
         amount: parseFloat(amount),
-        categoryId: this.categoryId,
-        budgetId: this.budgetId
+        categoryId: this.categoryId
       };
 
       this.renderer.invokeElementMethod(this.amountInput.nativeElement, 'focus');

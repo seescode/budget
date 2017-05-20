@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+import { UUID } from 'angular2-uuid';
 import { AppState } from './../../reducers/index';
 import { ActiveDate, Budget, Transaction, Category } from './../../models/interfaces';
 import 'rxjs/add/operator/let';
@@ -27,11 +29,17 @@ export class BudgetingPageComponent implements OnInit {
   spentThisMonth$: number = 1000;
   getRunningSurplus$: number = 200;
 
-  constructor(private store: Store<AppState>) {
+  budgetId: string;
+
+  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute) {
+    this.categories$ = this.store.select(s => s.category);
   }
 
   ngOnInit() {
-    this.categories$ = this.store.select(s => s.category);
+
+    this.activatedRoute.params.subscribe(params => {
+      this.budgetId = params['budgetId']
+    });
   }
 
   previousMonth() {
@@ -42,6 +50,10 @@ export class BudgetingPageComponent implements OnInit {
   }
 
   addTransaction(transaction: Transaction) {
+
+    transaction.id = UUID.UUID();
+    transaction.budgetId = this.budgetId;
+
     this.store.dispatch({
       type: 'ADD_TRANSACTION',
       payload: transaction
@@ -51,8 +63,8 @@ export class BudgetingPageComponent implements OnInit {
   addCategory(categoryName: any) {
     const newCategory: Category = {
         name: categoryName.name,
-        id: 1,
-        budgetId: 1
+        id: UUID.UUID(),
+        budgetId: this.budgetId
     };
 
     this.store.dispatch({

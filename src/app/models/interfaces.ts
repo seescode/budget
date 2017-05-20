@@ -1,7 +1,7 @@
 export interface Category {
   name: string;
-  id?: number;
-  budgetId: number;
+  id?: string;
+  budgetId?: string;
 }
 
 export interface Transaction {
@@ -9,12 +9,12 @@ export interface Transaction {
   id?: string;
   amount: number;
   timestamp?: Date;
-  categoryId: number;
-  budgetId: number;
+  categoryId?: string;
+  budgetId?: string;
 }
 
 export interface Budget {
-  id: number;
+  id: string;
   name: string;
   details: string;
   budgetAmount: number;

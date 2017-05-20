@@ -3,6 +3,7 @@ import { AppState } from './../../reducers/index';
 import { Store } from '@ngrx/store';
 import { Budget } from './../../models/interfaces';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'yb-create-budget-page',
@@ -18,9 +19,11 @@ export class CreateBudgetPageComponent implements OnInit {
   }
 
   create() {
+
+
     // build a mock budget object and then dispatch to the store with this information
     const newBudget: Budget = {
-      id: 1,
+      id: UUID.UUID(),
       name: 'budget 1',
       details: 'Japan trip',
       budgetAmount: 7000,
