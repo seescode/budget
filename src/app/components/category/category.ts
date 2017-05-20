@@ -10,7 +10,6 @@ export class CategoryComponent {
   @Input() categoryName: string;
   @Input() categoryId: number;
   @Input() total: number;
-  @Input() categoryUrl: string;
   @Input() budgetId: number;
   @ViewChild('amountInput') amountInput: ElementRef;
   @Output() add = new EventEmitter<Transaction>();

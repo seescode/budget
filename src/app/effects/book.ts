@@ -55,3 +55,35 @@
 
 //     constructor(private actions$: Actions, private googleBooks: GoogleBooksService) { }
 // }
+
+
+//import { Database } from '@ngrx/db';
+
+//  constructor(private db: Database) {
+////     db.open('budget');
+// }
+
+  // addTransaction(transaction: Transaction) {    
+
+  //   //insert does inserts and updates
+  //   //  this.db.insert('transaction', [transaction])
+  //   //    .subscribe(n => console.log(n));
+
+
+  //   //this does deletes
+  //   // this.db.executeWrite('transaction', 'delete', [ somePrimaryKeyId])
+  //   //   .subscribe(n => console.log(n));
+
+  // }
+
+  // addCategory(categoryName: Category) {
+
+  //   //this does a simple get by id
+  //   //this.db.get('transaction', 'aa')
+  //   //  .subscribe((n: Transaction) => alert(n.amount));
+
+  //   //this does a get based on a query 
+  //   // this.db.query('transaction', n => n.amount == 3 )
+  //   //   .subscribe(x => console.log(x));
+
+  // }

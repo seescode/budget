@@ -1,9 +1,9 @@
+import { AppState } from './../../reducers/index';
 import { ActiveDate, Budget, Transaction, Category } from './../../models/interfaces';
 import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Database } from '@ngrx/db';
 
 @Component({
   selector: 'yb-budgeting-page',
@@ -13,25 +13,10 @@ import { Database } from '@ngrx/db';
 })
 export class BudgetingPageComponent implements OnInit {
 
-categoryData$ = [
-    {
-      categoryName: 'first',
-      categoryId: '1',
-      total: 50,
-      categoryUrl: 'google.com',
-      //add: this.nextMonth //TODO fix me
-    },
-    {
-      categoryName: 'second',
-      categoryId: '2',
-      total: 300,
-      categoryUrl: 'google.com',
-      //add: this.nextMonth
-    }    
-  ];
+  categories$: Observable<Category[]>;
+
 
   budgetAmount$: number = 40000;
-  //categories$: Observable<any>;
   remainingYearlyBudget$: number = 10000;
   remainingMonthlyBudget$: number = 2000;
   selectedMonthAndYear$: ActiveDate = {
@@ -42,9 +27,11 @@ categoryData$ = [
   spentThisMonth$: number = 1000;
   getRunningSurplus$: number = 200;
 
-  constructor(private db: Database) {
-    db.open('budget');
+  constructor(private store: Store<AppState>) {
+  }
 
+  ngOnInit() {
+    this.categories$ = this.store.select(s => s.category);
   }
 
   previousMonth() {
@@ -54,31 +41,22 @@ categoryData$ = [
 
   }
 
-  addTransaction(transaction: Transaction) {    
-
-    //insert does inserts and updates
-     this.db.insert('transaction', [transaction])
-       .subscribe(n => console.log(n));
-
-
-    //this does deletes
-    // this.db.executeWrite('transaction', 'delete', [ somePrimaryKeyId])
-    //   .subscribe(n => console.log(n));
+  addTransaction(transaction: Transaction) {
 
   }
 
-  addCategory(categoryName: Category) {
+  addCategory(categoryName: any) {
+    const newCategory: Category = {
+        name: categoryName.name,
+        id: 1,
+        budgetId: 1
+    };
 
-    //this does a simple get by id
-    //this.db.get('transaction', 'aa')
-    //  .subscribe((n: Transaction) => alert(n.amount));
-
-    //this does a get based on a query 
-    this.db.query('transaction', n => n.amount == 3 )
-      .subscribe(x => console.log(x));
-
+    this.store.dispatch({
+      type: 'ADD_CATEGORY',
+      payload: newCategory
+    });
   }
-  ngOnInit() {
-  }
+
 
 }

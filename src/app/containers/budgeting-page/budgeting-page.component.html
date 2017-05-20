@@ -8,11 +8,10 @@
       [getRunningSurplus]="getRunningSurplus$"
       (previous)="previousMonth($event)"
       (next)="nextMonth($event)"></yb-budget-header>
-    <yb-category *ngFor="let cat of categoryData$" 
-      [categoryName]="cat.categoryName"
-      [categoryId]="cat.categoryId"
-      [total]="cat.total"
-      [categoryUrl]="cat.categoryUrl"
+    <yb-category *ngFor="let cat of categories$ | async" 
+      [categoryName]="cat.name"
+      [categoryId]="cat.id"
+      total="99"
       (add)="addTransaction($event)"></yb-category>
     <yb-new-category (add)="addCategory($event)"></yb-new-category>
   </div>
