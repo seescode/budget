@@ -1,3 +1,14 @@
-<p>
-  budget-list-page works!
-</p>
+<h1>
+  Select a Budget
+</h1>
+
+<div *ngFor="let budget of budgets$ | async">
+  <span>{{budget.name}}</span>
+  <button [routerLink]="['/budgeting', budget.id]">Open</button>
+  <button>Delete</button>
+  <button>Make Default</button>
+</div>
+
+<div>
+<button routerLink="/create-budget">Create Budget</button>
+</div>

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AppState } from './../../reducers/index';
 import { Store } from '@ngrx/store';
 import { Budget } from './../../models/interfaces';
@@ -11,7 +12,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class CreateBudgetPageComponent implements OnInit {
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private router: Router) { }
 
   ngOnInit() {
   }
@@ -31,5 +32,7 @@ export class CreateBudgetPageComponent implements OnInit {
       type: 'ADD_BUDGET',
       payload: newBudget
     });
+
+    this.router.navigateByUrl('/budget-list');
   }
 }

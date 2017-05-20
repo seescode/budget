@@ -11,7 +11,7 @@ export const routes: Routes = [
   },
   {
     // path: 'budgeting/:year/:month'
-    path: 'budgeting',
+    path: 'budgeting/:budgetId',
     component: BudgetingPageComponent
   },
   {

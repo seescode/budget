@@ -2,13 +2,11 @@ Setup new application for budgeting
 
 -research how to do angular2 forms.
 
-
+-Budget list page 
+  -displays a list of budgets from the store 
+  -create budget button
+  -go into a budget then continue next stuff  
 -Get UI working 
-  -we need to create budget page first 
-    -then modify to add in the correct form data 
-    -console.log on submit 
-    -hook up to the store 
-      -this page needs to add the budget to the budget store. 
   -we need to render our main page using empty data from the store 
   instead of using  the mock data.
     -
@@ -62,3 +60,10 @@ budget info to the store.
 
 -fix linting errors 
 -Use constants for your action types
+-implement exporting and importing budgets 
+
+-Designing the page 
+  -we need a consistent header and footer 
+  -the header should contain some consistent nav.  It should have a button 
+  to easily take you to the budget list page. 
+  
