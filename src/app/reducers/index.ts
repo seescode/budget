@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import {BudgetReducer } from './budget.reducer';
 import {CategoryReducer } from './category.reducer';
 import {TransactionReducer } from './transaction.reducer';
+import { RouterState } from '@angular/router';
 
 
 /**
@@ -49,10 +50,10 @@ import { combineReducers } from '@ngrx/store';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface AppState {
-  budget: Budget[],
-  transaction: Transaction[],
-  category: Category[],
-  router: fromRouter.RouterState;
+  budget: Budget[];
+  transaction: Transaction[];
+  category: Category[];
+  router: RouterState;
 }
 
 

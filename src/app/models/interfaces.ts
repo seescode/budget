@@ -1,3 +1,9 @@
+export interface TotalBudgetInfo {
+  totalBudget: number;
+  unspent: number;
+  spent: number;
+}
+
 export interface Category {
   name: string;
   id?: string;

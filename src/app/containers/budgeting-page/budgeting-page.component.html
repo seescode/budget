@@ -1,17 +1,22 @@
   <div>
     <h1>Hello Budget World</h1>
-    <yb-budget-header [budgetAmount]="budgetAmount$" [activeDate]="selectedMonthAndYear$"
-      [remainingYearlyBudget]="remainingYearlyBudget$"
-      [remainingMonthlyBudget]="remainingMonthlyBudget$"
-      [spentThisYear]="spentThisYear$"
-      [spentThisMonth]="spentThisMonth$"
+    <yb-budget-header 
+      *ngIf="totalBudgetInfo != null"
+      [budgetAmount]="totalBudgetInfo.totalBudget" 
+      [activeDate]="selectedMonthAndYear$"
+      [remainingYearlyBudget]="totalBudgetInfo.unspent"
+      [remainingMonthlyBudget]="monthlyBudgetInfo.unspent"
+      [spentThisYear]="totalBudgetInfo.spent"
+      [spentThisMonth]="monthlyBudgetInfo.spent"
       [getRunningSurplus]="getRunningSurplus$"
       (previous)="previousMonth($event)"
       (next)="nextMonth($event)"></yb-budget-header>
     <yb-category *ngFor="let cat of categories$ | async" 
       [categoryName]="cat.name"
       [categoryId]="cat.id"
-      total="99"
+      [total]="cat.amount"
       (add)="addTransaction($event)"></yb-category>
     <yb-new-category (add)="addCategory($event)"></yb-new-category>
   </div>
+
+

@@ -1,48 +1,18 @@
 Setup new application for budgeting
 
--research how to do angular2 forms.
 
--Budget list page 
-  -displays a list of budgets from the store 
-  -create budget button
-  -go into a budget then continue next stuff  
--Get UI working 
-  -we need to render our main page using empty data from the store 
-  instead of using  the mock data.
-    -
-  -get the page to render with 0 data in the store.
+
+-need to move selectors out of reducers folder 
+-implement selector for showing total budget unspent, spent
+-implement selector for showing monthly budget unspent, spent
+-support month/year in selectors 
+-be able to navigate to previous or next month 
+-get this put on production using surge.io
 
 -Have the router prevent you from going to the 
 main budget page if you haven't created a budget 
-yet.
-
--Let's create some selectors 
-  -calculate stuff
-  -get specific month of stuff 
--integrate with the smart component to make it work 
+yet.  
 -Explore adding an interface to the action in the reducers 
--Figure out shape of the store data: 
-  -I think I need to first study indexeddb and understand how to 
-  efficiently store and query data in there.  Once you do then you can 
-  just normalize whatever you get back from the indexeddb.
--Wait we can't really normalize what we get back from indexeddb because 
-the data is already normalized.  I think the main normalization is 
-querying transactions by date and then saving it into an object with 
-keys.  Actually rarely would we have that many objects with keys 
-so probably a traditional array would be better.  Actually we would 
-have a ton because the reducer for keeping track of the total remaining 
-budget would be an operation on the whole year of transactions which 
-is a lot.  
-
-
--implement the store!
-  -read example.txt which contains an example of the store data. 
-
-
--get routing working again
--enable the storedb so that you can save all
-budget info to the store.
--get this put on production using surge.io
 -write unit tests
 -make keyboard accessible
 -make screenreader accessible
@@ -61,9 +31,21 @@ budget info to the store.
 -fix linting errors 
 -Use constants for your action types
 -implement exporting and importing budgets 
-
+-create protractor tests that create a budget from scratch and then creates
+ transactions.  It verifies that the calculated values are correct at the top.
+ Then destroys the budget.  
+-Have travisci or circleci run protractor tests and unit tests before it deploys
+ using surge.
+-prevent writing to master (require doing PRs to master)
 -Designing the page 
   -we need a consistent header and footer 
   -the header should contain some consistent nav.  It should have a button 
   to easily take you to the budget list page. 
-  
+-implement optimistic concurrency.  This will work well since you are generating
+ the ids on the client side. 
+-research how to do angular2 forms.
+-handle logging (maybe there's a few logging service, or at least free bug tracking)
+-router edge cases (invalid month, year in the url) 
+-implement bounds checking based on startdate to enddate.  Prevent the user from 
+going to previous months that are not allowed.  Same goes for final month.
+

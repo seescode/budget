@@ -1,3 +1,4 @@
+import { budgetSelector } from './../../reducers/selectors';
 import { Router } from '@angular/router';
 import { Budget } from './../../models/interfaces';
 import { Observable } from 'rxjs/Observable';
@@ -17,7 +18,7 @@ export class BudgetListPageComponent implements OnInit {
   constructor(private store: Store<AppState>, private router: Router) { }
 
   ngOnInit() {
-    this.budgets$ = this.store.select(s => s.budget);
+    this.budgets$ = this.store.select(budgetSelector);
   }
 
   openBudget(budgetId: string) {

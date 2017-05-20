@@ -1,7 +1,7 @@
 <div>
   <h1><span (click)="previous.emit()">&lt;&lt;</span> {{activeDate.month}} {{activeDate.year}} <span (click)="next.emit()">&gt;&gt;</span></h1>
   <div [class.red]="remainingYearlyBudget < 0">
-    Yearly budget: {{budgetAmount | currency:'USD':true:'1.2-2'}} = {{remainingYearlyBudget | currency:'USD':true:'1.2-2'}} unspent
+    Total budget: {{budgetAmount | currency:'USD':true:'1.2-2'}} = {{remainingYearlyBudget | currency:'USD':true:'1.2-2'}} unspent
     + {{spentThisYear | currency:'USD':true:'1.2-2'}} spent
   </div>
   <div [class.red]="remainingMonthlyBudget < 0">

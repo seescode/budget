@@ -52,7 +52,7 @@ import { AppComponent } from './containers/app/app.component';
      * @ngrx/router-store keeps router state up-to-date in the store and uses
      * the store as the single source of truth for the router's state.
      */
-    //RouterStoreModule.connectRouter(),
+    RouterStoreModule.connectRouter(),
 
     /**
      * Store devtools instrument the store retaining past versions of state
