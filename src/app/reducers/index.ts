@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import {BudgetReducer } from './budget.reducer';
 import {CategoryReducer } from './category.reducer';
 import {TransactionReducer } from './transaction.reducer';
+import { BudgetLoadedReducer } from './budget-loaded.reducer'
 import { RouterState } from '@angular/router';
 
 
@@ -54,6 +55,7 @@ export interface AppState {
   transaction: Transaction[];
   category: Category[];
   router: RouterState;
+  budgetLoaded: string[];
 }
 
 
@@ -68,7 +70,8 @@ const reducers = {
   budget: BudgetReducer,
   category: CategoryReducer,
   transaction: TransactionReducer,
-  router: fromRouter.routerReducer
+  router: fromRouter.routerReducer,
+  budgetLoaded: BudgetLoadedReducer
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);

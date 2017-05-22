@@ -44,6 +44,7 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    // TODO should unsubscribe in ngDestroy
     this.activatedRoute.params.subscribe(params => {
       this.budgetId = params['budgetId'];
 
