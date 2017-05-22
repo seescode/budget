@@ -1,7 +1,12 @@
 Setup new application for budgeting
 
+-fix bug where you hit previous and next where it adds the 
+same category over and over again. 
+-need to support running surplus 
+-fix bug where you try and go directly to the 
+budgeting page it errs out. 
+
 -need to move selectors out of reducers folder 
--be able to navigate to previous or next month 
 -get this put on production using surge.io
 
 -Have the router prevent you from going to the 
