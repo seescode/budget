@@ -1,4 +1,9 @@
+import { Loaded } from '../models/interfaces';
 
+const initialState: Loaded = {
+  loadedBudgetInfo: false,
+  loadedBudgetIds: []
+}
 
 /**
  * This keeps a list of budgetsIds for budgets that loaded into memory.
@@ -8,10 +13,18 @@
  * @param {*} action 
  * @returns 
  */
-export function BudgetLoadedReducer(state: string[] = [], action: any) {
+export function BudgetLoadedReducer(state: Loaded = initialState, action: any) {
   switch (action.type) {
+    case 'LOAD_BUDGET_COMPLETE':
+      return {
+        loadedBudgetInfo: true,
+        loadedBudgetIds: []
+      };
     case 'LOAD_BUDGET_DATA_COMPLETE':
-      return [...state, action.payload.budgetId];
+      return {
+        loadedBudgetInfo: state.loadedBudgetInfo,
+        loadedBudgetIds: [...state.loadedBudgetIds, action.payload.budgetId]
+      };
     default:
       return state;
   }

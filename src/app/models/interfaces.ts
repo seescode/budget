@@ -32,3 +32,8 @@ export interface ActiveDate {
   month: number,
   year: number
 }
+
+export interface Loaded {
+  loadedBudgetInfo: boolean;
+  loadedBudgetIds: string[];
+}

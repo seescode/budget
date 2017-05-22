@@ -1,5 +1,5 @@
 import { AppState } from './../reducers/index';
-import { Budget, Category, Transaction } from './../models/interfaces';
+import { Budget, Category, Transaction, Loaded } from './../models/interfaces';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
@@ -22,26 +22,32 @@ import 'rxjs/add/observable/from';
 export class BudgetEffects {
 
   @Effect()
-  openDB$: Observable<any> = defer(() => {
-    return this.db.open('budget-db')
-      .mergeMap(() => {
-        return this.db.query('budget', n => true);
-      })
-      .toArray()
-      .map((budgets) => ({
-        type: 'LOAD_BUDGET_COMPLETE',
-        payload: budgets
-      }));
-  });
+  openDB$: Observable<Action> = this.actions$
+    .ofType('LOAD_BUDGET')
+    .startWith({
+      type: 'LOAD_BUDGET'
+    })
+    .map(toPayload)
+    .mergeMap(() => {
+      return this.db.open('budget-db')
+        .mergeMap(() => {
+          return this.db.query('budget', n => true);
+        })
+        .toArray()
+        .map((budgets) => ({
+          type: 'LOAD_BUDGET_COMPLETE',
+          payload: budgets
+        }));
+    });
 
   @Effect()
   budgetData$: Observable<Action> = this.actions$
     .ofType('LOAD_BUDGET_DATA')
     .map(toPayload)
     .withLatestFrom(this.store.select(s => s.budgetLoaded))
-    .mergeMap(([budgetId, budgetLoaded]: [string, string[]]) => {
+    .mergeMap(([budgetId, budgetLoaded]: [string, Loaded]) => {
 
-      if (budgetLoaded.find(bId => bId === budgetId) != null) {
+      if (budgetLoaded.loadedBudgetIds.find(bId => bId === budgetId) != null) {
         return Observable.from([{
           type: 'LOAD_BUDGET_DATA_FROM_CACHE'
         }]);
@@ -62,8 +68,8 @@ export class BudgetEffects {
             }));
         });
     });
-    // TODO handle catches
-    // .catch();
+  // TODO handle catches
+  // .catch();
 
   @Effect()
   budget$: Observable<Action> = this.actions$

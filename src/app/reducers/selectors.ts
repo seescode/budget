@@ -52,7 +52,7 @@ export const everyCategoryTotalSelector = createSelector(categorySelector,
 export const totalBudgetInfoSelector = createSelector(getBudgetingPageRoute,
   transactionSelector, budgetSelector, (route, transactions, budgets): TotalBudgetInfo => {
 
-    if (route === null) {
+    if (route === null || route.budgetId == null || budgets.length === 0) {
       return null;
     }
 
@@ -73,7 +73,7 @@ export const totalBudgetInfoSelector = createSelector(getBudgetingPageRoute,
 export const monthlyBudgetInfoSelector = createSelector(getBudgetingPageRoute,
   transactionSelector, budgetSelector, (route, transactions, budgets) => {
 
-    if (route === null) {
+    if (route === null || route.budgetId == null || budgets.length === 0) {
       return null;
     }
 

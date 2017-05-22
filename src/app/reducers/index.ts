@@ -1,4 +1,4 @@
-import { Budget, Transaction, Category } from './../models/interfaces';
+import { Budget, Transaction, Category, Loaded } from './../models/interfaces';
 import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
@@ -55,7 +55,7 @@ export interface AppState {
   transaction: Transaction[];
   category: Category[];
   router: RouterState;
-  budgetLoaded: string[];
+  budgetLoaded: Loaded;
 }
 
 
