@@ -1,11 +1,6 @@
 Setup new application for budgeting
 
-
-
 -need to move selectors out of reducers folder 
--implement selector for showing total budget unspent, spent
--implement selector for showing monthly budget unspent, spent
--support month/year in selectors 
 -be able to navigate to previous or next month 
 -get this put on production using surge.io
 

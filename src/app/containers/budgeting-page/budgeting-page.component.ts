@@ -19,17 +19,13 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
   categories$: Observable<Category[]>;
 
-  remainingMonthlyBudget$: number = 2000;
   selectedMonthAndYear$: ActiveDate = {
     month: 3,
     year: 2017
   };
-  spentThisMonth$: number = 1000;
   getRunningSurplus$: number = 200;
 
   budgetId: string;
-  currentMonth: string;
-  currentYear: string;
   totalBudgetInfoSubscription: Subscription;
   totalBudgetInfo: TotalBudgetInfo;
   monthlyBudgetInfoSubscription: Subscription;
@@ -76,6 +72,7 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
     transaction.id = UUID.UUID();
     transaction.budgetId = this.budgetId;
+    transaction.timestamp = new Date();
 
     this.store.dispatch({
       type: 'ADD_TRANSACTION',

@@ -57,11 +57,12 @@ export const totalBudgetInfoSelector = createSelector(getBudgetingPageRoute,
     }
 
     const totalBudget = budgets.find(b => b.id === route.budgetId).budgetAmount;
-    const spent = transactions.reduce((prev, next) => {
+    const spent = transactions
+        .filter(t => t.budgetId === route.budgetId)
+        .reduce((prev, next) => {
           return prev + next.amount;
         }, 0);
 
-    // TODO: doesn't consider year and month
     return {
       totalBudget: totalBudget,
       unspent: totalBudget - spent,
@@ -78,7 +79,11 @@ export const monthlyBudgetInfoSelector = createSelector(getBudgetingPageRoute,
 
     const totalBudget = budgets.find(b => b.id === route.budgetId).budgetAmount;
     const monthlyBudget = totalBudget / 12;
-    const spent = transactions.reduce((prev, next) => {
+    const spent = transactions
+        .filter(t => t.budgetId === route.budgetId &&
+          t.timestamp.getMonth() === route.month - 1 &&
+          t.timestamp.getFullYear() === route.year)
+        .reduce((prev, next) => {
           return prev + next.amount;
         }, 0);
 
