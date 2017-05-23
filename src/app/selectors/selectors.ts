@@ -17,19 +17,15 @@ export const getBudgetingPageRoute = createSelector(routerSelector,
 
     const routes = routeInfo.path.split('/');
 
-
-    if (routes[1] === 'budget-list') {
+    if (routes[1] !== 'budgeting') {
       return null;
     }
-
 
     const val = {
       budgetId: routes[2],
       year: parseInt(routes[3]),
       month: parseInt(routes[4])
     };
-
-    console.log('val', val);
 
     return val;
   });

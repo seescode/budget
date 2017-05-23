@@ -3,7 +3,16 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
+
+-everyCategoryTotalSelector needs to be fixed to work 
+by budgetId. 
+
+-Use constants for your action types
 -need to support running surplus 
+
+
+
+
 -Have the router prevent you from going to the 
 main budget page if you haven't created a budget 
 yet.  
@@ -24,7 +33,6 @@ yet.
   -Refactor to use the material design component. 
 
 -fix linting errors 
--Use constants for your action types
 -implement exporting and importing budgets 
 -create protractor tests that create a budget from scratch and then creates
  transactions.  It verifies that the calculated values are correct at the top.
