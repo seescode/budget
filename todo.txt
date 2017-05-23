@@ -1,3 +1,8 @@
+How to deploy to surge:
+-cd into the dist directory 
+-surge --domain ng-budget.surge.sh
+
+
 -need to support running surplus 
 -need to move selectors out of reducers folder 
 
