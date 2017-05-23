@@ -4,8 +4,6 @@ How to deploy to surge:
 
 
 -need to support running surplus 
--need to move selectors out of reducers folder 
-
 -Have the router prevent you from going to the 
 main budget page if you haven't created a budget 
 yet.  

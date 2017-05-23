@@ -1,4 +1,4 @@
-import { budgetSelector } from './../../reducers/selectors';
+import { budgetSelector } from './../../selectors/selectors';
 import { Router } from '@angular/router';
 import { Budget } from './../../models/interfaces';
 import { Observable } from 'rxjs/Observable';

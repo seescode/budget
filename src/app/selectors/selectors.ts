@@ -1,5 +1,5 @@
 import { Transaction, Budget, Category, TotalBudgetInfo } from './../models/interfaces';
-import { AppState } from './index';
+import { AppState } from '../reducers/index';
 import { createSelector } from 'reselect';
 import { RouterState, RouterModule } from '@angular/router';
 

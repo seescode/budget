@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { everyCategoryTotalSelector, totalBudgetInfoSelector, monthlyBudgetInfoSelector } from './../../reducers/selectors';
+import { everyCategoryTotalSelector, totalBudgetInfoSelector, monthlyBudgetInfoSelector } from './../../selectors/selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
 import { AppState } from './../../reducers/index';
