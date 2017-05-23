@@ -1,6 +1,5 @@
 -need to support running surplus 
 -need to move selectors out of reducers folder 
--get this put on production using surge.io
 
 -Have the router prevent you from going to the 
 main budget page if you haven't created a budget 
