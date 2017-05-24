@@ -4,14 +4,10 @@ How to deploy to surge:
 
 
 
--everyCategoryTotalSelector needs to be fixed to work 
-by budgetId. 
+-Unit test monthlyBudgetInfoSelector
+-need to support running surplus (TDD)
 
 -Use constants for your action types
--need to support running surplus 
-
-
-
 
 -Have the router prevent you from going to the 
 main budget page if you haven't created a budget 
