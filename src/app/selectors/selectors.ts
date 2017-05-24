@@ -12,7 +12,7 @@ export const transactionSelector = (state: AppState) => state.transaction;
 //  -budgetId
 //  -year
 //  -month
-export const getBudgetingPageRoute = createSelector(routerSelector,
+export const budgetPageRouteSelector = createSelector(routerSelector,
   (routeInfo: any) => {
 
     const routes = routeInfo.path.split('/');
@@ -30,7 +30,7 @@ export const getBudgetingPageRoute = createSelector(routerSelector,
     return val;
   });
 
-export const everyCategoryTotalSelector = createSelector(getBudgetingPageRoute, categorySelector,
+export const everyCategoryTotalSelector = createSelector(budgetPageRouteSelector, categorySelector,
   transactionSelector, (route, categories, transactions) => {
 
     if (route === null || route.budgetId == null) {
@@ -52,7 +52,7 @@ export const everyCategoryTotalSelector = createSelector(getBudgetingPageRoute, 
   });
 
 
-export const totalBudgetInfoSelector = createSelector(getBudgetingPageRoute,
+export const totalBudgetInfoSelector = createSelector(budgetPageRouteSelector,
   budgetSelector, transactionSelector, (route, budgets, transactions): TotalBudgetInfo => {
 
     if (route === null || route.budgetId == null || budgets.length === 0) {
@@ -73,8 +73,8 @@ export const totalBudgetInfoSelector = createSelector(getBudgetingPageRoute,
     };
   });
 
-export const monthlyBudgetInfoSelector = createSelector(getBudgetingPageRoute,
-  transactionSelector, budgetSelector, (route, transactions, budgets) => {
+export const monthlyBudgetInfoSelector = createSelector(budgetPageRouteSelector,
+  budgetSelector, transactionSelector, (route, budgets, transactions) => {
 
     if (route === null || route.budgetId == null || budgets.length === 0) {
       return null;
@@ -90,7 +90,6 @@ export const monthlyBudgetInfoSelector = createSelector(getBudgetingPageRoute,
         return prev + next.amount;
       }, 0);
 
-    // TODO: doesn't consider year and month
     return {
       unspent: monthlyBudget - spent,
       spent: spent

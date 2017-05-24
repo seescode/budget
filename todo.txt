@@ -3,8 +3,6 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
-
--Unit test monthlyBudgetInfoSelector
 -need to support running surplus (TDD)
 
 -Use constants for your action types
