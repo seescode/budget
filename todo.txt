@@ -3,6 +3,11 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
++need to install moment.js
+-need to figure out how to get the difference of months
+between to dates using moment.js.  Just verify that 
+the logic works well 
+-implement calculatedBudgetAmountSelector
 -need to support running surplus (TDD)
 
 -Use constants for your action types
