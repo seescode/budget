@@ -3,29 +3,23 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
--unit test actions creator service 
+-need to get the next and previous buttons hooked up to work 
+
+-https://material.io/icons/
 
 
--prevent navigating to earlier months than begin date.  Same 
-with end date. 
--prevent going ahead to months that are in the future. 
+-design for mobile view first! 
+-make the header sticky
+
+-need to spend some time learning material UI
+  -watch a video 
+  -do themes give you css related to fonts and link colors?
+
 -watch some design videos and see how you can improve the design 
--research how to do angular2 forms.
-
-
-
--Use constants for your action types
-
--Have the router prevent you from going to the 
-main budget page if you haven't created a budget 
-yet.  
--Explore adding an interface to the action in the reducers 
--write unit tests for reducers 
--write unit tests for dumb components
--write end to end tests instead of smart component unit tests 
-
--make keyboard accessible
--make screenreader accessible
+-Designing the page 
+  -we need a consistent header and footer 
+  -the header should contain some consistent nav.  It should have a button 
+  to easily take you to the budget list page. 
 -make responsive
 -add styling to make it look nicer 
 -attempt to use a material design component to replace the dumb components
@@ -38,6 +32,30 @@ yet.
   component replacement might be.
   -Refactor to use the material design component. 
 
+
+
+
+
+-unit test actions creator service 
+
+
+-prevent navigating to earlier months than begin date.  Same 
+with end date. 
+-prevent going ahead to months that are in the future. 
+-research how to do angular2 forms.
+-Use constants for your action types
+
+-Have the router prevent you from going to the 
+main budget page if you haven't created a budget 
+yet.  
+-Explore adding an interface to the action in the reducers 
+-write unit tests for reducers 
+-write unit tests for dumb components
+-write end to end tests instead of smart component unit tests 
+
+-make keyboard accessible
+-make screenreader accessible
+
 -fix linting errors 
 -implement exporting and importing budgets 
 -create protractor tests that create a budget from scratch and then creates
@@ -46,10 +64,6 @@ yet.
 -Have travisci or circleci run protractor tests and unit tests before it deploys
  using surge.
 -prevent writing to master (require doing PRs to master)
--Designing the page 
-  -we need a consistent header and footer 
-  -the header should contain some consistent nav.  It should have a button 
-  to easily take you to the budget list page. 
 -implement optimistic concurrency.  This will work well since you are generating
  the ids on the client side. 
 -handle logging (maybe there's a few logging service, or at least free bug tracking)
