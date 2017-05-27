@@ -1,3 +1,4 @@
+import { ActionsCreatorService } from './../../actions/actionsCreatorService';
 import { Router } from '@angular/router';
 import { AppState } from './../../reducers/index';
 import { Store } from '@ngrx/store';
@@ -13,28 +14,14 @@ import { UUID } from 'angular2-uuid';
 })
 export class CreateBudgetPageComponent implements OnInit {
 
-  constructor(private store: Store<AppState>, private router: Router) { }
+  constructor(private store: Store<AppState>, private router: Router,
+    private actionsCreatorService: ActionsCreatorService) { }
 
   ngOnInit() {
   }
 
   create() {
-
-
-    // build a mock budget object and then dispatch to the store with this information
-    const newBudget: Budget = {
-      id: UUID.UUID(),
-      name: 'budget 2',
-      details: 'Standard',
-      budgetAmount: 12000,
-      startDate: new Date(2017, 0, 1),
-      endDate: new Date(2017, 11, 12)
-    };
-
-    this.store.dispatch({
-      type: 'ADD_BUDGET',
-      payload: newBudget
-    });
+    this.store.dispatch(this.actionsCreatorService.addBudget());
 
     this.router.navigateByUrl('/budget-list');
   }

@@ -1,12 +1,13 @@
+import { UPDATE_TRANSACTION, LOAD_BUDGET_DATA_COMPLETE, ADD_TRANSACTION_COMPLETE } from './../actions/actions';
 import { Transaction } from './../models/interfaces';
 
 export function TransactionReducer(state: Transaction[] = [], action: any) {
   switch (action.type) {
-    case 'ADD_TRANSACTION_COMPLETE':
+    case ADD_TRANSACTION_COMPLETE:
       return [...state, action.payload];
-    case 'LOAD_BUDGET_DATA_COMPLETE':
+    case LOAD_BUDGET_DATA_COMPLETE:
       return [...state, ...action.payload.transactions];
-    case 'UPDATE_TRANSACTION':
+    case UPDATE_TRANSACTION:
       return state.map(transaction => {
         if (action.payload.id === transaction.id) {
           return { ...transaction, ...action.payload};

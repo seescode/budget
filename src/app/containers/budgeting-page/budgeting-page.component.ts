@@ -1,8 +1,8 @@
+import { ActionsCreatorService } from './../../actions/actionsCreatorService';
 import { Subscription } from 'rxjs/Subscription';
 import { everyCategoryTotalSelector, totalBudgetInfoSelector, monthlyBudgetInfoSelector,
   runningSurplusSelector } from './../../selectors/selectors';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UUID } from 'angular2-uuid';
 import { AppState } from './../../reducers/index';
 import { ActiveDate, Budget, Transaction, Category, TotalBudgetInfo } from './../../models/interfaces';
 import 'rxjs/add/operator/let';
@@ -30,7 +30,7 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   monthlyBudgetInfo: any;
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
-    private router: Router) {
+    private router: Router, private actionsCreatorService: ActionsCreatorService) {
     this.categories$ = this.store.select(everyCategoryTotalSelector);
     this.totalBudgetInfoSubscription = this.store.select(totalBudgetInfoSelector)
       .subscribe(info => {
@@ -56,10 +56,7 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
         year: parseInt(params['year'])
       };
 
-      this.store.dispatch({
-        type: 'LOAD_BUDGET_DATA',
-        payload: this.budgetId
-      });
+      this.store.dispatch(this.actionsCreatorService.loadBudgetData(this.budgetId));
     });
   }
 
@@ -87,46 +84,15 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   }
 
   addTransaction(transaction: Transaction) {
+    const action = this.actionsCreatorService.addTransaction(transaction,
+      this.budgetId, this.selectedMonthAndYear$.year, this.selectedMonthAndYear$.month);
 
-    transaction.id = UUID.UUID();
-    transaction.budgetId = this.budgetId;
-    transaction.timestamp = this.getTransactionDate();
-
-    this.store.dispatch({
-      type: 'ADD_TRANSACTION',
-      payload: transaction
-    });
-  }
-
-
-  // TODO: move this into a service and unit test this
-  getTransactionDate() {
-
-    const today = new Date();
-
-    // if route matches current month and year then use new Date()
-    if (today.getFullYear() === this.selectedMonthAndYear$.year &&
-        today.getMonth() === this.selectedMonthAndYear$.month - 1) {
-
-        return today;
-    }
-
-    // if route does not match current month and year should the routes
-    // date and month 
-    return new Date(this.selectedMonthAndYear$.year, this.selectedMonthAndYear$.month - 1);
+    this.store.dispatch(action);
   }
 
   addCategory(categoryName: any) {
-    const newCategory: Category = {
-        name: categoryName.name,
-        id: UUID.UUID(),
-        budgetId: this.budgetId
-    };
-
-    this.store.dispatch({
-      type: 'ADD_CATEGORY',
-      payload: newCategory
-    });
+    this.store.dispatch(this.actionsCreatorService
+      .addCategory(categoryName.name, this.budgetId));
   }
 
   ngOnDestroy() {

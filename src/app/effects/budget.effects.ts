@@ -1,3 +1,6 @@
+import { LOAD_BUDGET, LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA, LOAD_BUDGET_DATA_FROM_CACHE,
+    LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET, ADD_BUDGET_COMPLETE, ADD_CATEGORY,
+    ADD_CATEGORY_COMPLETE, ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION } from './../actions/actions';
 import { AppState } from './../reducers/index';
 import { Budget, Category, Transaction, Loaded } from './../models/interfaces';
 import 'rxjs/add/operator/catch';
@@ -23,9 +26,9 @@ export class BudgetEffects {
 
   @Effect()
   openDB$: Observable<Action> = this.actions$
-    .ofType('LOAD_BUDGET')
+    .ofType(LOAD_BUDGET)
     .startWith({
-      type: 'LOAD_BUDGET'
+      type: LOAD_BUDGET
     })
     .map(toPayload)
     .mergeMap(() => {
@@ -35,21 +38,21 @@ export class BudgetEffects {
         })
         .toArray()
         .map((budgets) => ({
-          type: 'LOAD_BUDGET_COMPLETE',
+          type: LOAD_BUDGET_COMPLETE,
           payload: budgets
         }));
     });
 
   @Effect()
   budgetData$: Observable<Action> = this.actions$
-    .ofType('LOAD_BUDGET_DATA')
+    .ofType(LOAD_BUDGET_DATA)
     .map(toPayload)
     .withLatestFrom(this.store.select(s => s.budgetLoaded))
     .mergeMap(([budgetId, budgetLoaded]: [string, Loaded]) => {
 
       if (budgetLoaded.loadedBudgetIds.find(bId => bId === budgetId) != null) {
         return Observable.from([{
-          type: 'LOAD_BUDGET_DATA_FROM_CACHE'
+          type: LOAD_BUDGET_DATA_FROM_CACHE
         }]);
       }
 
@@ -59,7 +62,7 @@ export class BudgetEffects {
           return this.db.query('transaction', n => n.budgetId === budgetId)
             .toArray()
             .map((transactions: Transaction[]) => ({
-              type: 'LOAD_BUDGET_DATA_COMPLETE',
+              type: LOAD_BUDGET_DATA_COMPLETE,
               payload: {
                 budgetId: budgetId,
                 categories: categories,
@@ -73,14 +76,14 @@ export class BudgetEffects {
 
   @Effect()
   budget$: Observable<Action> = this.actions$
-    .ofType('ADD_BUDGET')
+    .ofType(ADD_BUDGET)
     .map(toPayload)
     .mergeMap((budget: Budget) => {
 
       // insert does inserts and updates
       return this.db.insert('budget', [budget])
         .map((response: any) => ({
-          type: 'ADD_BUDGET_COMPLETE',
+          type: ADD_BUDGET_COMPLETE,
           payload: response
         }));
 
@@ -90,14 +93,14 @@ export class BudgetEffects {
 
   @Effect()
   category$: Observable<Action> = this.actions$
-    .ofType('ADD_CATEGORY')
+    .ofType(ADD_CATEGORY)
     .map(toPayload)
     .mergeMap((category: Category) => {
 
       // insert does inserts and updates
       return this.db.insert('category', [category])
         .map((response: any) => ({
-          type: 'ADD_CATEGORY_COMPLETE',
+          type: ADD_CATEGORY_COMPLETE,
           payload: response
         }));
 
@@ -107,14 +110,14 @@ export class BudgetEffects {
 
   @Effect()
   transaction$: Observable<Action> = this.actions$
-    .ofType('ADD_TRANSACTION')
+    .ofType(ADD_TRANSACTION)
     .map(toPayload)
     .mergeMap((transaction: Transaction) => {
 
       // insert does inserts and updates
       return this.db.insert('transaction', [transaction])
         .map((response: any) => ({
-          type: 'ADD_TRANSACTION_COMPLETE',
+          type: ADD_TRANSACTION_COMPLETE,
           payload: response
         }));
 

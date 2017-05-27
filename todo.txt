@@ -3,11 +3,14 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
--prevent navigating to earlier months than begin year.  Same 
-with end year. 
+-unit test actions creator service 
+
+
+-prevent navigating to earlier months than begin date.  Same 
+with end date. 
 -prevent going ahead to months that are in the future. 
 -watch some design videos and see how you can improve the design 
--
+-research how to do angular2 forms.
 
 
 
@@ -49,9 +52,6 @@ yet.
   to easily take you to the budget list page. 
 -implement optimistic concurrency.  This will work well since you are generating
  the ids on the client side. 
--research how to do angular2 forms.
 -handle logging (maybe there's a few logging service, or at least free bug tracking)
 -router edge cases (invalid month, year in the url) 
--implement bounds checking based on startdate to enddate.  Prevent the user from 
-going to previous months that are not allowed.  Same goes for final month.
 
