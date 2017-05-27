@@ -24,11 +24,11 @@ export class CreateBudgetPageComponent implements OnInit {
     // build a mock budget object and then dispatch to the store with this information
     const newBudget: Budget = {
       id: UUID.UUID(),
-      name: 'budget 1',
-      details: 'Japan trip',
-      budgetAmount: 7000,
-      startDate: new Date(),
-      endDate: new Date(2017, 6, 1)
+      name: 'budget 2',
+      details: 'Standard',
+      budgetAmount: 12000,
+      startDate: new Date(2017, 0, 1),
+      endDate: new Date(2017, 11, 12)
     };
 
     this.store.dispatch({

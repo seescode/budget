@@ -90,12 +90,30 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
     transaction.id = UUID.UUID();
     transaction.budgetId = this.budgetId;
-    transaction.timestamp = new Date();
+    transaction.timestamp = this.getTransactionDate();
 
     this.store.dispatch({
       type: 'ADD_TRANSACTION',
       payload: transaction
     });
+  }
+
+
+  // TODO: move this into a service and unit test this
+  getTransactionDate() {
+
+    const today = new Date();
+
+    // if route matches current month and year then use new Date()
+    if (today.getFullYear() === this.selectedMonthAndYear$.year &&
+        today.getMonth() === this.selectedMonthAndYear$.month - 1) {
+
+        return today;
+    }
+
+    // if route does not match current month and year should the routes
+    // date and month 
+    return new Date(this.selectedMonthAndYear$.year, this.selectedMonthAndYear$.month - 1);
   }
 
   addCategory(categoryName: any) {

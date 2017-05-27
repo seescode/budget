@@ -3,9 +3,9 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
-
 -prevent navigating to earlier months than begin year.  Same 
 with end year. 
+-prevent going ahead to months that are in the future. 
 -watch some design videos and see how you can improve the design 
 -
 
