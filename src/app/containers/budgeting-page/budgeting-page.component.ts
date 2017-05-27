@@ -1,5 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
-import { everyCategoryTotalSelector, totalBudgetInfoSelector, monthlyBudgetInfoSelector } from './../../selectors/selectors';
+import { everyCategoryTotalSelector, totalBudgetInfoSelector, monthlyBudgetInfoSelector,
+  runningSurplusSelector } from './../../selectors/selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
 import { AppState } from './../../reducers/index';
@@ -20,7 +21,7 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   categories$: Observable<Category[]>;
 
   selectedMonthAndYear$: ActiveDate;
-  getRunningSurplus$: number = 200;
+  getRunningSurplus$: Observable<number>;
 
   budgetId: string;
   totalBudgetInfoSubscription: Subscription;
@@ -40,6 +41,8 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
       .subscribe(info => {
         this.monthlyBudgetInfo = info;
       });
+
+    this.getRunningSurplus$ = this.store.select(runningSurplusSelector);
   }
 
   ngOnInit() {

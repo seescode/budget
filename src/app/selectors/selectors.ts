@@ -9,6 +9,10 @@ export const categorySelector = (state: AppState) => state.category;
 export const routerSelector = (state: AppState) => state.router;
 export const transactionSelector = (state: AppState) => state.transaction;
 
+export const getCurrentMonth = () => {
+  return moment([new Date().getFullYear(), new Date().getMonth() + 1]);
+};
+
 // We are assuming the route contains
 //  -budgetId
 //  -year
@@ -74,15 +78,76 @@ export const totalBudgetInfoSelector = createSelector(budgetPageRouteSelector,
     };
   });
 
+
+
+/**
+ * This determines from the current month how much total budget
+ * we have up to this point.  For example let's say we have a yearly
+ * budget of $1200 for the year 2017.  It's currently June 2017 so the
+ * calculatedBudgetAmountSelector would return $600.  For July 2017 it
+ * would return $700.  This amount increases as the current date gets
+ * closer to the budget end date.
+ * @param {number} monthlyBudgetAmount 
+ * @param {number} totalbudgetAmount 
+ * @param {number} totalNumberOfMonthsSinceStartDate 
+ * @returns 
+ */
+function calculateRollingBudget(monthlyBudgetAmount: number, totalbudgetAmount: number,
+  totalNumberOfMonthsSinceStartDate: number) {
+    let rollingBudgetAmount = monthlyBudgetAmount * totalNumberOfMonthsSinceStartDate;
+
+    if (rollingBudgetAmount <= 0) {
+      rollingBudgetAmount = 0;
+    }
+
+    if (rollingBudgetAmount > totalbudgetAmount) {
+      rollingBudgetAmount = totalbudgetAmount;
+    }
+
+    return rollingBudgetAmount;
+}
+
+/**
+ * This calculates the rolling budget amount and the monthly budget amount.
+ */
+export const calculatedBudgetAmountSelector = createSelector(budgetPageRouteSelector,
+  budgetSelector, getCurrentMonth, (route, budgets, currentMonth) => {
+
+    if (route === null || route.budgetId == null || budgets.length === 0) {
+      return null;
+    }
+
+    const currentBudget = budgets.find(b => b.id === route.budgetId);
+    const startMonth = moment([currentBudget.startDate.getFullYear(), currentBudget.startDate.getMonth()]);
+    const endMonth = moment([currentBudget.endDate.getFullYear(), currentBudget.endDate.getMonth()]);
+
+    // Say you have a budget of 1400 and a total of 14 months.  The result would be a monthlyBudgetAmount of 100
+    const monthlyBudgetAmount = currentBudget.budgetAmount / (endMonth.diff(startMonth, 'months') + 1);
+
+    // Say the budget started on January 2017 and this month is February 2017.  The result of
+    // totalNumberOfMonthsSinceStartDate would be 2 months.
+    const totalNumberOfMonthsSinceStartDate = currentMonth.diff(startMonth, 'months') + 1;
+
+    const rollingBudgetAmount = calculateRollingBudget(monthlyBudgetAmount, currentBudget.budgetAmount,
+      totalNumberOfMonthsSinceStartDate);
+
+    return {
+      rollingBudgetAmount: rollingBudgetAmount,
+      monthlyBudgetAmount: monthlyBudgetAmount,
+      budgetId: route.budgetId
+    };
+  });
+
+
 export const monthlyBudgetInfoSelector = createSelector(budgetPageRouteSelector,
-  budgetSelector, transactionSelector, (route, budgets, transactions) => {
+  budgetSelector, transactionSelector, calculatedBudgetAmountSelector, (route, budgets, transactions, budgetAmountInfo) => {
 
     if (route === null || route.budgetId == null || budgets.length === 0) {
       return null;
     }
 
     const totalBudget = budgets.find(b => b.id === route.budgetId).budgetAmount;
-    const monthlyBudget = totalBudget / 12;
+
     const spent = transactions
       .filter(t => t.budgetId === route.budgetId &&
         t.timestamp.getMonth() === route.month - 1 &&
@@ -92,67 +157,29 @@ export const monthlyBudgetInfoSelector = createSelector(budgetPageRouteSelector,
       }, 0);
 
     return {
-      unspent: monthlyBudget - spent,
+      unspent: budgetAmountInfo.monthlyBudgetAmount - spent,
       spent: spent
     };
   });
 
-
-export const getCurrentMonth = () => {
-  return moment([new Date().getFullYear(), new Date().getMonth() + 1]);
-};
-
-export const calculatedBudgetAmountSelector = createSelector(budgetPageRouteSelector,
-  budgetSelector, getCurrentMonth, (route, budgets, currentMonth) => {
-
-    if (route === null || route.budgetId == null || budgets.length === 0) {
-      return null;
-    }
-
-    const currentBudget = budgets.find(b => b.id === route.budgetId);
-
-
-    const startMonth = moment([currentBudget.startDate.getFullYear(),
-      currentBudget.startDate.getMonth()]);
-    const totalNumberOfMonthsSinceStartDate = currentMonth.diff(startMonth, 'months') + 1;
-
-    const totalBudget = currentBudget.budgetAmount;
-    let calculatedBudgetAmount = totalBudget / 12 * totalNumberOfMonthsSinceStartDate;
-
-
-    const endMonth = moment([currentBudget.endDate.getFullYear(),
-      currentBudget.endDate.getMonth()]);
-
-    const totalNumberOfMonthsSinceEndDate = currentMonth.diff(endMonth, 'months');
-    console.log('totalNumberOfMonthsSinceEndDate', totalNumberOfMonthsSinceEndDate)
-
-    if (calculatedBudgetAmount <= 0 || totalNumberOfMonthsSinceEndDate > 0) {
-      calculatedBudgetAmount = 0;
-    }
-
-    return {
-      calculatedBudgetAmount: calculatedBudgetAmount,
-      budgetId: route.budgetId
-    };
-  });
-
-
 export const runningSurplusSelector = createSelector(calculatedBudgetAmountSelector,
-  transactionSelector, (calculatedBudgetAmount, transactions) => {
+  transactionSelector, (calculatedBudgetAmount, transactions): number => {
 
     if (calculatedBudgetAmount === null) {
       return null;
     }
 
     const spent = transactions
-      .filter(t => t.budgetId === calculatedBudgetAmount.budgetId &&
-        t.timestamp.getMonth() === -1 &&
-        t.timestamp.getFullYear() === 1)
+      .filter(t => t.budgetId === calculatedBudgetAmount.budgetId)
       .reduce((prev, next) => {
         return prev + next.amount;
       }, 0);
 
-    const surplus = 0;
+    let surplus = calculatedBudgetAmount.rollingBudgetAmount - spent;
+
+    if (surplus < 0) {
+      surplus = 0;
+    }
 
     return surplus;
   });

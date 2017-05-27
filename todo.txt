@@ -3,12 +3,13 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
-+need to install moment.js
--need to figure out how to get the difference of months
-between to dates using moment.js.  Just verify that 
-the logic works well 
--implement calculatedBudgetAmountSelector
--need to support running surplus (TDD)
+
+-prevent navigating to earlier months than begin year.  Same 
+with end year. 
+-watch some design videos and see how you can improve the design 
+-
+
+
 
 -Use constants for your action types
 
@@ -16,7 +17,10 @@ the logic works well
 main budget page if you haven't created a budget 
 yet.  
 -Explore adding an interface to the action in the reducers 
--write unit tests
+-write unit tests for reducers 
+-write unit tests for dumb components
+-write end to end tests instead of smart component unit tests 
+
 -make keyboard accessible
 -make screenreader accessible
 -make responsive

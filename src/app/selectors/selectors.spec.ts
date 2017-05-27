@@ -1,9 +1,9 @@
-import { calculatedBudgetAmountSelector } from './selectors';
+/* tslint:disable */
 
 import * as moment from 'moment';
 
-/* tslint:disable */
-import { budgetPageRouteSelector, everyCategoryTotalSelector, 
+import { calculatedBudgetAmountSelector, runningSurplusSelector,
+  budgetPageRouteSelector, everyCategoryTotalSelector, 
   totalBudgetInfoSelector, monthlyBudgetInfoSelector } from './selectors';
 
 describe('getBudgetingPageRoute', () => {
@@ -321,7 +321,12 @@ describe('monthlyBudgetInfoSelector', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
       [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
-      []
+      [],
+      {
+        rollingBudgetAmount: -1, // not applicable
+        monthlyBudgetAmount: 100,
+        budgetId: 'budget1'
+      }            
     );
 
     expect(actual).toEqual({
@@ -336,7 +341,12 @@ describe('monthlyBudgetInfoSelector', () => {
       [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'}
-      ]
+      ],
+      {
+        rollingBudgetAmount: -1, // not applicable
+        monthlyBudgetAmount: 100,
+        budgetId: 'budget1'
+      }      
     );
 
     expect(actual).toEqual({
@@ -352,7 +362,12 @@ describe('monthlyBudgetInfoSelector', () => {
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'}
-      ]
+      ],
+      {
+        rollingBudgetAmount: -1, // not applicable
+        monthlyBudgetAmount: 100,
+        budgetId: 'budget1'
+      }            
     );
 
     expect(actual).toEqual({
@@ -369,7 +384,12 @@ describe('monthlyBudgetInfoSelector', () => {
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '3', id: '3', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'}
-      ]
+      ],
+      {
+        rollingBudgetAmount: -1, // not applicable
+        monthlyBudgetAmount: 100,
+        budgetId: 'budget1'
+      }            
     );
 
     expect(actual).toEqual({
@@ -378,20 +398,52 @@ describe('monthlyBudgetInfoSelector', () => {
     });
   });
 
-  it('should consider year and month', () => {
+  it('should work for a 4 month long budget', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 2},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 400, startDate: new Date(2017, 0), endDate: new Date(2017, 3)}], 
       [
-        { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
-        { name: '2', id: '2', amount: 50, timestamp: new Date(2018, 1), categoryId: 'cat1', budgetId: 'budget1'},
-        { name: '3', id: '3', amount: 50, timestamp: new Date(2017, 2), categoryId: 'cat1', budgetId: 'budget1'}
-      ]
+        { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '3', id: '3', amount: 1, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '4', id: '4', amount: 50, timestamp: new Date(2017, 2), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '5', id: '5', amount: 50, timestamp: new Date(2017, 3), categoryId: 'cat1', budgetId: 'budget1'}        
+      ],
+      {
+        rollingBudgetAmount: -1, // not applicable
+        monthlyBudgetAmount: 100,
+        budgetId: 'budget1'
+      }            
     );
 
     expect(actual).toEqual({
-      unspent: 50,
-      spent: 50
+      unspent: 99,
+      spent: 1
+    });
+    
+  });
+
+  it('should work for a year and a half long budget', () => {
+    const actual = monthlyBudgetInfoSelector.resultFunc(
+      {budgetId: 'budget1', year: 2017, month: 2},
+      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1800, startDate: new Date(2017, 0), endDate: new Date(2018, 5)}], 
+      [
+        { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '3', id: '3', amount: 1, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '4', id: '4', amount: 50, timestamp: new Date(2017, 2), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '5', id: '5', amount: 50, timestamp: new Date(2017, 3), categoryId: 'cat1', budgetId: 'budget1'}        
+      ],
+      {
+        rollingBudgetAmount: -1, // not applicable
+        monthlyBudgetAmount: 100,
+        budgetId: 'budget1'
+      }            
+    );
+
+    expect(actual).toEqual({
+      unspent: 99,
+      spent: 1
     });
     
   });
@@ -407,7 +459,12 @@ describe('monthlyBudgetInfoSelector', () => {
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '3', id: '3', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat2', budgetId: 'budget2'}
-      ]
+      ],
+      {
+        rollingBudgetAmount: -1, // not applicable
+        monthlyBudgetAmount: 100,
+        budgetId: 'budget1'
+      }      
     );
 
     expect(actual).toEqual({
@@ -424,13 +481,14 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 0), endDate: new Date(2017, 11)}],
+      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1300, 
+        startDate: new Date(2017, 0), endDate: new Date(2018, 0)}],
       moment([2017, 0])
     );
 
     expect(actual).toEqual({
-      calculatedBudgetAmount: 100,
+      rollingBudgetAmount: 100,
+      monthlyBudgetAmount: 100,
       budgetId: 'budget1'
     });
   });
@@ -445,7 +503,8 @@ describe('calculatedBudgetAmountSelector', () => {
     );
 
     expect(actual).toEqual({
-      calculatedBudgetAmount: 200,
+      rollingBudgetAmount: 200,
+      monthlyBudgetAmount: 100,
       budgetId: 'budget1'
     });
   });
@@ -456,11 +515,12 @@ describe('calculatedBudgetAmountSelector', () => {
       {budgetId: 'budget1', year: 2017, month: 1},
       [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
         startDate: new Date(2017, 0), endDate: new Date(2018, 11)}],
-      moment([2018, 0])
+      moment([2017, 11])
     );
 
     expect(actual).toEqual({
-      calculatedBudgetAmount: 1300,
+      rollingBudgetAmount: 600,
+      monthlyBudgetAmount: 50,      
       budgetId: 'budget1'
     });
   });
@@ -468,14 +528,15 @@ describe('calculatedBudgetAmountSelector', () => {
   it('should return 0 when current month is one month before startDate', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
-      {budgetId: 'budget1', year: 2017, month: 1},
+      {budgetId: 'budget1', year: 2016, month: 11},
       [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 1), endDate: new Date(2017, 11)}],
-      moment([2017, 0])
+        startDate: new Date(2017, 0), endDate: new Date(2017, 11)}],
+      moment([2016, 11])
     );
 
     expect(actual).toEqual({
-      calculatedBudgetAmount: 0,
+      rollingBudgetAmount: 0,
+      monthlyBudgetAmount: 100,      
       budgetId: 'budget1'
     });
   });
@@ -483,14 +544,15 @@ describe('calculatedBudgetAmountSelector', () => {
   it('should return 0 when current month is one year before startDate', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
-      {budgetId: 'budget1', year: 2017, month: 1},
+      {budgetId: 'budget1', year: 2016, month: 0},
       [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 1), endDate: new Date(2017, 11)}],
-      moment([2016, 1])
+        startDate: new Date(2017, 0), endDate: new Date(2017, 11)}],
+      moment([2016, 0])
     );
 
     expect(actual).toEqual({
-      calculatedBudgetAmount: 0,
+      rollingBudgetAmount: 0,
+      monthlyBudgetAmount: 100,      
       budgetId: 'budget1'
     });
   });
@@ -505,13 +567,14 @@ describe('calculatedBudgetAmountSelector', () => {
     );
 
     expect(actual).toEqual({
-      calculatedBudgetAmount: 100,
+      rollingBudgetAmount: 1200,
+      monthlyBudgetAmount: 1200,      
       budgetId: 'budget1'
     });
   });
   
 
-  it('should return 0 when current month is after end date', () => {
+  it('should return full budget amount when current date is past end date by one month', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
@@ -521,12 +584,13 @@ describe('calculatedBudgetAmountSelector', () => {
     );
 
     expect(actual).toEqual({
-      calculatedBudgetAmount: 0,
+      rollingBudgetAmount: 1200,
+      monthlyBudgetAmount: 600,
       budgetId: 'budget1'
     });
   });
 
-  it('should return 0 when current month is one year after end date', () => {
+  it('should return full budget amount when current date is past end date by one year', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
@@ -536,7 +600,8 @@ describe('calculatedBudgetAmountSelector', () => {
     );
 
     expect(actual).toEqual({
-      calculatedBudgetAmount: 0,
+      rollingBudgetAmount: 1200,
+      monthlyBudgetAmount: 600,
       budgetId: 'budget1'
     });
   });
@@ -546,29 +611,50 @@ describe('calculatedBudgetAmountSelector', () => {
 describe('runningSurplusSelector', () => {
 
   it('should handle zero tranactions', () => {
+    const actual = runningSurplusSelector.resultFunc(
+      {
+        rollingBudgetAmount: 1000,
+        monthlyBudgetAmount: 100,
+        budgetId: 10
+      }, 
+      []
+    )
 
-    console.log(new Date().getMonth());
-    // const actual = monthlyBudgetInfoSelector.resultFunc(
-    //   {budgetId: 'budget1', year: 2017, month: 1},
-    //   [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
-    //   []
-    // );
-
-    // expect(actual).toEqual({
-    //   unspent: 100,
-    //   spent: 0
-    // });
-  });
-
-  
-
-  it('should return 0 when selected month', () => {
+    expect(actual).toEqual(1000);
   });
 
   it('should return surplus', () => {
+    const actual = runningSurplusSelector.resultFunc(
+      {
+        rollingBudgetAmount: 1000,
+        monthlyBudgetAmount: 100,
+        budgetId: 'budget1'
+      }, 
+      [
+        { name: '1', id: '1', amount: 100, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '2', id: '2', amount: 100, timestamp: new Date(2018, 1), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '3', id: '3', amount: 100, timestamp: new Date(2017, 2), categoryId: 'cat1', budgetId: 'budget1'}
+      ]
+    )
+
+    expect(actual).toEqual(700);    
   });
 
   it('should return 0 when there is no surplus', () => {
+    const actual = runningSurplusSelector.resultFunc(
+      {
+        rollingBudgetAmount: 1000,
+        monthlyBudgetAmount: 100,        
+        budgetId: 'budget1'
+      }, 
+      [
+        { name: '1', id: '1', amount: 500, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '2', id: '2', amount: 500, timestamp: new Date(2018, 1), categoryId: 'cat1', budgetId: 'budget1'},
+        { name: '3', id: '3', amount: 500, timestamp: new Date(2017, 2), categoryId: 'cat1', budgetId: 'budget1'}
+      ]
+    )
+
+    expect(actual).toEqual(0);    
   });
 
 

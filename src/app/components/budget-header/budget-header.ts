@@ -11,9 +11,9 @@ import {Observable} from 'rxjs/Observable';
 export class BudgetHeaderComponent {
   @Input() budgetAmount: number;
   @Input() activeDate: ActiveDate;
-  @Input() remainingYearlyBudget: number;
+  @Input() remainingTotalBudget: number;
   @Input() remainingMonthlyBudget: number;
-  @Input() spentThisYear: number;
+  @Input() spentInTotal: number;
   @Input() spentThisMonth: number;
   @Input() getRunningSurplus: number;
   @Output() previous: EventEmitter<any> = new EventEmitter();
