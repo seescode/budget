@@ -4,6 +4,7 @@ import { Transaction, ActiveDate } from './../../models/interfaces';
 @Component({
   selector: 'yb-category',
   templateUrl: './category.html',
+  styleUrls: ['./category.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryComponent {

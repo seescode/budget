@@ -3,7 +3,51 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
+-create a new component that encapsulate the pie chart. 
+Basically the pie chart should take in the data which 
+is going to be an array of this object: 
+{
+  color, text
+}
+It should also take in an event emitter as the input.  
+This way when a next transaction is added we tell the 
+pie chart to animate.
+ -it should also take in width and height.  
+
+
+
+
+-create 2 d3 pie charts: one for total budget and the other 
+one for monthly budget which would also include in it the 
+surplus.  You could also get fancy with the total budget 
+pie chart for each month to have a unique color.  
+http://bl.ocks.org/dbuezas/9306799
+-we should have a small button that switches the view of 
+the d3 pie charts.  Expanded or collapsed.  Collapsed would 
+be a simple bar with colors.  No explanations at all.  
+
+
+-we need to add some gutters to the page layout.  Especially for 
+ desktop view 
+-in mobile view the category, amount, new transaction boxes should be 
+on 2 lines.  In desktop view it should be all on one line.  
+-For responsive we will only 2 breakpoints: desktop and phone. 
+
+
+-add a snackbar for whenever you add a transaction.  You should be 
+able to quickly undo a transaction from this. 
+
 -need to get the next and previous buttons hooked up to work 
+-when clicking on the category list button it should go to a new 
+page.  Maybe you can enable some type of nice transition whenever
+you go to a new page.    
+-when clicking on the create new budget button it should go to 
+a new page.  Add a cool transition.    
+-the new category button needs to be moved elsewhere.  Since you 
+will enable scrolling this new category will not be very accessible. 
+Either move it to the left hand side bar or put it on the top
+navigation bar. 
+-
 
 -https://material.io/icons/
 

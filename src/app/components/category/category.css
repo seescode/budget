@@ -1,0 +1,17 @@
+.category {
+  display: flex;
+}
+
+.new-transaction {
+  display: flex;
+}
+
+.new-transaction-button {
+  position: relative;
+  top: 15px;
+}
+
+.view-transactions-button {
+  position: relative;
+  top: -4px;
+}

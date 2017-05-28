@@ -1,32 +1,12 @@
-<md-grid-list cols="12" rows="1" rowHeight="100px">
-
-  <md-grid-tile colspan="1" rowspan="1">
-    <md-icon>view_list</md-icon>
-  </md-grid-tile>
-  <md-grid-tile colspan="1" rowspan="1">
-    <span>{{categoryName}}</span>    
-  </md-grid-tile>
-  <md-grid-tile colspan="1" rowspan="1">
-    <span>{{total | currency:'USD':true:'1.2-2'}}</span>
-  </md-grid-tile>
-  
-  <md-grid-tile colspan="9" rowspan="1">
-    <table class="example-full-width" cellspacing="0">
-      <tr>
-        <td>
-          <md-input-container class="example-full-width">
-            <input #amountInput mdInput placeholder="Amount" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount">
-          </md-input-container>
-        </td>
-        <td>
-          <md-input-container class="example-full-width">
-            <input #amountName mdInput placeholder="Name" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="name">
-          </md-input-container>
-        </td>
-        <td>
-          <md-icon (click)="addTransaction(amountInput.value, amountName.value)">add_box</md-icon>
-        </td>
-      </tr>
-    </table>
-  </md-grid-tile>
-</md-grid-list>
+<div class="category">
+  <md-icon class="view-transactions-button">view_list</md-icon> {{categoryName}}:   {{total | currency:'USD':true:'1.2-2'}}
+</div>
+<div class="new-transaction">
+  <md-input-container>
+    <input #amountInput mdInput placeholder="Amount" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount">
+  </md-input-container>
+  <md-input-container>
+    <input #amountName mdInput placeholder="Name" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="name">
+  </md-input-container>
+  <md-icon class="new-transaction-button" (click)="addTransaction(amountInput.value, amountName.value)">add_box</md-icon>
+</div>
