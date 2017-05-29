@@ -1,11 +1,9 @@
 <md-sidenav-container class="example-sidenav-fab-container">
   <md-sidenav #leftnav mode="side" opened="true" align="start">
-    <div class="example-scrolling-content">
-      list of budgets:
-    </div>
+    <yb-budgeting-page-left-nav></yb-budgeting-page-left-nav>
   </md-sidenav>
 
-  <div id="main">
+
   <md-toolbar color="primary">
     <span><md-icon (click)="leftnav.toggle()">menu</md-icon><span class="example-spacer"></span>
     <md-icon>chevron_left</md-icon>
@@ -15,22 +13,10 @@
     <md-icon (click)="rightnav.toggle()">insert_chart</md-icon>
     </span>
   </md-toolbar>
-  <yb-budget-header *ngIf="totalBudgetInfo != null" [budgetAmount]="totalBudgetInfo.totalBudget" [activeDate]="selectedMonthAndYear$"
-    [remainingTotalBudget]="totalBudgetInfo.unspent" [remainingMonthlyBudget]="monthlyBudgetInfo.unspent" [spentInTotal]="totalBudgetInfo.spent"
-    [spentThisMonth]="monthlyBudgetInfo.spent" [getRunningSurplus]="getRunningSurplus$ | async" (previous)="previousMonth($event)"
-    (next)="nextMonth($event)"></yb-budget-header>
-
-  <yb-category *ngFor="let cat of categories$ | async" [categoryName]="cat.name" [categoryId]="cat.id" [total]="cat.amount"
-    (add)="addTransaction($event)"></yb-category>
-
-  <yb-new-category (add)="addCategory($event)"></yb-new-category>
-
-  </div>
+  <yb-budgeting-page-main></yb-budgeting-page-main>
 
   <md-sidenav #rightnav mode="side" opened="true" align="end">
-    <div class="example-scrolling-content">
-      list of budgets:
-    </div>
+    <yb-budgeting-page-right-nav></yb-budgeting-page-right-nav>
   </md-sidenav>
 
 </md-sidenav-container>

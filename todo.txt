@@ -3,10 +3,31 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
+-setup the media query breakpoints 
+  -ideally you would use sass and it would be a variable but 
+  for now just hardcode the breakpoints 
 
--create the right hand nav bar 
+
+-create the 
+
+-mobile view 
+ -show icons for toggling side bars 
+ -set mode="push" through angular's on resize: 
+   https://stackoverflow.com/questions/35527456/angular-window-resize-event
+ -stack the category on top of adding a new transaction 
+
+
+-desktop view 
+ -hide icons for toggling side bars
+ -set mode="side"
+ -do not stack category on top of adding a new transaction
+
+
+
 -make responsive so that when you make the screen small 
 it stops showing the left and right hand navs. 
+
+
 -hmm... is it possible to also make the right hand nav 
 appear at the click of a button in mobile view.  This 
 way you can completely do away with the progress bar 
@@ -38,8 +59,6 @@ the d3 pie charts.  Expanded or collapsed.  Collapsed would
 be a simple bar with colors.  No explanations at all.  
 
 
--we need to add some gutters to the page layout.  Especially for 
- desktop view 
 -in mobile view the category, amount, new transaction boxes should be 
 on 2 lines.  In desktop view it should be all on one line.  
 -For responsive we will only 2 breakpoints: desktop and phone. 

@@ -28,6 +28,9 @@ import { CreateBudgetPageComponent } from './containers/create-budget-page/creat
 import { BudgetingPageComponent } from './containers/budgeting-page/budgeting-page.component';
 import { EditCategoryPageComponent } from './containers/edit-category-page/edit-category-page.component';
 import { AppComponent } from './containers/app/app.component';
+import { BudgetingPageLeftNavComponent } from './containers/budgeting-page/budgeting-page-left-nav/budgeting-page-left-nav.component';
+import { BudgetingPageMainComponent } from './containers/budgeting-page/budgeting-page-main/budgeting-page-main.component';
+import { BudgetingPageRightNavComponent } from './containers/budgeting-page/budgeting-page-right-nav/budgeting-page-right-nav.component';
 
 
 
@@ -90,7 +93,10 @@ import { AppComponent } from './containers/app/app.component';
     CreateBudgetPageComponent,
     BudgetingPageComponent,
     EditCategoryPageComponent,
-    AppComponent
+    AppComponent,
+    BudgetingPageLeftNavComponent,
+    BudgetingPageMainComponent,
+    BudgetingPageRightNavComponent
   ],
   providers: [
     ActionsCreatorService
