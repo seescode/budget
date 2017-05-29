@@ -1,12 +1,16 @@
-<div class="category">
-  <md-icon class="view-transactions-button">view_list</md-icon> {{categoryName}}:   {{total | currency:'USD':true:'1.2-2'}}
-</div>
-<div class="new-transaction">
-  <md-input-container>
-    <input #amountInput mdInput placeholder="Amount" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount">
-  </md-input-container>
-  <md-input-container>
-    <input #amountName mdInput placeholder="Name" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="name">
-  </md-input-container>
-  <md-icon class="new-transaction-button" (click)="addTransaction(amountInput.value, amountName.value)">add_box</md-icon>
+<div class="category-line">
+  <div class="category">
+    <span>
+      <md-icon class="view-transactions-button">view_list</md-icon> {{categoryName}}: {{total | currency:'USD':true:'1.2-2'}}
+    </span>
+  </div>
+  <div class="new-transaction">
+    <md-input-container>
+      <input #amountInput mdInput placeholder="Amount" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount">
+    </md-input-container>
+    <md-input-container>
+      <input #amountName mdInput placeholder="Name" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="name">
+    </md-input-container>
+    <md-icon class="new-transaction-button" (click)="addTransaction(amountInput.value, amountName.value)">add_box</md-icon>
+  </div>
 </div>

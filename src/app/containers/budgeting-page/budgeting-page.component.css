@@ -1,8 +1,13 @@
-md-sidenav {
+#left-nav {
   width: 200px
 }
 
-
 #right-nav {
-  width: 250px;
+  width: 300px;
+}
+
+@media only screen and (min-width: 900px) {
+    #left-nav-toggle, #right-nav-toggle {
+      visibility: hidden;
+    }
 }

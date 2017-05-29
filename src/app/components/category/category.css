@@ -1,5 +1,6 @@
-.category {
+.category-line {
   display: flex;
+  flex-direction: column;
 }
 
 .new-transaction {
@@ -13,5 +14,22 @@
 
 .view-transactions-button {
   position: relative;
-  top: -4px;
+  top: 5px;
+}
+
+input {
+  width: 100px;
+}
+
+@media only screen and (min-width: 900px) {
+  .category-line {
+    display: flex;
+    flex-direction: row;
+  }  
+
+  .category {
+    position: relative;
+    top: 8px;
+    margin-right: 10px;
+  }
 }
