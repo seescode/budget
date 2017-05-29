@@ -3,6 +3,17 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
+
+-create the right hand nav bar 
+-make responsive so that when you make the screen small 
+it stops showing the left and right hand navs. 
+-hmm... is it possible to also make the right hand nav 
+appear at the click of a button in mobile view.  This 
+way you can completely do away with the progress bar 
+version of the reporting.  
+
+
+
 -create a new component that encapsulate the pie chart. 
 Basically the pie chart should take in the data which 
 is going to be an array of this object: 
