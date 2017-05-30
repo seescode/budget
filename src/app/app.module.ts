@@ -31,6 +31,7 @@ import { AppComponent } from './containers/app/app.component';
 import { BudgetingPageLeftNavComponent } from './containers/budgeting-page/budgeting-page-left-nav/budgeting-page-left-nav.component';
 import { BudgetingPageMainComponent } from './containers/budgeting-page/budgeting-page-main/budgeting-page-main.component';
 import { BudgetingPageRightNavComponent } from './containers/budgeting-page/budgeting-page-right-nav/budgeting-page-right-nav.component';
+import { PieComponent } from './components/pie/pie.component';
 
 
 
@@ -96,7 +97,8 @@ import { BudgetingPageRightNavComponent } from './containers/budgeting-page/budg
     AppComponent,
     BudgetingPageLeftNavComponent,
     BudgetingPageMainComponent,
-    BudgetingPageRightNavComponent
+    BudgetingPageRightNavComponent,
+    PieComponent
   ],
   providers: [
     ActionsCreatorService
