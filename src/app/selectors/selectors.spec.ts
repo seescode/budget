@@ -1,3 +1,4 @@
+import { monthlyBudgetPieDataSelector, totalBudgetPieDataSelector } from './selectors';
 /* tslint:disable */
 
 import * as moment from 'moment';
@@ -657,5 +658,67 @@ describe('runningSurplusSelector', () => {
     expect(actual).toEqual(0);    
   });
 
+
+});
+
+describe('monthlyBudgetPieDataSelector', () => {
+
+  it('should return all zeros', () => {
+    const actual = monthlyBudgetPieDataSelector.resultFunc({
+      unspent: 0,
+      spent: 0
+    }, 0);
+
+    expect(actual).toEqual([
+      { label: 'Spent', amount: 0},
+      { label: 'Remaining', amount: 0},
+      { label: 'Surplus', amount: 0}
+    ]);
+  });
+
+  it('should return for standard case', () => {
+    const actual = monthlyBudgetPieDataSelector.resultFunc({
+      unspent: 100,
+      spent: 20
+    }, 10);
+
+    expect(actual).toEqual([
+      { label: 'Spent', amount: 20},
+      { label: 'Remaining', amount: 100},
+      { label: 'Surplus', amount: 10}
+    ]);
+  });
+
+});
+
+
+
+describe('totalBudgetPieDataSelector', () => {
+
+  it('should return all zeros', () => {
+    const actual = totalBudgetPieDataSelector.resultFunc({
+      totalBudget: 0,
+      unspent: 0,
+      spent: 0
+    });
+
+    expect(actual).toEqual([
+      { label: 'Spent', amount: 0},
+      { label: 'Remaining', amount: 0}
+    ]);
+  });
+
+  it('should return for standard case', () => {
+    const actual = totalBudgetPieDataSelector.resultFunc({
+      totalBudget: 30,
+      unspent: 10,
+      spent: 20
+    });
+
+    expect(actual).toEqual([
+      { label: 'Spent', amount: 20},
+      { label: 'Remaining', amount: 10}
+    ]);
+  });
 
 });

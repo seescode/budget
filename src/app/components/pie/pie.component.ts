@@ -10,11 +10,13 @@ import * as d3 from 'd3';
 })
 export class PieComponent implements OnInit, OnDestroy {
 
-  @Input() data: PieData;
+  @Input() dataset: any[];
   @Input() update: EventEmitter<any>;
   @Input() width: number;
   @Input() height: number;
   @Input() ringWidth: number;
+  @Input() legendRectSize: any;
+  @Input() legendSpacing: any;
 
   updateSubscription: Subscription;
 
@@ -36,14 +38,8 @@ export class PieComponent implements OnInit, OnDestroy {
 
   render() {
 
-    let dataset: any[] = [
-      { label: 'Spent', count2: 50 },
-      { label: 'Remaining', count2: 20 },
-      { label: 'Surplus', count2: 30 }
-    ];
-
-    var legendRectSize = 18;
-    var legendSpacing = 4;
+    const legendRectSize: number = parseInt(this.legendRectSize);
+    const legendSpacing: number = parseInt(this.legendSpacing);
 
     let radius = Math.min(this.width, this.height) / 2;
 
@@ -57,7 +53,6 @@ export class PieComponent implements OnInit, OnDestroy {
       .attr('transform', 'translate(' + (this.width / 2) +
       ',' + (this.height / 2) + ')');
 
-
     let arc: any = d3.arc()
       .innerRadius(radius - this.ringWidth)
       .outerRadius(radius);
@@ -67,11 +62,11 @@ export class PieComponent implements OnInit, OnDestroy {
       .innerRadius(radius - 25);
 
     let pie = d3.pie()
-      .value(function (d: any) { return d.count2; })
+      .value(function (d: any) { return d.amount; })
       .sort(null);
 
     let path = svg.selectAll('path')
-      .data(pie(dataset))
+      .data(pie(this.dataset))
       .enter()
       .append('path')
       .attr('d', arc)
@@ -84,7 +79,7 @@ export class PieComponent implements OnInit, OnDestroy {
       .enter()
       .append('g')
       .attr('class', 'legend')
-      .attr('transform', function (d, i) {
+      .attr('transform', (d, i) => {
         var height = legendRectSize + legendSpacing;
         var offset = height * color.domain().length / 2;
         var horz = -2 * legendRectSize;
@@ -104,14 +99,14 @@ export class PieComponent implements OnInit, OnDestroy {
       .text(function (d) { return d; });
 
     var g = svg.selectAll(".arc")
-      .data(pie(dataset))
+      .data(pie(this.dataset))
       .enter().append("g")
       .attr("class", "arc");
 
     g.append("text")
       .attr("transform", function (d: any) { return "translate(" + labelArc.centroid(d) + ")"; })
       .attr("dy", ".35em")
-      .text(function (d: any) { return d.data.count2; });
+      .text(function (d: any) { return d.data.amount; });
   }
 
 }

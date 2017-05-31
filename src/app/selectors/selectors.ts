@@ -183,3 +183,30 @@ export const runningSurplusSelector = createSelector(calculatedBudgetAmountSelec
 
     return surplus;
   });
+
+export const monthlyBudgetPieDataSelector = createSelector(monthlyBudgetInfoSelector,
+  runningSurplusSelector, (monthlyBudgetInfo, runningSurplus) => {
+
+  if (monthlyBudgetInfo == null) {
+    return [];
+  }
+
+  return [
+    { label: 'Spent', amount: monthlyBudgetInfo.spent},
+    { label: 'Remaining', amount: monthlyBudgetInfo.unspent},
+    { label: 'Surplus', amount: runningSurplus}
+  ];
+});
+
+export const totalBudgetPieDataSelector = createSelector(totalBudgetInfoSelector,
+  (totalBudgetInfo) => {
+
+  if (totalBudgetInfo == null) {
+    return [];
+  }
+
+  return [
+    { label: 'Spent', amount: totalBudgetInfo.spent},
+    { label: 'Remaining', amount: totalBudgetInfo.unspent}
+  ];
+});

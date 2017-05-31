@@ -3,6 +3,11 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
+
+-need to revisit my pie data setup.  I don't think using angular2 
+to rerender the data makes any sense.  You're going to have to do
+it the d3 way with the enter, update, exit crap.  
+
 read
 -https://bost.ocks.org/mike/join/
 -https://bost.ocks.org/mike/circles/
@@ -44,6 +49,11 @@ http://bl.ocks.org/dbuezas/9306799
 -we should have a small button that switches the view of 
 the d3 pie charts.  Expanded or collapsed.  Collapsed would 
 be a simple bar with colors.  No explanations at all.  
+
+
+-must rename the pie chart variables from yearly to total.
+-Add headings to the pie charts. 
+
 
 -make the header sticky
 
