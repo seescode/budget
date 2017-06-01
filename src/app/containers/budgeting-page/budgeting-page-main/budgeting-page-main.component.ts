@@ -57,31 +57,6 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
-  previousMonth() {
-    let month = this.selectedMonthAndYear$.month - 1;
-    let year = this.selectedMonthAndYear$.year;
-
-    if (month === 0) {
-      year--;
-      month = 12;
-    }
-
-    this.router.navigate(['/budgeting', this.budgetId, year, month]);
-  }
-  nextMonth() {
-    let month = this.selectedMonthAndYear$.month + 1;
-    let year = this.selectedMonthAndYear$.year;
-
-    if (month > 12) {
-      year++;
-      month = 1;
-    }
-
-    this.router.navigate(['/budgeting', this.budgetId, year, month]);
-  }
-
   addTransaction(transaction: Transaction) {
     const action = this.actionsCreatorService.addTransaction(transaction,
       this.budgetId, this.selectedMonthAndYear$.year, this.selectedMonthAndYear$.month);

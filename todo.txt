@@ -51,11 +51,15 @@ the d3 pie charts.  Expanded or collapsed.  Collapsed would
 be a simple bar with colors.  No explanations at all.  
 
 
--must rename the pie chart variables from yearly to total.
--Add headings to the pie charts. 
-
 
 -make the header sticky
+-must make the page reach the bottom 
+
+-add a snackbar for whenever you add a transaction.  You should be 
+able to quickly undo a transaction from this. 
+
+
+-Add headings to the pie charts. 
 
 
 
@@ -64,10 +68,7 @@ be a simple bar with colors.  No explanations at all.
   -tablet: would only show the reporting nav 
   -phone: would show no navs
 
--add a snackbar for whenever you add a transaction.  You should be 
-able to quickly undo a transaction from this. 
 
--need to get the next and previous buttons hooked up to work 
 -when clicking on the category list button it should go to a new 
 page.  Maybe you can enable some type of nice transition whenever
 you go to a new page.    

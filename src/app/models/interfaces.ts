@@ -30,7 +30,8 @@ export interface Budget {
 
 export interface ActiveDate {
   month: number,
-  year: number
+  year: number,
+  fullMonth?: string
 }
 
 export interface Loaded {

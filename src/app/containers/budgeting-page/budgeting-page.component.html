@@ -5,15 +5,13 @@
     <yb-budgeting-page-left-nav></yb-budgeting-page-left-nav>
   </md-sidenav>
 
-
   <div id="main">
     <md-toolbar color="primary">
       <md-icon id="left-nav-toggle" (click)="leftnav.toggle()">menu</md-icon>
       <span class="example-spacer"></span>
-      <md-icon>chevron_left</md-icon>
-      <md-icon>chevron_left</md-icon> May 2017 Budget
-      <md-icon>chevron_right</md-icon>
-      <md-icon>chevron_right</md-icon>
+      <md-icon (click)="previousMonth()">chevron_left</md-icon> 
+      {{selectedMonthAndYear$.fullMonth}} {{selectedMonthAndYear$.year}} Budget
+      <md-icon (click)="nextMonth()">chevron_right</md-icon>
       <md-icon id="right-nav-toggle" (click)="rightnav.toggle()">insert_chart</md-icon>
     </md-toolbar>
     <yb-budgeting-page-main></yb-budgeting-page-main>
