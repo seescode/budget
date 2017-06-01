@@ -12,7 +12,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 })
 export class BudgetingPageRightNavComponent implements OnInit {
 
-  yearlyBudgetPieData$: Observable<PieData[]>;
+  totalBudgetPieData$: Observable<PieData[]>;
   monthlyBudgetPieData$: Observable<PieData[]>;
 
   renderPie: EventEmitter<any> = new EventEmitter<any>();
@@ -21,10 +21,10 @@ export class BudgetingPageRightNavComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.yearlyBudgetPieData$ = this.store.select(totalBudgetPieDataSelector);
+    this.totalBudgetPieData$ = this.store.select(totalBudgetPieDataSelector);
     this.monthlyBudgetPieData$ = this.store.select(monthlyBudgetPieDataSelector);
 
-    this.yearlyBudgetPieData$.subscribe(n => {
+    this.totalBudgetPieData$.subscribe(n => {
       this.renderPie.emit();
     })
   }
