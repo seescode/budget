@@ -33,8 +33,6 @@ import { BudgetingPageMainComponent } from './containers/budgeting-page/budgetin
 import { BudgetingPageRightNavComponent } from './containers/budgeting-page/budgeting-page-right-nav/budgeting-page-right-nav.component';
 import { PieComponent } from './components/pie/pie.component';
 
-
-
 @NgModule({
   imports: [
     CommonModule,

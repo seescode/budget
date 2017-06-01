@@ -9,4 +9,9 @@ html {
   -webkit-font-smoothing: antialiased;
   -ms-overflow-style: none;
   overflow: auto;
+  height: 100%;
+}
+
+body, yb-app, yb-budgeting-page, yb-budgeting-page>div, md-sidenav-container {
+  height: 100%;
 }

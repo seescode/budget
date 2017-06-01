@@ -51,9 +51,7 @@ the d3 pie charts.  Expanded or collapsed.  Collapsed would
 be a simple bar with colors.  No explanations at all.  
 
 
-
 -make the header sticky
--must make the page reach the bottom 
 
 -add a snackbar for whenever you add a transaction.  You should be 
 able to quickly undo a transaction from this. 
