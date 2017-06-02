@@ -53,10 +53,6 @@ be a simple bar with colors.  No explanations at all.
 
 -make the header sticky
 
--add a snackbar for whenever you add a transaction.  You should be 
-able to quickly undo a transaction from this. 
-
-
 -Add headings to the pie charts. 
 
 

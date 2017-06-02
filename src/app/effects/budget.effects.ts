@@ -1,6 +1,7 @@
 import { LOAD_BUDGET, LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA, LOAD_BUDGET_DATA_FROM_CACHE,
     LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET, ADD_BUDGET_COMPLETE, ADD_CATEGORY,
-    ADD_CATEGORY_COMPLETE, ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION } from './../actions/actions';
+    ADD_CATEGORY_COMPLETE, ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION, REMOVE_TRANSACTION_COMPLETE,
+    REMOVE_TRANSACTION } from './../actions/actions';
 import { AppState } from './../reducers/index';
 import { Budget, Category, Transaction, Loaded } from './../models/interfaces';
 import 'rxjs/add/operator/catch';
@@ -124,6 +125,23 @@ export class BudgetEffects {
       // TODO handle catches
       // .catch();
     });
+
+  @Effect()
+  removeTransaction$: Observable<Action> = this.actions$
+    .ofType(REMOVE_TRANSACTION)
+    .map(toPayload)
+    .mergeMap((transaction: Transaction) => {
+
+      return this.db.executeWrite('transaction', 'delete', [transaction.id])
+        .map((response: any) => ({
+          type: REMOVE_TRANSACTION_COMPLETE,
+          payload: transaction
+        }));
+
+      // TODO handle catches
+      // .catch();
+    });
+    
   constructor(private actions$: Actions, private db: Database, private store: Store<AppState>) { }
 }
 

@@ -73,7 +73,6 @@ export class ActionsCreatorService {
     return {
       type: ADD_BUDGET,
       payload: newBudget
-    }
+    };
   }
-  
 }
