@@ -83,8 +83,6 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
           this.selectedMonthAndYear$.fullMonth = 'December';
           break;
       }
-
-      this.store.dispatch(this.actionsCreatorService.loadBudgetData(this.budgetId));
     });
   }
 
