@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import {BudgetReducer } from './budget.reducer';
 import {CategoryReducer } from './category.reducer';
 import {TransactionReducer } from './transaction.reducer';
-import { BudgetLoadedReducer } from './budget-loaded.reducer'
+import { BudgetLoadedReducer } from './budget-loaded.reducer';
 import { RouterState } from '@angular/router';
 
 

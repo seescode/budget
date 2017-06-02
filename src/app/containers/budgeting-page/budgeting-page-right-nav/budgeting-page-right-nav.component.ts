@@ -26,7 +26,7 @@ export class BudgetingPageRightNavComponent implements OnInit {
 
     this.totalBudgetPieData$.subscribe(n => {
       this.renderPie.emit();
-    })
+    });
   }
 
 

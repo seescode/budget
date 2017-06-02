@@ -3,6 +3,23 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
+-practice continuous deployment.  At the end of every session run
+your unit tests and if everything works then deploy to prod.  
+
+
+-when clicking on the category list button it should go to a new 
+page.  Maybe you can enable some type of nice transition whenever
+you go to a new page.    
+-when clicking on the create new budget button it should go to 
+a new page.  Add a cool transition.    
+-the new category button needs to be moved elsewhere.  Since you 
+will enable scrolling this new category will not be very accessible. 
+Either move it to the left hand side bar or put it on the top
+navigation bar. 
+-Have duplicate UI on the left hand nav and the budget list page.  
+Is there anyway to keep everything on the main budget page?
+
+
 
 -need to revisit my pie data setup.  I don't think using angular2 
 to rerender the data makes any sense.  You're going to have to do
@@ -26,18 +43,6 @@ pie
 
 
 -https://material.io/icons/
-
--create a new component that encapsulate the pie chart. 
-Basically the pie chart should take in the data which 
-is going to be an array of this object: 
-{
-  color, text
-}
-It should also take in an event emitter as the input.  
-This way when a next transaction is added we tell the 
-pie chart to animate.
- -it should also take in width and height.  
-
 
 
 
@@ -63,16 +68,7 @@ be a simple bar with colors.  No explanations at all.
   -phone: would show no navs
 
 
--when clicking on the category list button it should go to a new 
-page.  Maybe you can enable some type of nice transition whenever
-you go to a new page.    
--when clicking on the create new budget button it should go to 
-a new page.  Add a cool transition.    
--the new category button needs to be moved elsewhere.  Since you 
-will enable scrolling this new category will not be very accessible. 
-Either move it to the left hand side bar or put it on the top
-navigation bar. 
--
+
 
 -https://material.io/icons/
 

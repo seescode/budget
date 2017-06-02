@@ -4,15 +4,15 @@ import { Loaded } from '../models/interfaces';
 const initialState: Loaded = {
   loadedBudgetInfo: false,
   loadedBudgetIds: []
-}
+};
 
 /**
  * This keeps a list of budgetsIds for budgets that loaded into memory.
- * 
+ *
  * @export
- * @param {string[]} [state=[]] 
- * @param {*} action 
- * @returns 
+ * @param {string[]} [state=[]]
+ * @param {*} action
+ * @returns
  */
 export function BudgetLoadedReducer(state: Loaded = initialState, action: any) {
   switch (action.type) {

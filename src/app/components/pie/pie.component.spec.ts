@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PieComponent } from './pie.component';
+// import { PieComponent } from './pie.component';
 
-describe('PieComponent', () => {
-  let component: PieComponent;
-  let fixture: ComponentFixture<PieComponent>;
+// describe('PieComponent', () => {
+//   let component: PieComponent;
+//   let fixture: ComponentFixture<PieComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PieComponent ]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ PieComponent ]
+//     })
+//     .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PieComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(PieComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

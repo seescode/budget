@@ -1,7 +1,9 @@
-import { LOAD_BUDGET, LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA, LOAD_BUDGET_DATA_FROM_CACHE,
-    LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET, ADD_BUDGET_COMPLETE, ADD_CATEGORY,
-    ADD_CATEGORY_COMPLETE, ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION, REMOVE_TRANSACTION_COMPLETE,
-    REMOVE_TRANSACTION } from './../actions/actions';
+import {
+  LOAD_BUDGET, LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA, LOAD_BUDGET_DATA_FROM_CACHE,
+  LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET, ADD_BUDGET_COMPLETE, ADD_CATEGORY,
+  ADD_CATEGORY_COMPLETE, ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION, REMOVE_TRANSACTION_COMPLETE,
+  REMOVE_TRANSACTION
+} from './../actions/actions';
 import { AppState } from './../reducers/index';
 import { Budget, Category, Transaction, Loaded } from './../models/interfaces';
 import 'rxjs/add/operator/catch';
@@ -143,26 +145,26 @@ export class BudgetEffects {
       // TODO handle catches
       // .catch();
     });
-    
+
   constructor(private actions$: Actions, private db: Database, private store: Store<AppState>) { }
 }
 
 
-    //     db.open('budget');
+//     db.open('budget');
 
-    //insert does inserts and updates
-    //  this.db.insert('transaction', [transaction])
-    //    .subscribe(n => console.log(n));
+// insert does inserts and updates
+//  this.db.insert('transaction', [transaction])
+//    .subscribe(n => console.log(n));
 
 
-    //this does deletes
-    // this.db.executeWrite('transaction', 'delete', [ somePrimaryKeyId])
-    //   .subscribe(n => console.log(n));
+// this does deletes
+// this.db.executeWrite('transaction', 'delete', [ somePrimaryKeyId])
+//   .subscribe(n => console.log(n));
 
-    //this does a simple get by id
-    //this.db.get('transaction', 'aa')
-    //  .subscribe((n: Transaction) => alert(n.amount));
+// this does a simple get by id
+// this.db.get('transaction', 'aa')
+//  .subscribe((n: Transaction) => alert(n.amount));
 
-    //this does a get based on a query 
-    // this.db.query('transaction', n => n.amount == 3 )
-    //   .subscribe(x => console.log(x));
+// this does a get based on a query
+// this.db.query('transaction', n => n.amount == 3 )
+//   .subscribe(x => console.log(x));

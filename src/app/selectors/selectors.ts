@@ -87,10 +87,10 @@ export const totalBudgetInfoSelector = createSelector(budgetPageRouteSelector,
  * calculatedBudgetAmountSelector would return $600.  For July 2017 it
  * would return $700.  This amount increases as the current date gets
  * closer to the budget end date.
- * @param {number} monthlyBudgetAmount 
- * @param {number} totalbudgetAmount 
- * @param {number} totalNumberOfMonthsSinceStartDate 
- * @returns 
+ * @param {number} monthlyBudgetAmount
+ * @param {number} totalbudgetAmount
+ * @param {number} totalNumberOfMonthsSinceStartDate
+ * @returns
  */
 function calculateRollingBudget(monthlyBudgetAmount: number, totalbudgetAmount: number,
   totalNumberOfMonthsSinceStartDate: number) {

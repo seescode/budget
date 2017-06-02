@@ -34,7 +34,7 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
   monthlyBudgetInfo: any;
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
-    private router: Router, private actionsCreatorService: ActionsCreatorService, 
+    private router: Router, private actionsCreatorService: ActionsCreatorService,
     private snackBar: MdSnackBar) {
     this.categories$ = this.store.select(everyCategoryTotalSelector);
     this.totalBudgetInfoSubscription = this.store.select(totalBudgetInfoSelector)

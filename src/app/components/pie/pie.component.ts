@@ -41,11 +41,11 @@ export class PieComponent implements OnInit, OnDestroy {
     const legendRectSize: number = parseInt(this.legendRectSize);
     const legendSpacing: number = parseInt(this.legendSpacing);
 
-    let radius = Math.min(this.width, this.height) / 2;
+    const radius = Math.min(this.width, this.height) / 2;
 
-    let color = d3.scaleOrdinal(d3.schemeCategory20b);
+    const color = d3.scaleOrdinal(d3.schemeCategory20b);
 
-    let svg = d3.select('.chart')
+    const svg = d3.select('.chart')
       .append('svg')
       .attr('width', this.width)
       .attr('height', this.height)
@@ -53,19 +53,19 @@ export class PieComponent implements OnInit, OnDestroy {
       .attr('transform', 'translate(' + (this.width / 2) +
       ',' + (this.height / 2) + ')');
 
-    let arc: any = d3.arc()
+    const arc: any = d3.arc()
       .innerRadius(radius - this.ringWidth)
       .outerRadius(radius);
 
-    var labelArc = d3.arc()
+    const labelArc = d3.arc()
       .outerRadius(radius - 25)
       .innerRadius(radius - 25);
 
-    let pie = d3.pie()
+    const pie = d3.pie()
       .value(function (d: any) { return d.amount; })
       .sort(null);
 
-    let path = svg.selectAll('path')
+    const path = svg.selectAll('path')
       .data(pie(this.dataset))
       .enter()
       .append('path')
@@ -74,16 +74,16 @@ export class PieComponent implements OnInit, OnDestroy {
         return color(d.data.label);
       });
 
-    var legend = svg.selectAll('.legend')
+    const legend = svg.selectAll('.legend')
       .data(color.domain())
       .enter()
       .append('g')
       .attr('class', 'legend')
       .attr('transform', (d, i) => {
-        var height = legendRectSize + legendSpacing;
-        var offset = height * color.domain().length / 2;
-        var horz = -2 * legendRectSize;
-        var vert = i * height - offset;
+        const height = legendRectSize + legendSpacing;
+        const offset = height * color.domain().length / 2;
+        const horz = -2 * legendRectSize;
+        const vert = i * height - offset;
         return 'translate(' + horz + ',' + vert + ')';
       });
 
@@ -98,14 +98,14 @@ export class PieComponent implements OnInit, OnDestroy {
       .attr('y', legendRectSize - legendSpacing)
       .text(function (d) { return d; });
 
-    var g = svg.selectAll(".arc")
+    const g = svg.selectAll('.arc')
       .data(pie(this.dataset))
-      .enter().append("g")
-      .attr("class", "arc");
+      .enter().append('g')
+      .attr('class', 'arc');
 
-    g.append("text")
-      .attr("transform", function (d: any) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
+    g.append('text')
+      .attr('transform', function (d: any) { return 'translate(' + labelArc.centroid(d) + ')'; })
+      .attr('dy', '.35em')
       .text(function (d: any) { return d.data.amount; });
   }
 

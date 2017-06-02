@@ -14,7 +14,7 @@ export class CategoryComponent {
   @ViewChild('amountInput') amountInput: ElementRef;
   @Output() add = new EventEmitter<Transaction>();
 
-  showAddTransaction: boolean = false;
+  showAddTransaction = false;
 
   constructor(private renderer: Renderer) {
 

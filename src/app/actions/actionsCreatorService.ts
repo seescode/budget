@@ -55,7 +55,7 @@ export class ActionsCreatorService {
     return {
       type: ADD_CATEGORY,
       payload: newCategory
-    }
+    };
   }
 
   addBudget() {

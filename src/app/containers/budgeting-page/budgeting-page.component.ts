@@ -44,7 +44,7 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
         year: parseInt(params['year'])
       };
 
-      //TODO move to a service or pipe
+      // TODO move to a service or pipe
       switch (this.selectedMonthAndYear$.month) {
         case 1:
           this.selectedMonthAndYear$.fullMonth = 'January';

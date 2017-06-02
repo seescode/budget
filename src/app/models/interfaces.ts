@@ -29,9 +29,9 @@ export interface Budget {
 }
 
 export interface ActiveDate {
-  month: number,
-  year: number,
-  fullMonth?: string
+  month: number;
+  year: number;
+  fullMonth?: string;
 }
 
 export interface Loaded {
