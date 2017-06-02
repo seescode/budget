@@ -8,14 +8,10 @@ import { Transaction } from './../../models/interfaces';
 })
 export class CategoryTransactionsComponent {
   @Input() transactions: Array<Transaction>;
-  @Output() remove = new EventEmitter<number>();
+  @Output() remove = new EventEmitter<string>();
 
   constructor() {
 
-  }
-
-  delete(transactionId) {
-    this.remove.emit(transactionId);
   }
 
 }

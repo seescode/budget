@@ -1,3 +1,4 @@
+import { Transaction } from './../../models/interfaces';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
@@ -8,9 +9,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class EditCategoryPageComponent implements OnInit {
 
+  // TODO: must hook this up to the store
+  transactions: Transaction[];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  removeTransaction(transactionId: string) {
+    // todo must dispatch to remove transaction
   }
 
 }

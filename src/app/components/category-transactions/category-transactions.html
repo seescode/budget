@@ -2,5 +2,5 @@
   <span>{{trans.timestamp}}</span>
   <span>{{trans.name}}</span>
   <span>{{trans.amount}}</span>
-  <button (click)="delete(trans._id)">X</button>
+  <button (click)="remove.emit(trans.id)">X</button>
 </div>
