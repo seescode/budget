@@ -1,5 +1,6 @@
+import { ActionsCreatorService } from './../../../actions/actionsCreatorService';
 import { budgetSelector } from './../../../selectors/selectors';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppState } from './../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { Budget } from './../../../models/interfaces';
@@ -14,11 +15,19 @@ import { Component, OnInit } from '@angular/core';
 export class BudgetingPageLeftNavComponent implements OnInit {
 
   budgets$: Observable<Budget[]>;
+  budgetId: string;
 
-  constructor(private store: Store<AppState>, private router: Router) { }
+  constructor(private store: Store<AppState>, private router: Router,
+    private actionsCreatorService: ActionsCreatorService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.budgets$ = this.store.select(budgetSelector);
+
+    this.activatedRoute.params.subscribe(params => {
+      this.budgetId = params['budgetId'];
+    });
+
   }
 
   openBudget(budgetId: string) {
@@ -26,5 +35,11 @@ export class BudgetingPageLeftNavComponent implements OnInit {
     const year = new Date().getFullYear();
 
     this.router.navigate(['/budgeting', budgetId, year, month + 1]);
+  }
+
+  addCategory(categoryName: any) {
+    console.log('what is happening');
+    this.store.dispatch(this.actionsCreatorService
+      .addCategory(categoryName.name, this.budgetId));
   }
 }

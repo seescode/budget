@@ -9,6 +9,7 @@ Everyday:
 and lint isn't failing.
 
 
+
 Should animate when:
 -Switching between 2 budgets
   -Make up or down transitions for the budgeting page 
@@ -28,10 +29,6 @@ page.  Maybe you can enable some type of nice transition whenever
 you go to a new page.    
 -when clicking on the create new budget button it should go to 
 a new page.  Add a cool transition.    
--the new category button needs to be moved elsewhere.  Since you 
-will enable scrolling this new category will not be very accessible. 
-Either move it to the left hand side bar or put it on the top
-navigation bar. 
 -Have duplicate UI on the left hand nav and the budget list page.  
 Is there anyway to keep everything on the main budget page?
 -Bug: prevent nameless categories from being added
@@ -76,6 +73,7 @@ be a simple bar with colors.  No explanations at all.
 
 -Add headings to the pie charts. 
 
+-prevent duplicate categories from being added 
 
 
 -maybe in the future you can have 3 media query breakpoints:

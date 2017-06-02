@@ -91,10 +91,6 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     });
   }
 
-  addCategory(categoryName: any) {
-    this.store.dispatch(this.actionsCreatorService
-      .addCategory(categoryName.name, this.budgetId));
-  }
 
   ngOnDestroy() {
     this.totalBudgetInfoSubscription.unsubscribe();

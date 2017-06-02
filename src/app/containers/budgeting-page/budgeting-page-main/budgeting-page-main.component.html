@@ -5,4 +5,3 @@
 <yb-category *ngFor="let cat of categories$ | async" [categoryName]="cat.name" [categoryId]="cat.id" [total]="cat.amount"
   (add)="addTransaction($event)"></yb-category>
 
-<yb-new-category (add)="addCategory($event)"></yb-new-category>
