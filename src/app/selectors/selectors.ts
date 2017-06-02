@@ -56,15 +56,33 @@ export const everyCategoryTotalSelector = createSelector(budgetPageRouteSelector
       }));
   });
 
+export const getSelectedBudget = createSelector(budgetPageRouteSelector,
+  budgetSelector, (route, budgets) => {
 
-export const totalBudgetInfoSelector = createSelector(budgetPageRouteSelector,
-  budgetSelector, transactionSelector, (route, budgets, transactions): TotalBudgetInfo => {
-
-    if (route === null || route.budgetId == null || budgets.length === 0) {
+    if (route === null || route.budgetId === null || budgets === null || budgets.length === null) {
       return null;
     }
 
-    const totalBudget = budgets.find(b => b.id === route.budgetId).budgetAmount;
+    return budgets.find(budget => budget.id === route.budgetId);
+  });
+
+export const getSelectedBudgetName = createSelector(getSelectedBudget,
+  (budget: Budget) => {
+    if (budget == null) {
+      return null;
+    }
+
+    return budget.name;
+  });
+
+export const totalBudgetInfoSelector = createSelector(budgetPageRouteSelector,
+  getSelectedBudget, transactionSelector, (route, selectedBudget, transactions): TotalBudgetInfo => {
+
+    if (route === null || route.budgetId == null || selectedBudget == null) {
+      return null;
+    }
+
+    const totalBudget = selectedBudget.budgetAmount;
     const spent = transactions
       .filter(t => t.budgetId === route.budgetId)
       .reduce((prev, next) => {
@@ -94,41 +112,40 @@ export const totalBudgetInfoSelector = createSelector(budgetPageRouteSelector,
  */
 function calculateRollingBudget(monthlyBudgetAmount: number, totalbudgetAmount: number,
   totalNumberOfMonthsSinceStartDate: number) {
-    let rollingBudgetAmount = monthlyBudgetAmount * totalNumberOfMonthsSinceStartDate;
+  let rollingBudgetAmount = monthlyBudgetAmount * totalNumberOfMonthsSinceStartDate;
 
-    if (rollingBudgetAmount <= 0) {
-      rollingBudgetAmount = 0;
-    }
+  if (rollingBudgetAmount <= 0) {
+    rollingBudgetAmount = 0;
+  }
 
-    if (rollingBudgetAmount > totalbudgetAmount) {
-      rollingBudgetAmount = totalbudgetAmount;
-    }
+  if (rollingBudgetAmount > totalbudgetAmount) {
+    rollingBudgetAmount = totalbudgetAmount;
+  }
 
-    return rollingBudgetAmount;
+  return rollingBudgetAmount;
 }
 
 /**
  * This calculates the rolling budget amount and the monthly budget amount.
  */
 export const calculatedBudgetAmountSelector = createSelector(budgetPageRouteSelector,
-  budgetSelector, getCurrentMonth, (route, budgets, currentMonth) => {
+  getSelectedBudget, getCurrentMonth, (route, selectedBudget, currentMonth) => {
 
-    if (route === null || route.budgetId == null || budgets.length === 0) {
+    if (route === null || route.budgetId == null || selectedBudget == null) {
       return null;
     }
 
-    const currentBudget = budgets.find(b => b.id === route.budgetId);
-    const startMonth = moment([currentBudget.startDate.getFullYear(), currentBudget.startDate.getMonth()]);
-    const endMonth = moment([currentBudget.endDate.getFullYear(), currentBudget.endDate.getMonth()]);
+    const startMonth = moment([selectedBudget.startDate.getFullYear(), selectedBudget.startDate.getMonth()]);
+    const endMonth = moment([selectedBudget.endDate.getFullYear(), selectedBudget.endDate.getMonth()]);
 
     // Say you have a budget of 1400 and a total of 14 months.  The result would be a monthlyBudgetAmount of 100
-    const monthlyBudgetAmount = currentBudget.budgetAmount / (endMonth.diff(startMonth, 'months') + 1);
+    const monthlyBudgetAmount = selectedBudget.budgetAmount / (endMonth.diff(startMonth, 'months') + 1);
 
     // Say the budget started on January 2017 and this month is February 2017.  The result of
     // totalNumberOfMonthsSinceStartDate would be 2 months.
     const totalNumberOfMonthsSinceStartDate = currentMonth.diff(startMonth, 'months') + 1;
 
-    const rollingBudgetAmount = calculateRollingBudget(monthlyBudgetAmount, currentBudget.budgetAmount,
+    const rollingBudgetAmount = calculateRollingBudget(monthlyBudgetAmount, selectedBudget.budgetAmount,
       totalNumberOfMonthsSinceStartDate);
 
     return {
@@ -140,13 +157,13 @@ export const calculatedBudgetAmountSelector = createSelector(budgetPageRouteSele
 
 
 export const monthlyBudgetInfoSelector = createSelector(budgetPageRouteSelector,
-  budgetSelector, transactionSelector, calculatedBudgetAmountSelector, (route, budgets, transactions, budgetAmountInfo) => {
+  getSelectedBudget, transactionSelector, calculatedBudgetAmountSelector, (route, selectedBudget, transactions, budgetAmountInfo) => {
 
-    if (route === null || route.budgetId == null || budgets.length === 0) {
+    if (route === null || route.budgetId == null || selectedBudget == null) {
       return null;
     }
 
-    const totalBudget = budgets.find(b => b.id === route.budgetId).budgetAmount;
+    const totalBudget = selectedBudget.budgetAmount;
 
     const spent = transactions
       .filter(t => t.budgetId === route.budgetId &&
@@ -187,26 +204,26 @@ export const runningSurplusSelector = createSelector(calculatedBudgetAmountSelec
 export const monthlyBudgetPieDataSelector = createSelector(monthlyBudgetInfoSelector,
   runningSurplusSelector, (monthlyBudgetInfo, runningSurplus) => {
 
-  if (monthlyBudgetInfo == null) {
-    return [];
-  }
+    if (monthlyBudgetInfo == null) {
+      return [];
+    }
 
-  return [
-    { label: 'Spent', amount: monthlyBudgetInfo.spent},
-    { label: 'Remaining', amount: monthlyBudgetInfo.unspent},
-    { label: 'Surplus', amount: runningSurplus}
-  ];
-});
+    return [
+      { label: 'Spent', amount: monthlyBudgetInfo.spent },
+      { label: 'Remaining', amount: monthlyBudgetInfo.unspent },
+      { label: 'Surplus', amount: runningSurplus }
+    ];
+  });
 
 export const totalBudgetPieDataSelector = createSelector(totalBudgetInfoSelector,
   (totalBudgetInfo) => {
 
-  if (totalBudgetInfo == null) {
-    return [];
-  }
+    if (totalBudgetInfo == null) {
+      return [];
+    }
 
-  return [
-    { label: 'Spent', amount: totalBudgetInfo.spent},
-    { label: 'Remaining', amount: totalBudgetInfo.unspent}
-  ];
-});
+    return [
+      { label: 'Spent', amount: totalBudgetInfo.spent },
+      { label: 'Remaining', amount: totalBudgetInfo.unspent }
+    ];
+  });

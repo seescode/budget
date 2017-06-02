@@ -1,8 +1,7 @@
 import { ActionsCreatorService } from './../../actions/actionsCreatorService';
 import { Subscription } from 'rxjs/Subscription';
 import {
-  everyCategoryTotalSelector, totalBudgetInfoSelector, monthlyBudgetInfoSelector,
-  runningSurplusSelector
+  getSelectedBudgetName
 } from './../../selectors/selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from './../../reducers/index';
@@ -26,9 +25,11 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   rightNavOpened: string;
   selectedMonthAndYear$: ActiveDate;
   budgetId: string;
+  selectedBudgetName: Observable<string>;
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
     private router: Router, private actionsCreatorService: ActionsCreatorService) {
+      this.selectedBudgetName = store.select(getSelectedBudgetName);
   }
 
   ngOnInit() {
@@ -91,7 +92,6 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
   resizeScreen(width: number) {
     if (width <= 900) {
-      console.log('push', width);
       this.leftNavDisplayMode = 'push';
       this.rightNavDisplayMode = 'push';
       this.leftNavOpened = 'false';

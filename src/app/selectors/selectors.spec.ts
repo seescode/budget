@@ -1,4 +1,4 @@
-import { monthlyBudgetPieDataSelector, totalBudgetPieDataSelector } from './selectors';
+import { monthlyBudgetPieDataSelector, totalBudgetPieDataSelector, getSelectedBudgetName } from './selectors';
 /* tslint:disable */
 
 import * as moment from 'moment';
@@ -211,7 +211,7 @@ describe('totalBudgetInfoSelector', () => {
   it('should handle zero transactions', () => {
     const actual = totalBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       []
     );
 
@@ -225,7 +225,7 @@ describe('totalBudgetInfoSelector', () => {
   it('should spend half the budget', () => {
     const actual = totalBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'}
       ]
@@ -241,7 +241,7 @@ describe('totalBudgetInfoSelector', () => {
   it('should spend whole budget', () => {
     const actual = totalBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'}
@@ -258,7 +258,7 @@ describe('totalBudgetInfoSelector', () => {
   it('should spend over the budget', () => {
     const actual = totalBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
@@ -276,7 +276,7 @@ describe('totalBudgetInfoSelector', () => {
   it('should consider year and month', () => {
     const actual = totalBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2018, 1), categoryId: 'cat1', budgetId: 'budget1'},
@@ -295,10 +295,7 @@ describe('totalBudgetInfoSelector', () => {
   it('should consider multiple budgets', () => {
     const actual = totalBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [
-        { name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)},
-        { name: 'b', id: 'budget2', details: 'none', budgetAmount: 1000, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}
-      ], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 100, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
@@ -321,7 +318,7 @@ describe('monthlyBudgetInfoSelector', () => {
   it('should handle zero tranactions', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [],
       {
         rollingBudgetAmount: -1, // not applicable
@@ -339,7 +336,7 @@ describe('monthlyBudgetInfoSelector', () => {
   it('should spend half the budget', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'}
       ],
@@ -359,7 +356,7 @@ describe('monthlyBudgetInfoSelector', () => {
   it('should spend whole budget', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'}
@@ -380,7 +377,7 @@ describe('monthlyBudgetInfoSelector', () => {
   it('should spend over the budget', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
@@ -402,7 +399,7 @@ describe('monthlyBudgetInfoSelector', () => {
   it('should work for a 4 month long budget', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 2},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 400, startDate: new Date(2017, 0), endDate: new Date(2017, 3)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 400, startDate: new Date(2017, 0), endDate: new Date(2017, 3)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
@@ -427,7 +424,7 @@ describe('monthlyBudgetInfoSelector', () => {
   it('should work for a year and a half long budget', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 2},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1800, startDate: new Date(2017, 0), endDate: new Date(2018, 5)}], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1800, startDate: new Date(2017, 0), endDate: new Date(2018, 5)}, 
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1'},
@@ -452,10 +449,7 @@ describe('monthlyBudgetInfoSelector', () => {
   it('should consider multiple budgets', () => {
     const actual = monthlyBudgetInfoSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 2},
-      [
-        { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)},
-        { name: 'b', id: 'budget2', details: 'none', budgetAmount: 1000, startDate: new Date(2017, 0), endDate: new Date(2017, 11)}
-      ], 
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, startDate: new Date(2017, 0), endDate: new Date(2017, 11)},
       [
         { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
         { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 1), categoryId: 'cat1', budgetId: 'budget1'},
@@ -482,8 +476,8 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1300, 
-        startDate: new Date(2017, 0), endDate: new Date(2018, 0)}],
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1300, 
+        startDate: new Date(2017, 0), endDate: new Date(2018, 0)},
       moment([2017, 0])
     );
 
@@ -498,8 +492,8 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 0), endDate: new Date(2017, 11)}],
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
+        startDate: new Date(2017, 0), endDate: new Date(2017, 11)},
       moment([2017, 1])
     );
 
@@ -514,8 +508,8 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 0), endDate: new Date(2018, 11)}],
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
+        startDate: new Date(2017, 0), endDate: new Date(2018, 11)},
       moment([2017, 11])
     );
 
@@ -530,8 +524,8 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2016, month: 11},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 0), endDate: new Date(2017, 11)}],
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
+        startDate: new Date(2017, 0), endDate: new Date(2017, 11)},
       moment([2016, 11])
     );
 
@@ -546,8 +540,8 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2016, month: 0},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 0), endDate: new Date(2017, 11)}],
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
+        startDate: new Date(2017, 0), endDate: new Date(2017, 11)},
       moment([2016, 0])
     );
 
@@ -562,8 +556,8 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 1), endDate: new Date(2017, 1)}],
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
+        startDate: new Date(2017, 1), endDate: new Date(2017, 1)},
       moment([2017, 1])
     );
 
@@ -579,8 +573,8 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 1), endDate: new Date(2017, 2)}],
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
+        startDate: new Date(2017, 1), endDate: new Date(2017, 2)},
       moment([2017, 3])
     );
 
@@ -595,8 +589,8 @@ describe('calculatedBudgetAmountSelector', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(
       {budgetId: 'budget1', year: 2017, month: 1},
-      [{ name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
-        startDate: new Date(2017, 1), endDate: new Date(2017, 2)}],
+      { name: 'a', id: 'budget1', details: 'none', budgetAmount: 1200, 
+        startDate: new Date(2017, 1), endDate: new Date(2017, 2)},
       moment([2018, 2])
     );
 
@@ -721,4 +715,21 @@ describe('totalBudgetPieDataSelector', () => {
     ]);
   });
 
+});
+
+
+describe('getSelectedBudgetName', () => {
+
+  it('should return null when budget is null', () => {
+    const actual = getSelectedBudgetName.resultFunc(null);
+
+    expect(actual).toEqual(null);
+  });
+
+  it('should return name when budget isnt null', () => {
+    const actual = getSelectedBudgetName.resultFunc(
+      { name: 'abc', id: '', details: '', budgetAmount: 0, startDate: null, endDate: null});
+
+    expect(actual).toEqual('abc');
+  });
 });

@@ -8,8 +8,6 @@ Everyday:
 -Deploy at the end of each session assuming unit tests aren't breaking 
 and lint isn't failing.
 
--we are missing the budget name in the heading.  We need it to 
-distinguish between different budgets
 
 Should animate when:
 -Switching between 2 budgets
