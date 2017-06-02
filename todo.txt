@@ -1,10 +1,28 @@
 How to deploy to surge:
+-npm run build
 -cd into the dist directory 
 -surge --domain ng-budget.surge.sh
 
+Everyday:
+-Always have the unit tests running
+-Deploy at the end of each session assuming unit tests aren't breaking 
+and lint isn't failing.
 
--practice continuous deployment.  At the end of every session run
-your unit tests and if everything works then deploy to prod.  
+-we are missing the budget name in the heading.  We need it to 
+distinguish between different budgets
+
+Should animate when:
+-Switching between 2 budgets
+  -Make up or down transitions for the budgeting page 
+-Clicking previous or next month
+  -not sure if this is possible but if it could make the 
+  main screen completely move off screen from the left 
+  or the right.  depending on what I clicked
+-Going between the create budget screen and the budgeting page
+  -Have the create budget screen come up
+  -When you create or exit that screen the page should go down 
+-Editting a category 
+  -same transition as budget <> budgeting page transition 
 
 
 -when clicking on the category list button it should go to a new 
@@ -18,7 +36,7 @@ Either move it to the left hand side bar or put it on the top
 navigation bar. 
 -Have duplicate UI on the left hand nav and the budget list page.  
 Is there anyway to keep everything on the main budget page?
-
+-Bug: prevent nameless categories from being added
 
 
 -need to revisit my pie data setup.  I don't think using angular2 
