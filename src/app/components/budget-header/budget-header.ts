@@ -16,7 +16,5 @@ export class BudgetHeaderComponent {
   @Input() spentInTotal: number;
   @Input() spentThisMonth: number;
   @Input() getRunningSurplus: number;
-  @Output() previous: EventEmitter<any> = new EventEmitter();
-  @Output() next: EventEmitter<any> = new EventEmitter();
 
 }

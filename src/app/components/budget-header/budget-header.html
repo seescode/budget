@@ -1,9 +1,4 @@
 <md-list>
-    <!--<h1>
-    <span (click)="previous.emit()">&lt;&lt;</span> 
-    {{activeDate.month}} {{activeDate.year}} 
-    <span (click)="next.emit()">&gt;&gt;</span></h1>-->
-
  <span [class.red]="remainingTotalBudget < 0">Total budget: {{budgetAmount | currency:'USD':true:'1.2-2'}} = {{remainingTotalBudget | currency:'USD':true:'1.2-2'}} unspent
     + {{spentInTotal | currency:'USD':true:'1.2-2'}} spent</span>
   <md-progress-bar
