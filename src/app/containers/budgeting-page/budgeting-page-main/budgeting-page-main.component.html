@@ -3,5 +3,5 @@
   [spentThisMonth]="monthlyBudgetInfo.spent" [getRunningSurplus]="getRunningSurplus$ | async"></yb-budget-header>
 
 <yb-category *ngFor="let cat of categories$ | async" [categoryName]="cat.name" [categoryId]="cat.id" [total]="cat.amount"
-  (add)="addTransaction($event)"></yb-category>
+  (add)="addTransaction($event)" (edit)="editCategory($event)"></yb-category>
 

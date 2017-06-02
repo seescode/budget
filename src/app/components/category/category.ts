@@ -13,6 +13,7 @@ export class CategoryComponent {
   @Input() total: number;
   @ViewChild('amountInput') amountInput: ElementRef;
   @Output() add = new EventEmitter<Transaction>();
+  @Output() edit = new EventEmitter<string>();
 
   showAddTransaction = false;
 

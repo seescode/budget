@@ -91,10 +91,12 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     });
   }
 
+  editCategory(categoryName: string) {
+    this.router.navigate(['/edit-category', categoryName]);
+  }
 
   ngOnDestroy() {
     this.totalBudgetInfoSubscription.unsubscribe();
     this.monthlyBudgetInfoSubscription.unsubscribe();
   }
-
 }
