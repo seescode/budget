@@ -1,3 +1,12 @@
 <div class="example-scrolling-content">
-  list of budgets:
+  List of budgets:
+</div>
+
+<div *ngFor="let budget of budgets$ | async">
+  <span>{{budget.name}}</span>
+  <button (click)="openBudget(budget.id)">Open</button>
+</div>
+
+<div>
+<button routerLink="/create-budget">Create Budget</button>
 </div>
