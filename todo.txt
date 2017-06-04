@@ -8,30 +8,35 @@ Everyday:
 -Deploy at the end of each session assuming unit tests aren't breaking 
 and lint isn't failing.
 
+Plan:
+-implement edit category page 
+  -output all transactions for this category
+  -allow the ability to delete the category
+  -delete transaction
 
-
-Should animate when:
--Switching between 2 budgets
-  -Make up or down transitions for the budgeting page 
--Clicking previous or next month
-  -not sure if this is possible but if it could make the 
-  main screen completely move off screen from the left 
-  or the right.  depending on what I clicked
--Going between the create budget screen and the budgeting page
-  -Have the create budget screen come up
-  -When you create or exit that screen the page should go down 
--Editting a category 
-  -same transition as budget <> budgeting page transition 
-
-
--when clicking on the category list button it should go to a new 
-page.  Maybe you can enable some type of nice transition whenever
-you go to a new page.    
--when clicking on the create new budget button it should go to 
-a new page.  Add a cool transition.    
--Have duplicate UI on the left hand nav and the budget list page.  
-Is there anyway to keep everything on the main budget page?
 -Bug: prevent nameless categories from being added
+-prevent duplicate categories from being added 
+-unit test actions creator service 
+-prevent navigating to earlier months than begin date.  Same 
+with end date. 
+-prevent going ahead to months that are in the future. 
+-research how to do angular2 forms.
+-Use constants for your action types
+-write unit tests for reducers 
+-write unit tests for dumb components
+-write end to end tests instead of smart component unit tests 
+-implement exporting and importing budgets 
+
+
+
+
+Animate:
+-graphs should animate using d3
+-use fade in animation for changing budgets and going from 
+one month to the next month
+-when viewing transactions for a category have it come up from
+the bottom.  Alternatively fade in animation is fine too
+-when viewing create new budget screen fade in animation. 
 
 
 -need to revisit my pie data setup.  I don't think using angular2 
@@ -68,12 +73,8 @@ http://bl.ocks.org/dbuezas/9306799
 the d3 pie charts.  Expanded or collapsed.  Collapsed would 
 be a simple bar with colors.  No explanations at all.  
 
-
--make the header sticky
-
 -Add headings to the pie charts. 
 
--prevent duplicate categories from being added 
 
 
 -maybe in the future you can have 3 media query breakpoints:
@@ -88,31 +89,17 @@ be a simple bar with colors.  No explanations at all.
 
 
 
--need to spend some time learning material UI
-  -watch a video 
-  -do themes give you css related to fonts and link colors?
 
-
--unit test actions creator service 
--prevent navigating to earlier months than begin date.  Same 
-with end date. 
--prevent going ahead to months that are in the future. 
--research how to do angular2 forms.
--Use constants for your action types
 
 -Have the router prevent you from going to the 
 main budget page if you haven't created a budget 
 yet.  
 -Explore adding an interface to the action in the reducers 
--write unit tests for reducers 
--write unit tests for dumb components
--write end to end tests instead of smart component unit tests 
 
 -make keyboard accessible
 -make screenreader accessible
 
 -fix linting errors 
--implement exporting and importing budgets 
 -create protractor tests that create a budget from scratch and then creates
  transactions.  It verifies that the calculated values are correct at the top.
  Then destroys the budget.  

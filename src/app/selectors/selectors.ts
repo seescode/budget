@@ -35,6 +35,19 @@ export const budgetPageRouteSelector = createSelector(routerSelector,
     return val;
   });
 
+export const editCategoryRouteSelector = createSelector(routerSelector,
+  (routeInfo: any) => {
+
+    const routes = routeInfo.path.split('/');
+
+    if (routes[1] !== 'edit-category') {
+      return null;
+    }
+
+    // Category Id
+    return routes[2];
+  });
+
 export const everyCategoryTotalSelector = createSelector(budgetPageRouteSelector, categorySelector,
   transactionSelector, (route, categories, transactions) => {
 
@@ -226,4 +239,15 @@ export const totalBudgetPieDataSelector = createSelector(totalBudgetInfoSelector
       { label: 'Spent', amount: totalBudgetInfo.spent },
       { label: 'Remaining', amount: totalBudgetInfo.unspent }
     ];
+  });
+
+
+export const categoryTransactionsSelector = createSelector(editCategoryRouteSelector,
+  transactionSelector, (categoryId, transactions) => {
+
+    if (categoryId == null || transactions == null) {
+      return [];
+    }
+
+    return transactions.filter(trans => trans.categoryId === categoryId);
   });
