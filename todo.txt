@@ -9,10 +9,6 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--delete category and transactions from store
--redirect to main page 
--verify that everything really got deleted
--Bug: prevent nameless categories from being added
 -prevent duplicate categories from being added 
 
 

@@ -10,8 +10,13 @@ export class NewCategoryComponent {
   @Output() add = new EventEmitter<any>();
 
   addCategory(newCategoryName: string) {
+
+    if (newCategoryName.trim() === '') {
+      return;
+    }
+
     const newCategory: Category = {
-      name: newCategoryName
+      name: newCategoryName.trim()
     };
 
     this.add.emit(newCategory);
