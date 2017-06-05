@@ -1,68 +1,186 @@
-import { LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA_COMPLETE } from './../actions/actions';
-import { Loaded } from './../models/interfaces';
+import { LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET_COMPLETE,
+  UPDATE_BUDGET, ADD_CATEGORY_COMPLETE, UPDATE_CATEGORY, REMOVE_CATEGORY_COMPLETE } from './../actions/actions';
+import { Loaded, Budget, Category } from './../models/interfaces';
 /* tslint:disable */
-import { BudgetLoadedReducer } from './budget-loaded.reducer';
+import { CategoryReducer } from './category.reducer';
 
 
-describe('getBudgetingPageRoute', () => {
+describe('CategoryReducer', () => {
 
-  it('should handle null case', () => {
-    const state: Loaded = {
-      loadedBudgetInfo: false,
-      loadedBudgetIds: []
-    };
 
-    const actual = BudgetLoadedReducer(state, {
-      type: LOAD_BUDGET_COMPLETE
-    });
+  it('should add single category', () => {
 
-    const expected: Loaded = {
-      loadedBudgetInfo: true,
-      loadedBudgetIds: []
-    };
+    const state: Category[] = [];
 
-    expect(actual).toEqual(expected);
-  });
-
-  it('should handle single case', () => {
-    const state: Loaded = {
-      loadedBudgetInfo: true,
-      loadedBudgetIds: []
-    };
-
-    const actual = BudgetLoadedReducer(state, {
-      type: LOAD_BUDGET_DATA_COMPLETE,
+    const actual = CategoryReducer(state, {
+      type: ADD_CATEGORY_COMPLETE,
       payload: {
-        budgetId: '1'
+        name: 'a'
       }
     });
 
-    const expected: Loaded = {
-      loadedBudgetInfo: true,
-      loadedBudgetIds: ['1']
-    };
-
-    expect(actual).toEqual(expected);
+    expect(actual).toEqual([
+      {
+        name: 'a'
+      }
+    ]);
   });
 
-  it('should handle multi case', () => {
-    const state: Loaded = {
-      loadedBudgetInfo: true,
-      loadedBudgetIds: ['1']
-    };
 
-    const actual = BudgetLoadedReducer(state, {
-      type: LOAD_BUDGET_DATA_COMPLETE,
+  it('should add multi categories', () => {
+
+    const state: Category[] = [
+      {
+        name: 'a'
+      }
+    ];
+
+    const actual = CategoryReducer(state, {
+      type: ADD_CATEGORY_COMPLETE,
       payload: {
-        budgetId: '2'
+        name: 'b'
       }
     });
 
-    const expected: Loaded = {
-      loadedBudgetInfo: true,
-      loadedBudgetIds: ['1', '2']
-    };
+    expect(actual).toEqual([
+      {
+        name: 'a'
+      },
+      {
+        name: 'b'
+      }
+    ]);
 
-    expect(actual).toEqual(expected);
   });
+
+  it('should work for single when LOAD_BUDGET_DATA_COMPLETE', () => {
+
+    const state: Category[] = [];
+
+    const actual = CategoryReducer(state, {
+      type: LOAD_BUDGET_DATA_COMPLETE,
+      payload: {
+        categories: [
+          {
+            name: 'a'
+          }
+        ]
+      }
+    });
+
+    expect(actual).toEqual([
+      {
+        name: 'a'
+      }
+    ]);
+  });
+
+  it('should work for multiple when LOAD_BUDGET_DATA_COMPLETE', () => {
+
+    const state: Category[] = [{
+      name: 'a'
+    }];
+
+    const actual = CategoryReducer(state, {
+      type: LOAD_BUDGET_DATA_COMPLETE,
+      payload: {
+        categories: [
+          {
+            name: 'b'
+          },
+          {
+            name: 'c'
+          }
+        ]
+      }
+    });
+
+    expect(actual).toEqual([
+      {
+        name: 'a'
+      },
+      {
+        name: 'b'
+      },
+      {
+        name: 'c'
+      }
+    ]);
+  });
+
+  it('should work for multiple when UPDATE_CATEGORY', () => {
+
+    const state: Category[] = [
+      {
+        name: 'a',
+        id: '1'
+      },
+      {
+        name: 'b',
+        id: '2'
+      },
+      {
+        name: 'c',
+        id: '3'
+      }
+    ];
+
+    const actual = CategoryReducer(state, {
+      type: UPDATE_CATEGORY,
+      payload: {
+        name: 'bbb',
+        id: '2'
+      }
+    });
+
+    expect(actual).toEqual([
+      {
+        name: 'a',
+        id: '1'
+      },
+      {
+        name: 'bbb',
+        id: '2'
+      },
+      {
+        name: 'c',
+        id: '3'
+      }
+    ]);
+  });
+
+  it('should work for REMOVE_CATEGORY_COMPLETE', () => {
+
+    const state: Category[] = [
+      {
+        name: 'a',
+        id: '1'
+      },
+      {
+        name: 'b',
+        id: '2'
+      },
+      {
+        name: 'c',
+        id: '3'
+      }
+    ];
+
+    const actual = CategoryReducer(state, {
+      type: REMOVE_CATEGORY_COMPLETE,
+      payload: '2'
+    });
+
+    expect(actual).toEqual([
+      {
+        name: 'a',
+        id: '1'
+      },
+      {
+        name: 'c',
+        id: '3'
+      }
+    ]);
+  });
+  
 });
