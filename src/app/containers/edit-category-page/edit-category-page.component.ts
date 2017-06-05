@@ -1,3 +1,6 @@
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActionsCreatorService } from './../../actions/actionsCreatorService';
+import { REMOVE_TRANSACTION } from './../../actions/actions';
 import { categoryTransactionsSelector } from './../../selectors/selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from './../../reducers/index';
@@ -15,16 +18,30 @@ export class EditCategoryPageComponent implements OnInit {
 
   // TODO: must hook this up to the store
   transactions: Observable<Transaction[]>;
+  categoryId: string;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private actionCreators: ActionsCreatorService,
+    private activatedRoute: ActivatedRoute, private router: Router) {
     this.transactions = this.store.select(categoryTransactionsSelector);
   }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.categoryId = params['categoryId'];
+    });
   }
 
-  removeTransaction(transactionId: string) {
-    // todo must dispatch to remove transaction
+  removeTransaction(transaction: Transaction) {
+    const action = this.actionCreators.removeTransaction(transaction);
+    this.store.dispatch(action);
   }
 
+  removeCategory() {
+    const action = this.actionCreators.removeCategory(this.categoryId);
+    this.store.dispatch(action);
+
+    // need to get the budgetId, year, month from categoryId.  Uh oh, 
+    // year and month can't be inferred. 
+    this.router.navigate(['/budgeting', 'e9b7debf-8fd0-5723-88d2-eea181368bef', '2017', '6']);
+  }
 }

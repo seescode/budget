@@ -1,4 +1,4 @@
-import { ADD_TRANSACTION, LOAD_BUDGET_DATA, ADD_CATEGORY, ADD_BUDGET } from './actions';
+import { ADD_TRANSACTION, LOAD_BUDGET_DATA, ADD_CATEGORY, ADD_BUDGET, REMOVE_TRANSACTION, REMOVE_CATEGORY, REMOVE_CATEGORY_COMPLETE } from './actions';
 import { Transaction, Category, Budget } from './../models/interfaces';
 import { UUID } from 'angular2-uuid';
 import { Injectable } from '@angular/core';
@@ -38,6 +38,13 @@ export class ActionsCreatorService {
     };
   }
 
+  removeTransaction(transaction: any) {
+    return {
+      type: REMOVE_TRANSACTION,
+      payload: transaction
+    };
+  }
+
   loadBudgetData(budgetId: string) {
     return {
       type: LOAD_BUDGET_DATA,
@@ -47,14 +54,28 @@ export class ActionsCreatorService {
 
   addCategory(categoryName: string, budgetId: string) {
     const newCategory: Category = {
-        name: categoryName,
-        id: this.getUuid(),
-        budgetId: budgetId
+      name: categoryName,
+      id: this.getUuid(),
+      budgetId: budgetId
     };
 
     return {
       type: ADD_CATEGORY,
       payload: newCategory
+    };
+  }
+
+  removeCategory(categoryId: string) {
+    return {
+      type: REMOVE_CATEGORY,
+      payload: categoryId
+    };
+  }
+
+  removeCategoryComplete(categoryId: string) {
+    return {
+      type: REMOVE_CATEGORY_COMPLETE,
+      payload: categoryId
     };
   }
 

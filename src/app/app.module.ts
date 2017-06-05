@@ -1,6 +1,5 @@
 import { ActionsCreatorService } from './actions/actionsCreatorService';
 import { BudgetEffects } from './effects/budget.effects';
-import { CategoryTransactionsComponent } from './components/category-transactions/category-transactions';
 import { NewCategoryComponent } from './components/new-category/new-category';
 import { FormsModule } from '@angular/forms';
 import { CategoryComponent } from './components/category/category';
@@ -87,7 +86,6 @@ import { PieComponent } from './components/pie/pie.component';
     BudgetHeaderComponent,
     CategoryComponent,
     NewCategoryComponent,
-    CategoryTransactionsComponent,
     BudgetListPageComponent,
     CreateBudgetPageComponent,
     BudgetingPageComponent,

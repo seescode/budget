@@ -1,11 +1,12 @@
 <div>
   <h1>edit-category-page works!</h1>
+  <button (click)="removeCategory()">Delete this category</button>
 
   <div *ngFor="let trans of transactions | async">
     <span>{{trans.timestamp}}</span>
     <span>{{trans.name}}</span>
     <span>{{trans.amount}}</span>
-    <button (click)="removeTransaction(trans.id)">X</button>
+    <button (click)="removeTransaction(trans)">X</button>
   </div>
   
 </div>

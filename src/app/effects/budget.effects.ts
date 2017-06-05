@@ -1,14 +1,17 @@
+import { categoryTransactionsSelector } from './../selectors/selectors';
 import {
   LOAD_BUDGET, LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA, LOAD_BUDGET_DATA_FROM_CACHE,
   LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET, ADD_BUDGET_COMPLETE, ADD_CATEGORY,
   ADD_CATEGORY_COMPLETE, ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION, REMOVE_TRANSACTION_COMPLETE,
-  REMOVE_TRANSACTION
+  REMOVE_TRANSACTION, REMOVE_CATEGORY, REMOVE_CATEGORY_COMPLETE
 } from './../actions/actions';
 import { AppState } from './../reducers/index';
 import { Budget, Category, Transaction, Loaded } from './../models/interfaces';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/mergeMapTo';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
@@ -144,6 +147,25 @@ export class BudgetEffects {
 
       // TODO handle catches
       // .catch();
+    });
+
+  @Effect()
+  removeCategory$: Observable<Action> = this.actions$
+    .ofType(REMOVE_CATEGORY)
+    .map(toPayload)
+    .withLatestFrom(this.store.select(categoryTransactionsSelector))
+    .mergeMap(([categoryId, transactions]: [string, Transaction[]]) => {
+
+      const transactionIds = transactions.map(trans => trans.id);
+
+      return Observable.forkJoin(
+        this.db.executeWrite('category', 'delete', [categoryId]),
+        this.db.executeWrite('transaction', 'delete', transactionIds)
+        )
+        .mapTo({
+          type: REMOVE_CATEGORY_COMPLETE,
+          payload: categoryId
+        });
     });
 
   constructor(private actions$: Actions, private db: Database, private store: Store<AppState>) { }

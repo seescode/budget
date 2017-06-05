@@ -1,4 +1,4 @@
-import { ADD_CATEGORY_COMPLETE, LOAD_BUDGET_DATA_COMPLETE, UPDATE_CATEGORY } from './../actions/actions';
+import { ADD_CATEGORY_COMPLETE, LOAD_BUDGET_DATA_COMPLETE, UPDATE_CATEGORY, REMOVE_CATEGORY_COMPLETE } from './../actions/actions';
 import { Category } from './../models/interfaces';
 
 export function CategoryReducer(state: Category[] = [], action: any) {
@@ -15,7 +15,8 @@ export function CategoryReducer(state: Category[] = [], action: any) {
 
         return category;
       });
-
+    case REMOVE_CATEGORY_COMPLETE:
+      return state.filter(cat => cat.id !== action.payload);
     default:
       return state;
   }

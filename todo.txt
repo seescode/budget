@@ -9,13 +9,14 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--implement edit category page 
-  -output all transactions for this category
-  -allow the ability to delete the category
-  -delete transaction
-
+-delete category and transactions from store
+-redirect to main page 
+-verify that everything really got deleted
 -Bug: prevent nameless categories from being added
 -prevent duplicate categories from being added 
+
+
+
 -unit test actions creator service 
 -prevent navigating to earlier months than begin date.  Same 
 with end date. 
