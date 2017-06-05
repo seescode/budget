@@ -10,7 +10,8 @@ and lint isn't failing.
 
 Plan:
 -write unit tests for reducers 
-
+-need to make the delete category route to the budget page.  
+Right now it's hardcoded.  
 
 
 -prevent duplicate categories from being added 
