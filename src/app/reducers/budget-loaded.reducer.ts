@@ -14,7 +14,7 @@ const initialState: Loaded = {
  * @param {*} action
  * @returns
  */
-export function BudgetLoadedReducer(state: Loaded = initialState, action: any) {
+export function BudgetLoadedReducer(state: Loaded = initialState, action: any): Loaded {
   switch (action.type) {
     case LOAD_BUDGET_COMPLETE:
       return {

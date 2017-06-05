@@ -9,17 +9,17 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-write unit tests for reducers 
+
+
+
 -prevent duplicate categories from being added 
-
-
-
 -unit test actions creator service 
 -prevent navigating to earlier months than begin date.  Same 
 with end date. 
 -prevent going ahead to months that are in the future. 
 -research how to do angular2 forms.
 -Use constants for your action types
--write unit tests for reducers 
 -write unit tests for dumb components
 -write end to end tests instead of smart component unit tests 
 -implement exporting and importing budgets 
