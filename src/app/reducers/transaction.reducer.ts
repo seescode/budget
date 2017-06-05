@@ -1,5 +1,6 @@
 import { toPayload } from '@ngrx/effects';
-import { UPDATE_TRANSACTION, LOAD_BUDGET_DATA_COMPLETE, ADD_TRANSACTION_COMPLETE, REMOVE_TRANSACTION_COMPLETE, REMOVE_CATEGORY_COMPLETE } from './../actions/actions';
+import { UPDATE_TRANSACTION, LOAD_BUDGET_DATA_COMPLETE, ADD_TRANSACTION_COMPLETE, 
+  REMOVE_TRANSACTION_COMPLETE, REMOVE_CATEGORY_COMPLETE } from './../actions/actions';
 import { Transaction } from './../models/interfaces';
 
 export function TransactionReducer(state: Transaction[] = [], action: any) {

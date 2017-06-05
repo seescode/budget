@@ -11,7 +11,7 @@ export interface Category {
 }
 
 export interface Transaction {
-  name: string;
+  name?: string;
   id?: string;
   amount: number;
   timestamp?: Date;
