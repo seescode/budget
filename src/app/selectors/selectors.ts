@@ -48,6 +48,16 @@ export const editCategoryRouteSelector = createSelector(routerSelector,
     return routes[2];
   });
 
+export const categoriesForCurrentBudget = createSelector(budgetPageRouteSelector, categorySelector,
+  (route, categories) => {
+
+    if (route === null || route.budgetId == null) {
+      return null;
+    }
+
+    return categories.filter(cat => cat.budgetId === route.budgetId);
+  });
+
 export const everyCategoryTotalSelector = createSelector(budgetPageRouteSelector, categorySelector,
   transactionSelector, (route, categories, transactions) => {
 

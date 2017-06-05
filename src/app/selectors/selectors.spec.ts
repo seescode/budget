@@ -1,4 +1,4 @@
-import { monthlyBudgetPieDataSelector, totalBudgetPieDataSelector, getSelectedBudgetName, categoryTransactionsSelector } from './selectors';
+import { monthlyBudgetPieDataSelector, totalBudgetPieDataSelector, getSelectedBudgetName, categoryTransactionsSelector, categoriesForCurrentBudget } from './selectors';
 /* tslint:disable */
 
 import * as moment from 'moment';
@@ -36,6 +36,60 @@ describe('getBudgetingPageRoute', () => {
     expect(actual.year).toEqual(2017);
     expect(actual.month).toEqual(5);
   });
+});
+
+describe('categoriesForCurrentBudget', () => {
+
+  it('should handle zero categories', () => {
+    const actual = categoriesForCurrentBudget.resultFunc(
+      { budgetId: 'budget1', year: 2017, month: 1 }, []
+    );
+
+    expect(actual).toEqual([]);
+  });
+
+  it('should handle single category', () => {
+    const actual = categoriesForCurrentBudget.resultFunc(
+      { budgetId: 'budget1', year: 2017, month: 1 },
+      [{ name: 'a', id: 'cat1', budgetId: 'budget1' }]
+    );
+
+    expect(actual).toEqual([{ name: 'a', id: 'cat1', budgetId: 'budget1' }]);
+  });
+
+
+  it('should handle multiple categories', () => {
+    const actual = categoriesForCurrentBudget.resultFunc(
+      { budgetId: 'budget1', year: 2017, month: 1 },
+      [{ name: 'a', id: 'cat1', budgetId: 'budget1' },
+      { name: 'b', id: 'cat2', budgetId: 'budget1' }]
+    );
+
+    expect(actual).toEqual(
+      [{ name: 'a', id: 'cat1', budgetId: 'budget1' },
+      { name: 'b', id: 'cat2', budgetId: 'budget1' }]
+    );
+  });
+
+  it('should handle multiple budgets', () => {
+    const actual = categoriesForCurrentBudget.resultFunc(
+      { budgetId: 'budget2', year: 2017, month: 1 },
+      [
+        { name: 'a', id: 'cat1', budgetId: 'budget1' },
+        { name: 'b', id: 'cat2', budgetId: 'budget1' },
+        { name: 'c', id: 'cat3', budgetId: 'budget2' },
+        { name: 'd', id: 'cat4', budgetId: 'budget2' },
+        { name: 'e', id: 'cat5', budgetId: 'budget3' },
+        { name: 'f', id: 'cat6', budgetId: 'budget3' }
+      ]
+    );
+
+    expect(actual).toEqual(
+      [{ name: 'c', id: 'cat3', budgetId: 'budget2' },
+      { name: 'd', id: 'cat4', budgetId: 'budget2' }]
+    );
+  });
+
 });
 
 
