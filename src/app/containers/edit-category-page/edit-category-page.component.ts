@@ -7,6 +7,7 @@ import { AppState } from './../../reducers/index';
 import { Observable } from 'rxjs/Observable';
 import { Transaction } from './../../models/interfaces';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'yb-edit-category-page',
@@ -21,7 +22,7 @@ export class EditCategoryPageComponent implements OnInit {
   categoryId: string;
 
   constructor(private store: Store<AppState>, private actionCreators: ActionsCreatorService,
-    private activatedRoute: ActivatedRoute, private router: Router) {
+    private activatedRoute: ActivatedRoute, private location: Location) {
     this.transactions = this.store.select(categoryTransactionsSelector);
   }
 
@@ -42,6 +43,12 @@ export class EditCategoryPageComponent implements OnInit {
 
     // need to get the budgetId, year, month from categoryId.  Uh oh, 
     // year and month can't be inferred. 
-    this.router.navigate(['/budgeting', 'e9b7debf-8fd0-5723-88d2-eea181368bef', '2017', '6']);
+
+    this.location.back();
+    // this.router.navigate(['/budgeting', 'e9b7debf-8fd0-5723-88d2-eea181368bef', '2017', '6']);
+  }
+
+  back() {
+    this.location.back();
   }
 }

@@ -158,10 +158,18 @@ export class BudgetEffects {
 
       const transactionIds = transactions.map(trans => trans.id);
 
+      if (transactionIds.length === 0) {
+        return this.db.executeWrite('category', 'delete', [categoryId])
+          .mapTo({
+            type: REMOVE_CATEGORY_COMPLETE,
+            payload: categoryId
+          });
+      }
+
       return Observable.forkJoin(
         this.db.executeWrite('category', 'delete', [categoryId]),
         this.db.executeWrite('transaction', 'delete', transactionIds)
-        )
+      )
         .mapTo({
           type: REMOVE_CATEGORY_COMPLETE,
           payload: categoryId

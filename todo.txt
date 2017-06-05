@@ -9,12 +9,21 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--write unit tests for reducers 
--need to make the delete category route to the budget page.  
-Right now it's hardcoded.  
-
-
 -prevent duplicate categories from being added 
+-write end to end tests instead of smart component unit tests 
+  -start with a blank empty budget and create 2 budgets from 
+  scratch 
+  -Add categories and transactions to both budgets
+  -Go to the next month and add some more transactions
+  -Check that the numbers are good
+  -Make sure refresh works  
+  -Delete transactions
+  -Delete categories 
+  -Delete budgets
+
+
+
+-write unit tests for side effects
 -unit test actions creator service 
 -prevent navigating to earlier months than begin date.  Same 
 with end date. 
@@ -22,7 +31,6 @@ with end date.
 -research how to do angular2 forms.
 -Use constants for your action types
 -write unit tests for dumb components
--write end to end tests instead of smart component unit tests 
 -implement exporting and importing budgets 
 
 
