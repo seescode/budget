@@ -20,9 +20,19 @@ export class PieComponent implements OnInit, OnDestroy {
 
   updateSubscription: Subscription;
 
+  svg: any;
+
   constructor() { }
 
   ngOnInit() {
+    this.svg = d3.select('.chart')
+      .append('svg')
+      .attr('width', this.width)
+      .attr('height', this.height)
+      .append('g')
+      .attr('transform', 'translate(' + (this.width / 2) +
+      ',' + (this.height / 2) + ')');
+
     this.render();
 
     if (this.update != null) {
@@ -45,13 +55,6 @@ export class PieComponent implements OnInit, OnDestroy {
 
     const color = d3.scaleOrdinal(d3.schemeCategory20b);
 
-    const svg = d3.select('.chart')
-      .append('svg')
-      .attr('width', this.width)
-      .attr('height', this.height)
-      .append('g')
-      .attr('transform', 'translate(' + (this.width / 2) +
-      ',' + (this.height / 2) + ')');
 
     const arc: any = d3.arc()
       .innerRadius(radius - this.ringWidth)
@@ -65,7 +68,7 @@ export class PieComponent implements OnInit, OnDestroy {
       .value(function (d: any) { return d.amount; })
       .sort(null);
 
-    const path = svg.selectAll('path')
+    const path = this.svg.selectAll('path')
       .data(pie(this.dataset))
       .enter()
       .append('path')
@@ -74,12 +77,12 @@ export class PieComponent implements OnInit, OnDestroy {
         return color(d.data.label);
       });
 
-    const legend = svg.selectAll('.legend')
+    const legend = this.svg.selectAll('.legend')
       .data(color.domain())
       .enter()
       .append('g')
       .attr('class', 'legend')
-      .attr('transform', (d, i) => {
+      .attr('transform', (d: any, i: any) => {
         const height = legendRectSize + legendSpacing;
         const offset = height * color.domain().length / 2;
         const horz = -2 * legendRectSize;
@@ -96,9 +99,9 @@ export class PieComponent implements OnInit, OnDestroy {
     legend.append('text')
       .attr('x', legendRectSize + legendSpacing)
       .attr('y', legendRectSize - legendSpacing)
-      .text(function (d) { return d; });
+      .text(function (d: any) { return d; });
 
-    const g = svg.selectAll('.arc')
+    const g = this.svg.selectAll('.arc')
       .data(pie(this.dataset))
       .enter().append('g')
       .attr('class', 'arc');

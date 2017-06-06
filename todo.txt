@@ -9,6 +9,17 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-need to learn d3.
+  -need to decompose the ideas one by one. Too many things happening
+  in d3.  Use jsfiddle.net to learn. 
+  -create a pie chart
+  -have the pie chart dynamically update (using enter and exit)
+  -create a donut chart
+  -add some numbers to the donut chart 
+  -add some squares to the donut chart 
+  -add some text to each square in the donut chart
+
+
 -research how to do angular2 forms.
 -fix pie chart 
 -write end to end tests instead of smart component unit tests 
