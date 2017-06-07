@@ -9,8 +9,6 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--label your pie charts
--research how to do angular2 forms.
 -write end to end tests instead of smart component unit tests 
   -start with a blank empty budget and create 2 budgets from 
   scratch 
@@ -21,7 +19,10 @@ Plan:
   -Delete transactions
   -Delete categories 
   -Delete budgets
+-group the end to end tests in a logical manner
 -implement exporting and importing budgets 
+-label your pie charts
+-research how to do angular2 forms.
 
 
 

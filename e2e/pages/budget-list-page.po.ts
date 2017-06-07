@@ -1,11 +1,12 @@
 import { browser, element, by } from 'protractor';
 
-export class ExampleAppPage {
+export class BudgetListPage {
+
   navigateTo() {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getCreateBudgetButton() {
+    return element(by.css('#create-budget'));
   }
 }

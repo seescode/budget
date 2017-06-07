@@ -2,13 +2,15 @@
   Please select a Budget
 </h1>
 
-<div *ngFor="let budget of budgets$ | async">
+<div 
+  class="budget"
+  *ngFor="let budget of budgets$ | async">
   <span>{{budget.name}}</span>
-  <button (click)="openBudget(budget.id)">Open</button>
-  <button>Delete</button>
-  <button>Make Default</button>
+  <button class="open" (click)="openBudget(budget.id)">Open</button>
+  <button class="delete">Delete</button>
+  <button class="make-default">Make Default</button>
 </div>
 
 <div>
-<button routerLink="/create-budget">Create Budget</button>
+<button id="create-budget" routerLink="/create-budget">Create Budget</button>
 </div>
