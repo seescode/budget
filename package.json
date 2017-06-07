@@ -9,6 +9,7 @@
     "lint": "ng lint --fix",
     "test": "ng test --code-coverage",
     "e2e": "ng e2e",
+    "4300": "ng serve --port=4300",
     "build": "ng build --prod"
   },
   "repository": {
