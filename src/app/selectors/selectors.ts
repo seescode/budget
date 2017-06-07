@@ -241,6 +241,8 @@ export const monthlyBudgetPieDataSelector = createSelector(monthlyBudgetInfoSele
 export const totalBudgetPieDataSelector = createSelector(totalBudgetInfoSelector,
   (totalBudgetInfo) => {
 
+    console.log('selector', totalBudgetInfo);
+
     if (totalBudgetInfo == null) {
       return [];
     }

@@ -16,6 +16,7 @@ export class BudgetingPageRightNavComponent implements OnInit {
   monthlyBudgetPieData$: Observable<PieData[]>;
 
   renderPie: EventEmitter<any> = new EventEmitter<any>();
+  renderPie2: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private store: Store<AppState>) {
   }
@@ -25,8 +26,15 @@ export class BudgetingPageRightNavComponent implements OnInit {
     this.monthlyBudgetPieData$ = this.store.select(monthlyBudgetPieDataSelector);
 
     this.totalBudgetPieData$.subscribe(n => {
-      this.renderPie.emit();
+      this.renderPie.emit(n);
     });
+
+    this.monthlyBudgetPieData$.subscribe(n => {
+      this.renderPie2.emit(n);
+    });
+
+
+
   }
 
 

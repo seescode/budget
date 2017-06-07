@@ -9,19 +9,8 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--need to learn d3.
-  -need to decompose the ideas one by one. Too many things happening
-  in d3.  Use jsfiddle.net to learn. 
-  -create a pie chart
-  -have the pie chart dynamically update (using enter and exit)
-  -create a donut chart
-  -add some numbers to the donut chart 
-  -add some squares to the donut chart 
-  -add some text to each square in the donut chart
-
-
+-label your pie charts
 -research how to do angular2 forms.
--fix pie chart 
 -write end to end tests instead of smart component unit tests 
   -start with a blank empty budget and create 2 budgets from 
   scratch 
@@ -32,6 +21,7 @@ Plan:
   -Delete transactions
   -Delete categories 
   -Delete budgets
+-implement exporting and importing budgets 
 
 
 
@@ -42,7 +32,6 @@ with end date.
 -prevent going ahead to months that are in the future. 
 -Use constants for your action types
 -write unit tests for dumb components
--implement exporting and importing budgets 
 -need to write a ton of documentation
 
 
@@ -56,10 +45,6 @@ the bottom.  Alternatively fade in animation is fine too
 -when viewing create new budget screen fade in animation. 
 
 
--need to revisit my pie data setup.  I don't think using angular2 
-to rerender the data makes any sense.  You're going to have to do
-it the d3 way with the enter, update, exit crap.  
-
 read
 -https://bost.ocks.org/mike/join/
 -https://bost.ocks.org/mike/circles/
@@ -67,30 +52,8 @@ read
 -https://bost.ocks.org/mike/d3/workshop/#33
 
 
-pie 
--Add labels to each slice of the pie.  Have the label say the 
- amount in dollars
-  -https://bl.ocks.org/mbostock/3887235
--Bind to the real data   
-  -update the ngrx selectors 
--Animate!  
-  -any time you add a new transaction have it update 
-
 
 -https://material.io/icons/
-
-
-
--create 2 d3 pie charts: one for total budget and the other 
-one for monthly budget which would also include in it the 
-surplus.  You could also get fancy with the total budget 
-pie chart for each month to have a unique color.  
-http://bl.ocks.org/dbuezas/9306799
--we should have a small button that switches the view of 
-the d3 pie charts.  Expanded or collapsed.  Collapsed would 
-be a simple bar with colors.  No explanations at all.  
-
--Add headings to the pie charts. 
 
 
 
@@ -98,14 +61,6 @@ be a simple bar with colors.  No explanations at all.
   -desktop: would show both side navs
   -tablet: would only show the reporting nav 
   -phone: would show no navs
-
-
-
-
--https://material.io/icons/
-
-
-
 
 
 -Have the router prevent you from going to the 
