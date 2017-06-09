@@ -1,7 +1,9 @@
 <div class="category-line">
   <div class="category">
     <span>
-      <md-icon (click)="edit.emit(categoryId)" class="view-transactions-button">view_list</md-icon> {{categoryName}}: {{total | currency:'USD':true:'1.2-2'}}
+      <md-icon (click)="edit.emit(categoryId)" class="view-transactions-button">view_list</md-icon> 
+      <span class="category-name">{{categoryName}}</span>: 
+      <span class="category-amount">{{total | currency:'USD':true:'1.2-2'}}</span>
     </span>
   </div>
   <div class="new-transaction">

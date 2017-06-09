@@ -1,4 +1,4 @@
 <div>
-  New Category Name: <input type="text" #newCategoryName>
-  <md-icon (click)="addCategory(newCategoryName.value)">add_box</md-icon>
+  New Category Name: <input class="new-category-name" type="text" [(ngModel)]="name">
+  <md-icon class="add-new-category" (click)="addCategory()">add_box</md-icon>
 </div>

@@ -19,15 +19,32 @@ describe('App', function () {
     const createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
     createBudgetPageCreateButton.click();
 
+    // TODO move this to the pages file
     const openButtons = element.all(by.css('.open'));
 
     expect(openButtons.count()).toBe(1);
   });
 
   it('should be able to create multiple categories', () => {
+    const openButtons = element(by.css('.open'));
+    openButtons.click();
+
+    const newCategoryName = element(by.css('.new-category-name'));
+    newCategoryName.sendKeys('Food');
+    const categoryButton = element(by.css('.add-new-category'));
+    categoryButton.click();
+    newCategoryName.sendKeys('Gas');
+    categoryButton.click();
+
+    const categoryName = element.all(by.css('.category-name'));
+
+    expect(categoryName.get(0).getText()).toBe('Food');
+    expect(categoryName.get(1).getText()).toBe('Gas');
   });
+
   it('should be able to create multiple transactions', () => {
   });
+  
   it('should be able to delete multiple transactions', () => {
   });
 
