@@ -1,5 +1,5 @@
-import { monthlyBudgetPieDataSelector, totalBudgetPieDataSelector, getSelectedBudgetName, categoryTransactionsSelector, categoriesForCurrentBudget } from './selectors';
-/* tslint:disable */
+import { monthlyBudgetPieDataSelector, totalBudgetPieDataSelector, getSelectedBudgetName, 
+  categoryTransactionsSelector, categoriesForCurrentBudget } from './selectors';
 
 import * as moment from 'moment';
 
@@ -812,7 +812,7 @@ describe('categoryTransactionsSelector', () => {
     expect([]).toEqual(categoryTransactionsSelector.resultFunc(null, null));
   });
 
-  it('should return transactiosn for selected categoryId', () => {
+  it('should return transactions for selected categoryId and current month', () => {
 
     const actual = categoryTransactionsSelector.resultFunc('c',
       [

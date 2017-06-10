@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from './../../../reducers/index';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {MdSnackBar} from '@angular/material';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'yb-budgeting-page-main',
@@ -32,6 +32,7 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
   totalBudgetInfo: TotalBudgetInfo;
   monthlyBudgetInfoSubscription: Subscription;
   monthlyBudgetInfo: any;
+  selectedCategoryId: string;
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
     private router: Router, private actionsCreatorService: ActionsCreatorService,
@@ -60,6 +61,8 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
         month: parseInt(params['month']),
         year: parseInt(params['year'])
       };
+
+      this.selectedCategoryId = params['category'];
 
       this.store.dispatch(this.actionsCreatorService.loadBudgetData(this.budgetId));
     });
@@ -94,8 +97,18 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     });
   }
 
-  editCategory(categoryName: string) {
-    this.router.navigate(['/edit-category', categoryName]);
+  editCategory(categoryId: string) {
+
+    if (this.selectedCategoryId === categoryId) {
+      // Toggle off the selected category
+      this.router.navigate(['/budgeting', this.budgetId, this.selectedMonthAndYear$.year,
+        this.selectedMonthAndYear$.month]);
+    } else {
+      this.router.navigate(['/budgeting', this.budgetId, this.selectedMonthAndYear$.year,
+        this.selectedMonthAndYear$.month, {
+          category: categoryId
+        }]);
+    }
   }
 
   ngOnDestroy() {

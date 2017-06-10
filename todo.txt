@@ -9,6 +9,37 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-update category transactions selector to only show current month not everything
+-In the store keep track of when a category has been toggled or not 
+-When category is toggled have it just ngIf a new component that says 
+hi
+-Update the new component to contain the previous edit category page code. 
+-Update the new component html to display as a table of data. 
+-setup delete transaction snackbar 
+-Stop showing add new transaction info and instead show a delete category 
+button.
+-delete category should have a popup that appears asking for confirmation
+
+
+
+
+-When you click edit category button 
+  -a new component will suddenly drop down below the currently clicked 
+  category.  (No url changes, but need to keep track in store this flag)
+  -This component will list all transactions for this selected month sorted
+  from latest to newest.  
+  (Bug right now the selector is getting for whole history)
+  -Component will list like so (maybe in a table):
+    -heading: amount, name, delete 
+	-amount, name, Trash icon
+  -Stop showing add new transaction info and instead show a delete category 
+  button.
+  -delete category should have a popup that 
+  appears asking for confirmation
+  -delete transaction should have a snackbar that let's you undo the delete. 
+  -When switching budgets you must remember to clear the flag. 
+  -cool feature: have the ability to move a transaction to a previous or next month.
+  So just add <, > buttons per row that do this.  
 -write end to end tests instead of smart component unit tests 
   -start with a blank empty budget and create 2 budgets from 
   scratch 
@@ -73,9 +104,6 @@ yet.
 -make screenreader accessible
 
 -fix linting errors 
--create protractor tests that create a budget from scratch and then creates
- transactions.  It verifies that the calculated values are correct at the top.
- Then destroys the budget.  
 -Have travisci or circleci run protractor tests and unit tests before it deploys
  using surge.
 -prevent writing to master (require doing PRs to master)
