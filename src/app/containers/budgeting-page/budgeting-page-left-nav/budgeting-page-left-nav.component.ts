@@ -48,7 +48,6 @@ export class BudgetingPageLeftNavComponent implements OnInit, OnDestroy {
   addCategory(categoryName: Category) {
 
     if (this.categoriesForCurrentBudget.find(cat => cat.name === categoryName.name)) {
-      console.log('category already exists');
       return;
     }
 

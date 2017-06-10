@@ -101,7 +101,6 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
       this.rightNavDisplayMode = 'side';
       this.leftNavOpened = 'true';
       this.rightNavOpened = 'true';
-      console.log('side', width);
     }
   }
 

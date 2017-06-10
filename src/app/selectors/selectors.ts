@@ -13,10 +13,6 @@ export const getCurrentMonth = () => {
   return moment([new Date().getFullYear(), new Date().getMonth() + 1]);
 };
 
-// We are assuming the route contains
-//  -budgetId
-//  -year
-//  -month
 export const budgetPageRouteSelector = createSelector(routerSelector,
   (routeInfo: any) => {
 
@@ -26,15 +22,26 @@ export const budgetPageRouteSelector = createSelector(routerSelector,
       return null;
     }
 
+    const lastSegment = routes[4].split(';');
+    const month = parseInt(lastSegment[0]);
+
+    let categoryId = '';
+
+    if (lastSegment[1] != null) {
+      categoryId = lastSegment[1].replace('category=', '');
+    }
+
     const val = {
       budgetId: routes[2],
       year: parseInt(routes[3]),
-      month: parseInt(routes[4])
+      month: month,
+      categoryId: categoryId
     };
 
     return val;
   });
 
+// TODO: delete me
 export const editCategoryRouteSelector = createSelector(routerSelector,
   (routeInfo: any) => {
 
@@ -56,6 +63,24 @@ export const categoriesForCurrentBudget = createSelector(budgetPageRouteSelector
     }
 
     return categories.filter(cat => cat.budgetId === route.budgetId);
+  });
+
+export const categoriesWithTransactions = createSelector(budgetPageRouteSelector, categorySelector,
+  transactionSelector, (route, categories, transactions) => {
+
+    if (route === null || route.budgetId == null) {
+      return null;
+    }
+
+    return categories
+      .filter(cat => cat.budgetId === route.budgetId)
+      .map(cat => ({
+        ...cat,
+        transactions: transactions
+          .filter(t => t.categoryId === cat.id &&
+            t.timestamp.getFullYear() === route.year &&
+            t.timestamp.getMonth() === route.month - 1)
+      }));
   });
 
 export const everyCategoryTotalSelector = createSelector(budgetPageRouteSelector, categorySelector,
@@ -240,9 +265,6 @@ export const monthlyBudgetPieDataSelector = createSelector(monthlyBudgetInfoSele
 
 export const totalBudgetPieDataSelector = createSelector(totalBudgetInfoSelector,
   (totalBudgetInfo) => {
-
-    console.log('selector', totalBudgetInfo);
-
     if (totalBudgetInfo == null) {
       return [];
     }

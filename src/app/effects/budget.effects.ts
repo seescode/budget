@@ -56,8 +56,6 @@ export class BudgetEffects {
     .withLatestFrom(this.store.select(s => s.budgetLoaded))
     .mergeMap(([budgetId, budgetLoaded]: [string, Loaded]) => {
 
-      console.log('LOAD_BUDGET_DATA');
-
       if (budgetLoaded.loadedBudgetIds.find(bId => bId === budgetId) != null) {
         return Observable.from([{
           type: LOAD_BUDGET_DATA_FROM_CACHE

@@ -142,7 +142,6 @@ export class PieComponent implements OnInit, OnDestroy {
   }
 
   render(data: any) {
-    console.log('render fired', data);
     this.renderPieSlices(data);
     this.renderLegend(data);
   }
