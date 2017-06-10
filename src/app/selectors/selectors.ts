@@ -83,24 +83,21 @@ export const categoriesWithTransactions = createSelector(budgetPageRouteSelector
       }));
   });
 
-export const everyCategoryTotalSelector = createSelector(budgetPageRouteSelector, categorySelector,
-  transactionSelector, (route, categories, transactions) => {
+export const everyCategoryTotalSelector = createSelector(categoriesWithTransactions,
+  budgetPageRouteSelector, (categoriesWithTrans, route) => {
 
-    if (route === null || route.budgetId == null) {
-      return null;
+    if (route === null || route.budgetId == null || categoriesWithTrans === null) {
+      return [];
     }
 
-    return categories
-      .filter(cat => cat.budgetId === route.budgetId)
+    return categoriesWithTrans
       .map(cat => ({
         ...cat,
-        amount: transactions
-          .filter(t => t.categoryId === cat.id &&
-            t.timestamp.getFullYear() === route.year &&
-            t.timestamp.getMonth() === route.month - 1)
+        amount: cat.transactions
           .reduce((prev, next) => {
             return prev + next.amount;
-          }, 0)
+          }, 0),
+        transactions: cat.id === route.categoryId ? cat.transactions : []
       }));
   });
 

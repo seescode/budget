@@ -1,3 +1,4 @@
+import { categoriesWithTransactions } from './../selectors';
 import {
   monthlyBudgetPieDataSelector, totalBudgetPieDataSelector, getSelectedBudgetName,
   categoryTransactionsSelector, categoriesForCurrentBudget
@@ -66,11 +67,10 @@ describe('categoriesForCurrentBudget', () => {
 
 });
 
-
-describe('everyCategoryTotalSelector', () => {
+describe('categoriesWithTransactions', () => {
 
   it('should handle zero categories', () => {
-    const actual = everyCategoryTotalSelector.resultFunc(
+    const actual = categoriesWithTransactions.resultFunc(
       { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' }, [], []
     );
 
@@ -78,7 +78,7 @@ describe('everyCategoryTotalSelector', () => {
   });
 
   it('should handle single category', () => {
-    const actual = everyCategoryTotalSelector.resultFunc(
+    const actual = categoriesWithTransactions.resultFunc(
       { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' },
       [{ name: 'a', id: 'cat1', budgetId: 'budget1' }],
       [
@@ -92,13 +92,16 @@ describe('everyCategoryTotalSelector', () => {
         name: 'a',
         id: 'cat1',
         budgetId: 'budget1',
-        amount: 100
+        transactions: [
+          { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+          { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' }
+        ]
       }
     ]);
   });
 
   it('should only calculate based on current date', () => {
-    const actual = everyCategoryTotalSelector.resultFunc(
+    const actual = categoriesWithTransactions.resultFunc(
       { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' },
       [{ name: 'a', id: 'cat1', budgetId: 'budget1' }],
       [
@@ -114,14 +117,17 @@ describe('everyCategoryTotalSelector', () => {
         name: 'a',
         id: 'cat1',
         budgetId: 'budget1',
-        amount: 100
+        transactions: [
+          { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+          { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+        ]
       }
     ]);
   });
 
 
   it('should handle multiple categories', () => {
-    const actual = everyCategoryTotalSelector.resultFunc(
+    const actual = categoriesWithTransactions.resultFunc(
       { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' },
       [
         { name: 'a', id: 'cat1', budgetId: 'budget1' },
@@ -140,19 +146,25 @@ describe('everyCategoryTotalSelector', () => {
         name: 'a',
         id: 'cat1',
         budgetId: 'budget1',
-        amount: 100
+        transactions: [
+          { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+          { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+        ]
       },
       {
         name: 'b',
         id: 'cat2',
         budgetId: 'budget1',
-        amount: 10
+        transactions: [
+          { name: '3', id: '3', amount: 5, timestamp: new Date(2017, 0), categoryId: 'cat2', budgetId: 'budget1' },
+          { name: '4', id: '4', amount: 5, timestamp: new Date(2017, 0), categoryId: 'cat2', budgetId: 'budget1' }
+        ]
       },
     ]);
   });
 
   it('should handle multiple budgets', () => {
-    const actual = everyCategoryTotalSelector.resultFunc(
+    const actual = categoriesWithTransactions.resultFunc(
       { budgetId: 'budget2', year: 2017, month: 1, categoryId: '' },
       [
         { name: 'a', id: 'cat1', budgetId: 'budget1' },
@@ -177,19 +189,25 @@ describe('everyCategoryTotalSelector', () => {
         name: 'a',
         id: 'cat3',
         budgetId: 'budget2',
-        amount: 6
+        transactions: [
+          { name: '5', id: '5', amount: 3, timestamp: new Date(2017, 0), categoryId: 'cat3', budgetId: 'budget2' },
+          { name: '6', id: '6', amount: 3, timestamp: new Date(2017, 0), categoryId: 'cat3', budgetId: 'budget2' }
+        ]
       },
       {
         name: 'b',
         id: 'cat4',
         budgetId: 'budget2',
-        amount: 2
+        transactions: [
+          { name: '7', id: '7', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' },
+          { name: '8', id: '8', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' }
+        ]
       },
     ]);
   });
 
   it('should handle everything', () => {
-    const actual = everyCategoryTotalSelector.resultFunc(
+    const actual = categoriesWithTransactions.resultFunc(
       { budgetId: 'budget2', year: 2017, month: 1, categoryId: '' },
       [
         { name: 'a', id: 'cat1', budgetId: 'budget1' },
@@ -216,19 +234,279 @@ describe('everyCategoryTotalSelector', () => {
         name: 'a',
         id: 'cat3',
         budgetId: 'budget2',
-        amount: 6
+        transactions: [
+          { name: '5', id: '5', amount: 3, timestamp: new Date(2017, 0), categoryId: 'cat3', budgetId: 'budget2' },
+          { name: '6', id: '6', amount: 3, timestamp: new Date(2017, 0), categoryId: 'cat3', budgetId: 'budget2' },
+        ]
       },
       {
         name: 'b',
         id: 'cat4',
         budgetId: 'budget2',
-        amount: 1
+        transactions: [
+          { name: '7', id: '7', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' },
+        ]
       },
       {
         name: 'c',
         id: 'cat5',
         budgetId: 'budget2',
-        amount: 0
+        transactions: []
+      }
+    ]);
+  });
+
+});
+
+
+describe('everyCategoryTotalSelector', () => {
+
+  it('should handle zero categories', () => {
+    expect(everyCategoryTotalSelector.resultFunc(null, { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' })).toEqual([]);
+    expect(everyCategoryTotalSelector.resultFunc([], { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' })).toEqual([]);
+  });
+
+  it('should handle single category', () => {
+    const actual = everyCategoryTotalSelector.resultFunc(
+      [
+        {
+          name: 'a',
+          id: 'cat1',
+          budgetId: 'budget1',
+          transactions: [
+            { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+            { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' }
+          ]
+        }
+      ],
+      { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' }
+    );
+
+    expect(actual).toEqual([
+      {
+        name: 'a',
+        id: 'cat1',
+        budgetId: 'budget1',
+        amount: 100,
+        transactions: []
+      }
+    ]);
+  });
+
+  it('should only calculate based on current date', () => {
+    const actual = everyCategoryTotalSelector.resultFunc(
+      [
+        {
+          name: 'a',
+          id: 'cat1',
+          budgetId: 'budget1',
+          transactions: [
+            { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+            { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+          ]
+        }
+      ],
+      { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' },
+    );
+
+    expect(actual).toEqual([
+      {
+        name: 'a',
+        id: 'cat1',
+        budgetId: 'budget1',
+        amount: 100,
+        transactions: []
+      }
+    ]);
+  });
+
+
+  it('should handle multiple categories', () => {
+    const actual = everyCategoryTotalSelector.resultFunc(
+      [
+        {
+          name: 'a',
+          id: 'cat1',
+          budgetId: 'budget1',
+          transactions: [
+            { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+            { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+          ]
+        },
+        {
+          name: 'b',
+          id: 'cat2',
+          budgetId: 'budget1',
+          transactions: [
+            { name: '3', id: '3', amount: 5, timestamp: new Date(2017, 0), categoryId: 'cat2', budgetId: 'budget1' },
+            { name: '4', id: '4', amount: 5, timestamp: new Date(2017, 0), categoryId: 'cat2', budgetId: 'budget1' }
+          ]
+        },
+      ],
+      { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' },
+    );
+
+    expect(actual).toEqual([
+      {
+        name: 'a',
+        id: 'cat1',
+        budgetId: 'budget1',
+        amount: 100,
+        transactions: []
+      },
+      {
+        name: 'b',
+        id: 'cat2',
+        budgetId: 'budget1',
+        amount: 10,
+        transactions: []
+      },
+    ]);
+  });
+
+  it('should handle one category selected', () => {
+    const actual = everyCategoryTotalSelector.resultFunc(
+      [
+        {
+          name: 'a',
+          id: 'cat1',
+          budgetId: 'budget1',
+          transactions: [
+            { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+            { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+          ]
+        },
+        {
+          name: 'b',
+          id: 'cat2',
+          budgetId: 'budget1',
+          transactions: [
+            { name: '3', id: '3', amount: 5, timestamp: new Date(2017, 0), categoryId: 'cat2', budgetId: 'budget1' },
+            { name: '4', id: '4', amount: 5, timestamp: new Date(2017, 0), categoryId: 'cat2', budgetId: 'budget1' }
+          ]
+        },
+      ],
+      { budgetId: 'budget1', year: 2017, month: 1, categoryId: 'cat1' },
+    );
+
+    expect(actual).toEqual([
+      {
+        name: 'a',
+        id: 'cat1',
+        budgetId: 'budget1',
+        amount: 100,
+        transactions: [
+          { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+          { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
+        ]
+      },
+      {
+        name: 'b',
+        id: 'cat2',
+        budgetId: 'budget1',
+        amount: 10,
+        transactions: []
+      },
+    ]);
+  });
+
+  it('should handle multiple budgets', () => {
+    const actual = everyCategoryTotalSelector.resultFunc(
+      [
+        {
+          name: 'a',
+          id: 'cat3',
+          budgetId: 'budget2',
+          transactions: [
+            { name: '5', id: '5', amount: 3, timestamp: new Date(2017, 0), categoryId: 'cat3', budgetId: 'budget2' },
+            { name: '6', id: '6', amount: 3, timestamp: new Date(2017, 0), categoryId: 'cat3', budgetId: 'budget2' }
+          ]
+        },
+        {
+          name: 'b',
+          id: 'cat4',
+          budgetId: 'budget2',
+          transactions: [
+            { name: '7', id: '7', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' },
+            { name: '8', id: '8', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' }
+          ]
+        },
+      ],
+      { budgetId: 'budget2', year: 2017, month: 1, categoryId: 'cat4' },
+    );
+
+    expect(actual).toEqual([
+      {
+        name: 'a',
+        id: 'cat3',
+        budgetId: 'budget2',
+        amount: 6,
+        transactions: []
+      },
+      {
+        name: 'b',
+        id: 'cat4',
+        budgetId: 'budget2',
+        amount: 2,
+        transactions: [
+          { name: '7', id: '7', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' },
+          { name: '8', id: '8', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' }
+        ]
+      },
+    ]);
+  });
+
+  it('should handle everything', () => {
+    const actual = everyCategoryTotalSelector.resultFunc(
+      [
+        {
+          name: 'a',
+          id: 'cat3',
+          budgetId: 'budget2',
+          transactions: [
+            { name: '5', id: '5', amount: 3, timestamp: new Date(2017, 0), categoryId: 'cat3', budgetId: 'budget2' },
+            { name: '6', id: '6', amount: 3, timestamp: new Date(2017, 0), categoryId: 'cat3', budgetId: 'budget2' },
+          ]
+        },
+        {
+          name: 'b',
+          id: 'cat4',
+          budgetId: 'budget2',
+          transactions: [
+            { name: '7', id: '7', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' },
+          ]
+        },
+        {
+          name: 'c',
+          id: 'cat5',
+          budgetId: 'budget2',
+          transactions: []
+        }
+      ],
+      { budgetId: 'budget2', year: 2017, month: 1, categoryId: 'cat5' },
+    );
+
+    expect(actual).toEqual([
+      {
+        name: 'a',
+        id: 'cat3',
+        budgetId: 'budget2',
+        amount: 6,
+        transactions: []
+      },
+      {
+        name: 'b',
+        id: 'cat4',
+        budgetId: 'budget2',
+        amount: 1,
+        transactions: []
+      },
+      {
+        name: 'c',
+        id: 'cat5',
+        budgetId: 'budget2',
+        amount: 0,
+        transactions: []
       }
     ]);
   });
