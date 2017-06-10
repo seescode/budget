@@ -72,7 +72,10 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     this.store.dispatch(action);
 
     const instance = this.snackBar.open('Added Transaction', 'Undo', {
-      duration: 5000,
+      // TODO: this should be 5000 but to make e2e tests run faster I set to 500
+      // There must be a way to have this be configurable to be shorter during a
+      // e2e test.
+      duration: 500,
     });
 
     const onActionSubscription = instance.onAction().subscribe(() => {

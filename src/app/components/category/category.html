@@ -8,11 +8,17 @@
   </div>
   <div class="new-transaction">
     <md-input-container>
-      <input #amountInput mdInput placeholder="Amount" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount">
+      <input #amountInput mdInput placeholder="Amount" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount"
+        ngClass="transaction-amount-for-{{categoryName}}">
     </md-input-container>
     <md-input-container>
-      <input #amountName mdInput placeholder="Name" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="name">
+      <input #amountName mdInput placeholder="Name" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="name"
+        ngClass="transaction-name-for-{{categoryName}}">
     </md-input-container>
-    <md-icon class="new-transaction-button" (click)="addTransaction(amountInput.value, amountName.value)">add_box</md-icon>
+    <md-icon class="new-transaction-button" 
+            ngClass="submit-transaction-for-{{categoryName}}"
+            (click)="addTransaction(amountInput.value, amountName.value)">
+            add_box
+    </md-icon>
   </div>
 </div>

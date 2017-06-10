@@ -43,7 +43,24 @@ describe('App', function () {
     expect(categoryName.get(1).getText()).toBe('Gas');
   });
 
-  it('should be able to create multiple transactions', () => {
+  it('should update category totals when adding transactions', () => {
+    budgetingPage.addNewTransaction('Food', 1, 'Chicken');
+    budgetingPage.addNewTransaction('Food', 2, 'Chicken');
+    budgetingPage.addNewTransaction('Food', 3, 'Beef');
+    budgetingPage.addNewTransaction('Food', 4);
+
+    budgetingPage.addNewTransaction('Gas', 10, 'NYC');
+    budgetingPage.addNewTransaction('Gas', 20);
+    budgetingPage.addNewTransaction('Gas', 30);
+    budgetingPage.addNewTransaction('Gas', 40);
+
+    const categoryAmounts = budgetingPage.getCategoryAmounts();
+
+    expect(categoryAmounts.get(0).getText()).toBe('$10.00');
+    expect(categoryAmounts.get(1).getText()).toBe('$100.00');
+  });
+
+  it('should be able to view transactions in category view', () => {
   });
 
   it('should be able to delete multiple transactions', () => {
@@ -53,9 +70,6 @@ describe('App', function () {
   });
 
   it('should update pie graph', () => {
-  });
-
-  it('should update category total', () => {
   });
 
   it('should be able to go to previous and next month and create transactions', () => {
