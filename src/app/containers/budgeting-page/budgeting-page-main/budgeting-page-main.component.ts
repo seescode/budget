@@ -36,7 +36,7 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
     private router: Router, private actionsCreatorService: ActionsCreatorService,
-    private snackBar: MdSnackBar) {
+    private snackBar: MdSnackBar, private actionCreators: ActionsCreatorService,) {
     this.categories$ = this.store.select(everyCategoryTotalSelector);
     this.totalBudgetInfoSubscription = this.store.select(totalBudgetInfoSelector)
       .subscribe(info => {
@@ -110,6 +110,18 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
         }]);
     }
   }
+
+  removeTransaction(transaction: Transaction) {
+    const action = this.actionCreators.removeTransaction(transaction);
+    this.store.dispatch(action);
+  }
+
+  removeCategory() {
+    const action = this.actionCreators.removeCategory(this.selectedCategoryId);
+    this.store.dispatch(action);
+
+    //TODO: remove the category for the url if it's the same one that got deleted
+  }  
 
   ngOnDestroy() {
     this.totalBudgetInfoSubscription.unsubscribe();

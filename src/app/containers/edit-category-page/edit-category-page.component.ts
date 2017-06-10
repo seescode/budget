@@ -27,28 +27,7 @@ export class EditCategoryPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      this.categoryId = params['categoryId'];
-    });
   }
 
-  removeTransaction(transaction: Transaction) {
-    const action = this.actionCreators.removeTransaction(transaction);
-    this.store.dispatch(action);
-  }
 
-  removeCategory() {
-    const action = this.actionCreators.removeCategory(this.categoryId);
-    this.store.dispatch(action);
-
-    // need to get the budgetId, year, month from categoryId.  Uh oh, 
-    // year and month can't be inferred. 
-
-    this.location.back();
-    // this.router.navigate(['/budgeting', 'e9b7debf-8fd0-5723-88d2-eea181368bef', '2017', '6']);
-  }
-
-  back() {
-    this.location.back();
-  }
 }

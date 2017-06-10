@@ -9,23 +9,19 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--update category transactions selector to only show current month not everything
--In the store keep track of when a category has been toggled or not 
--When category is toggled have it just ngIf a new component that says 
-hi
--Update the new component to contain the previous edit category page code. 
--Update the new component html to display as a table of data. 
 -setup delete transaction snackbar 
--Stop showing add new transaction info and instead show a delete category 
-button.
+-only show delete category when all transactions for that category in this 
+month have been deleted. Explicitedly word is so it says delete category.
+Most likely scenario where you would delete a category would be by making
+it by mistake.  
 -delete category should have a popup that appears asking for confirmation
-
+-delete editCategoryRouteSelector and the category page and route
+-when you create a category use the snackbar to allow you to undo. 
+-do better styling for your transactions table 
 
 
 
 -When you click edit category button 
-  -a new component will suddenly drop down below the currently clicked 
-  category.  (No url changes, but need to keep track in store this flag)
   -This component will list all transactions for this selected month sorted
   from latest to newest.  
   (Bug right now the selector is getting for whole history)

@@ -2,11 +2,12 @@
   <div class="category">
     <span>
       <md-icon (click)="edit.emit(categoryId)" class="view-transactions-button">view_list</md-icon> 
-      <span class="category-name">{{categoryName}}</span>: 
-      <span class="category-amount">{{total | currency:'USD':true:'1.2-2'}}</span>
+      <span class="category-name">{{categoryName}}</span>:
+    <span class="category-amount">{{total | currency:'USD':true:'1.2-2'}}</span>
     </span>
   </div>
-  <div class="new-transaction">
+
+  <div *ngIf="transactions.length === 0" class="new-transaction">
     <md-input-container>
       <input #amountInput mdInput placeholder="Amount" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount"
         ngClass="transaction-amount-for-{{categoryName}}">
@@ -15,10 +16,21 @@
       <input #amountName mdInput placeholder="Name" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="name"
         ngClass="transaction-name-for-{{categoryName}}">
     </md-input-container>
-    <md-icon class="new-transaction-button" 
-            ngClass="submit-transaction-for-{{categoryName}}"
-            (click)="addTransaction(amountInput.value, amountName.value)">
-            add_box
+    <md-icon class="new-transaction-button" ngClass="submit-transaction-for-{{categoryName}}" (click)="addTransaction(amountInput.value, amountName.value)">
+      add_box
     </md-icon>
   </div>
 </div>
+
+<table *ngIf="transactions.length > 0">
+  <tr>
+    <th>Amount</th>
+    <th>Name</th>
+    <th>Delete</th>
+  </tr>
+  <tr *ngFor="let transaction of transactions">
+    <td>{{transaction.amount | currency:'USD':true:'1.2-2'}}</td>
+    <td>{{transaction.name}}</td>
+    <td><md-icon (click)="removeTransaction.emit(transaction)">delete_forever</md-icon></td>
+  </tr>
+</table>

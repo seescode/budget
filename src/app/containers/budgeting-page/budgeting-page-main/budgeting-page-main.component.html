@@ -2,6 +2,13 @@
   [remainingTotalBudget]="totalBudgetInfo.unspent" [remainingMonthlyBudget]="monthlyBudgetInfo.unspent" [spentInTotal]="totalBudgetInfo.spent"
   [spentThisMonth]="monthlyBudgetInfo.spent" [getRunningSurplus]="getRunningSurplus$ | async"></yb-budget-header>
 
-<yb-category *ngFor="let cat of categories$ | async" [categoryName]="cat.name" [categoryId]="cat.id" [total]="cat.amount"
-  (add)="addTransaction($event)" (edit)="editCategory($event)"></yb-category>
+<yb-category *ngFor="let cat of categories$ | async" 
+  [categoryName]="cat.name" 
+  [categoryId]="cat.id" 
+  [total]="cat.amount"
+  [transactions]="cat.transactions" 
+  (add)="addTransaction($event)" 
+  (removeTransaction)="removeTransaction($event)"
+  (removeCategory)="removeCategory($event)"  
+  (edit)="editCategory($event)"></yb-category>
 

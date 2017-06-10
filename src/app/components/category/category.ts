@@ -10,10 +10,14 @@ import { Transaction, ActiveDate } from './../../models/interfaces';
 export class CategoryComponent {
   @Input() categoryName: string;
   @Input() categoryId: string;
+  @Input() transactions: Transaction[];
   @Input() total: number;
   @ViewChild('amountInput') amountInput: ElementRef;
   @Output() add = new EventEmitter<Transaction>();
   @Output() edit = new EventEmitter<string>();
+  @Output() removeTransaction = new EventEmitter<Transaction>();
+  @Output() removeCategory = new EventEmitter<void>();
+
 
   showAddTransaction = false;
 
@@ -39,4 +43,6 @@ export class CategoryComponent {
       this.add.emit(newTransaction);
     }
   }
+
+
 }
