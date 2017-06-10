@@ -1,11 +1,18 @@
-// import { browser, element, by } from 'protractor';
+import { browser, element, by, ElementFinder, promise, ElementArrayFinder } from 'protractor';
 
-// export class ExampleAppPage {
-//   navigateTo() {
-//     return browser.get('/');
-//   }
+export class BudgetingPage {
 
-//   getParagraphText() {
-//     return element(by.css('app-root h1')).getText();
-//   }
-// }
+
+  addNewCategory(categoryName: string) {
+    const newCategoryName = element(by.css('.new-category-name'));
+    newCategoryName.sendKeys(categoryName);
+
+    const categoryButton = element(by.css('.add-new-category'));
+    categoryButton.click();
+  }
+
+  getCategoryNames() {
+    return element.all(by.css('.category-name'));
+  }
+  
+}

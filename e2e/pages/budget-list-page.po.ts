@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ElementFinder, promise, ElementArrayFinder } from 'protractor';
 
 export class BudgetListPage {
 
@@ -9,4 +9,9 @@ export class BudgetListPage {
   getCreateBudgetButton() {
     return element(by.css('#create-budget'));
   }
+
+  getOpenButtons() {
+    return element.all(by.css('.open'));
+  }
+  
 }

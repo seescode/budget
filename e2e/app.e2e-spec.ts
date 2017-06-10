@@ -1,14 +1,18 @@
 import { browser, element, by } from 'protractor';
 import { CreateBudgetPage } from './pages/create-budget-page.po';
 import { BudgetListPage } from './pages/budget-list-page.po';
+import { BudgetingPage } from './pages/budgeting-page.po';
+
 
 describe('App', function () {
   let budgetListPage: BudgetListPage;
   let createBudgetPage: CreateBudgetPage;
+  let budgetingPage: BudgetingPage;
 
   beforeEach(() => {
     budgetListPage = new BudgetListPage();
     createBudgetPage = new CreateBudgetPage();
+    budgetingPage = new BudgetingPage();
   });
 
   it('should be able to create a budget', () => {
@@ -19,24 +23,21 @@ describe('App', function () {
     const createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
     createBudgetPageCreateButton.click();
 
-    // TODO move this to the pages file
-    const openButtons = element.all(by.css('.open'));
+    const openButtons = budgetListPage.getOpenButtons();
 
     expect(openButtons.count()).toBe(1);
   });
 
   it('should be able to create multiple categories', () => {
-    const openButtons = element(by.css('.open'));
+
+
+    const openButtons = budgetListPage.getOpenButtons();
     openButtons.click();
 
-    const newCategoryName = element(by.css('.new-category-name'));
-    newCategoryName.sendKeys('Food');
-    const categoryButton = element(by.css('.add-new-category'));
-    categoryButton.click();
-    newCategoryName.sendKeys('Gas');
-    categoryButton.click();
+    budgetingPage.addNewCategory('Food');
+    budgetingPage.addNewCategory('Gas');
 
-    const categoryName = element.all(by.css('.category-name'));
+    const categoryName = budgetingPage.getCategoryNames();
 
     expect(categoryName.get(0).getText()).toBe('Food');
     expect(categoryName.get(1).getText()).toBe('Gas');
@@ -44,7 +45,7 @@ describe('App', function () {
 
   it('should be able to create multiple transactions', () => {
   });
-  
+
   it('should be able to delete multiple transactions', () => {
   });
 
