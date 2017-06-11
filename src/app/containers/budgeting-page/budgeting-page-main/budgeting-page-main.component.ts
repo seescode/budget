@@ -122,8 +122,8 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     this.openSnackbar(action, 'Removed Transaction', 5000, ADD_TRANSACTION);
   }
 
-  removeCategory() {
-    const action = this.actionCreators.removeCategory(this.selectedCategoryId);
+  removeCategory(categoryId: string) {
+    const action = this.actionCreators.removeCategory(categoryId);
     this.store.dispatch(action);
 
     //TODO: remove the category for the url if it's the same one that got deleted

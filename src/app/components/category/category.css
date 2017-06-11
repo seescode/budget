@@ -17,9 +17,21 @@
   top: 5px;
 }
 
+.delete-category {
+  position: relative;
+  top: -15px;
+}
+
+
+.delete-category-button {
+  position: relative;
+  top: 5px;
+}
+
 .delete-transaction-button {
   text-align: center;
 }
+
 
 input {
   width: 100px;

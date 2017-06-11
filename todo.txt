@@ -9,16 +9,7 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--only show delete category when all transactions for that category in this 
-month have been deleted. Explicitedly word is so it says delete category.
-Most likely scenario where you would delete a category would be by making
-it by mistake.  
--delete category should have a popup that appears asking for confirmation
 -delete editCategoryRouteSelector and the category page and route
--when you create a category use the snackbar to allow you to undo. 
--do better styling for your transactions table 
-
-
 
 -When you click edit category button 
   -This component will list all transactions for this selected month sorted
@@ -109,3 +100,5 @@ yet.
 -use css resets
 -use consistent font throughout the app. 
 -fix double scrollbar issue 
+-refactor category component to take in the whole object rather than passing 
+sub properties off of the whole object. 

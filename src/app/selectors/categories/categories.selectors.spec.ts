@@ -288,7 +288,8 @@ describe('everyCategoryTotalSelector', () => {
         id: 'cat1',
         budgetId: 'budget1',
         amount: 100,
-        transactions: []
+        transactions: [],
+        selected: false
       }
     ]);
   });
@@ -315,7 +316,8 @@ describe('everyCategoryTotalSelector', () => {
         id: 'cat1',
         budgetId: 'budget1',
         amount: 100,
-        transactions: []
+        transactions: [],
+        selected: false
       }
     ]);
   });
@@ -352,14 +354,16 @@ describe('everyCategoryTotalSelector', () => {
         id: 'cat1',
         budgetId: 'budget1',
         amount: 100,
-        transactions: []
+        transactions: [],
+        selected: false
       },
       {
         name: 'b',
         id: 'cat2',
         budgetId: 'budget1',
         amount: 10,
-        transactions: []
+        transactions: [],
+        selected: false
       },
     ]);
   });
@@ -398,14 +402,16 @@ describe('everyCategoryTotalSelector', () => {
         transactions: [
           { name: '1', id: '1', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
           { name: '2', id: '2', amount: 50, timestamp: new Date(2017, 0), categoryId: 'cat1', budgetId: 'budget1' },
-        ]
+        ],
+        selected: true
       },
       {
         name: 'b',
         id: 'cat2',
         budgetId: 'budget1',
         amount: 10,
-        transactions: []
+        transactions: [],
+        selected: false
       },
     ]);
   });
@@ -441,7 +447,8 @@ describe('everyCategoryTotalSelector', () => {
         id: 'cat3',
         budgetId: 'budget2',
         amount: 6,
-        transactions: []
+        transactions: [],
+        selected: false
       },
       {
         name: 'b',
@@ -451,7 +458,8 @@ describe('everyCategoryTotalSelector', () => {
         transactions: [
           { name: '7', id: '7', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' },
           { name: '8', id: '8', amount: 1, timestamp: new Date(2017, 0), categoryId: 'cat4', budgetId: 'budget2' }
-        ]
+        ],
+        selected: true
       },
     ]);
   });
@@ -492,21 +500,24 @@ describe('everyCategoryTotalSelector', () => {
         id: 'cat3',
         budgetId: 'budget2',
         amount: 6,
-        transactions: []
+        transactions: [],
+        selected: false
       },
       {
         name: 'b',
         id: 'cat4',
         budgetId: 'budget2',
         amount: 1,
-        transactions: []
+        transactions: [],
+        selected: false
       },
       {
         name: 'c',
         id: 'cat5',
         budgetId: 'budget2',
         amount: 0,
-        transactions: []
+        transactions: [],
+        selected: true
       }
     ]);
   });

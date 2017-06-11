@@ -7,7 +7,7 @@
     </span>
   </div>
 
-  <div *ngIf="transactions.length === 0" class="new-transaction">
+  <div *ngIf="!selected" class="new-transaction">
     <md-input-container>
       <input #amountInput mdInput placeholder="Amount" (keypress)="onKeyPress($event, amountInput.value, amountName.value)" name="amount"
         ngClass="transaction-amount-for-{{categoryName}}">
@@ -34,3 +34,7 @@
     <td class="delete-transaction-button"><md-icon (click)="removeTransaction.emit(transaction)">delete_forever</md-icon></td>
   </tr>
 </table>
+
+<div *ngIf="total === 0 && selected">  
+  Delete Category Forever <md-icon  (click)="openConfirmation()" class="delete-category-button">delete_forever</md-icon>
+</div>

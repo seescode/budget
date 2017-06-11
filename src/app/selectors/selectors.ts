@@ -97,7 +97,8 @@ export const everyCategoryTotalSelector = createSelector(categoriesWithTransacti
           .reduce((prev, next) => {
             return prev + next.amount;
           }, 0),
-        transactions: cat.id === route.categoryId ? cat.transactions : []
+        transactions: cat.id === route.categoryId ? cat.transactions : [],
+        selected: cat.id === route.categoryId
       }));
   });
 
