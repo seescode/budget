@@ -27,6 +27,10 @@ export class BudgetingPage {
     return element.all(by.css('.existing-transaction-name-for-' + categoryName));
   }
 
+  getCategoryTransactionDeleteButtons() {
+    return element.all(by.css('.delete-transaction-button'));
+  }
+
   getBudgetH1Title() {
     return element(by.css('h1'));
   }
@@ -65,7 +69,11 @@ export class BudgetingPage {
     submit.click();
   }
 
-  undoTransaction() {
+  undoCreateTransaction() {
+    this.clickSnackBar();
+  }
+
+  undoDeleteTransaction() {
     this.clickSnackBar();
   }
 

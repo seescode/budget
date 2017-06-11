@@ -192,7 +192,7 @@ describe('App', function () {
     expect(categoryAmounts.get(1).getText()).toBe('$0.00');
 
     // Click undo and verify that we don't see the removed transaction
-    budgetingPage.undoTransaction();
+    budgetingPage.undoCreateTransaction();
     categoryAmounts = budgetingPage.getCategoryAmounts();
     expect(categoryAmounts.get(0).getText()).toBe('$10.00');
     expect(categoryAmounts.get(1).getText()).toBe('$0.00');
@@ -209,6 +209,60 @@ describe('App', function () {
 
 
   it('should be able to delete multiple transactions', () => {
+
+    // delete first transaction
+    let deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
+
+    deleteButtons.get(0).click();
+    let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+
+    expect(amounts.get(0).getText()).toBe('$2.00');
+    expect(amounts.get(1).getText()).toBe('$3.00');
+    expect(amounts.get(2).getText()).toBe('$4.00');
+
+    let categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$9.00');
+
+
+    // delete second transaction
+    deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
+
+    deleteButtons.get(0).click();
+    amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+
+    expect(amounts.get(0).getText()).toBe('$3.00');
+    expect(amounts.get(1).getText()).toBe('$4.00');
+
+    categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$7.00');
+
+  });
+
+
+  it('should be able to undo transaction delete', () => {
+
+    // delete second transaction
+    const deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
+
+    deleteButtons.get(0).click();
+    let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+
+    expect(amounts.get(0).getText()).toBe('$4.00');
+
+    let categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$4.00');
+
+    // undo delete
+    budgetingPage.undoDeleteTransaction();
+
+    amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+
+    expect(amounts.get(0).getText()).toBe('$4.00');
+    expect(amounts.get(1).getText()).toBe('$3.00');
+
+    categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$7.00');
+
   });
 
   it('should be able to delete multiple categories', () => {

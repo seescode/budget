@@ -9,12 +9,13 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-research how to do angular2 forms.
 -write e2e tests 
+
 -remove heading that shows budget totals 
 -group the end to end tests in a logical manner
 -implement exporting and importing budgets 
 -label your pie charts
--research how to do angular2 forms.
 
 
 -have add new category button work with keyboard (enter key)
