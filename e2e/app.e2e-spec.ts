@@ -44,10 +44,10 @@ describe('App', function () {
   });
 
   it('should update category totals when adding transactions', () => {
-    budgetingPage.addNewTransaction('Food', 1, 'Chicken');
-    budgetingPage.addNewTransaction('Food', 2, 'Chicken');
-    budgetingPage.addNewTransaction('Food', 3, 'Beef');
-    budgetingPage.addNewTransaction('Food', 4);
+    budgetingPage.addNewTransaction('Food', .01, 'Chicken');
+    budgetingPage.addNewTransaction('Food', .02, 'Chicken');
+    budgetingPage.addNewTransaction('Food', .03, 'Beef');
+    budgetingPage.addNewTransaction('Food', .04);
 
     budgetingPage.addNewTransaction('Gas', 10, 'NYC');
     budgetingPage.addNewTransaction('Gas', 20);
@@ -56,11 +56,56 @@ describe('App', function () {
 
     const categoryAmounts = budgetingPage.getCategoryAmounts();
 
-    expect(categoryAmounts.get(0).getText()).toBe('$10.00');
+    expect(categoryAmounts.get(0).getText()).toBe('$0.10');
     expect(categoryAmounts.get(1).getText()).toBe('$100.00');
   });
 
   it('should be able to view transactions in category view', () => {
+
+    budgetingPage.toggleTransactionsForCategory('Food');
+    let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+
+    expect(amounts.get(0).getText()).toBe('$0.01');
+    expect(amounts.get(1).getText()).toBe('$0.02');
+    expect(amounts.get(2).getText()).toBe('$0.03');
+    expect(amounts.get(3).getText()).toBe('$0.04');
+
+    amounts = budgetingPage.getCategoryTransactionAmounts('Gas');
+    expect(amounts.count()).toBe(0);
+
+    let names = budgetingPage.getCategoryTransactionNames('Food');
+
+    expect(names.get(0).getText()).toBe('Chicken');
+    expect(names.get(1).getText()).toBe('Chicken');
+    expect(names.get(2).getText()).toBe('Beef');
+    expect(names.get(3).getText()).toBe('');
+
+    names = budgetingPage.getCategoryTransactionNames('Gas');
+    expect(names.count()).toBe(0);
+  });
+
+  it('should be able to view another set of transactions', () => {
+    budgetingPage.toggleTransactionsForCategory('Gas');
+    let amounts = budgetingPage.getCategoryTransactionAmounts('Gas');
+
+    expect(amounts.get(0).getText()).toBe('$10.00');
+    expect(amounts.get(1).getText()).toBe('$20.00');
+    expect(amounts.get(2).getText()).toBe('$30.00');
+    expect(amounts.get(3).getText()).toBe('$40.00');
+
+    amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+    expect(amounts.count()).toBe(0);
+
+    let names = budgetingPage.getCategoryTransactionNames('Gas');
+
+    expect(names.get(0).getText()).toBe('NYC');
+    expect(names.get(1).getText()).toBe('');
+    expect(names.get(2).getText()).toBe('');
+    expect(names.get(3).getText()).toBe('');
+
+    names = budgetingPage.getCategoryTransactionNames('Food');
+    expect(names.count()).toBe(0);
+
   });
 
   it('should be able to delete multiple transactions', () => {

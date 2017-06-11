@@ -19,6 +19,14 @@ export class BudgetingPage {
     return element.all(by.css('.category-amount'));
   }
 
+  getCategoryTransactionAmounts(categoryName: string) {
+    return element.all(by.css('.existing-transaction-amount-for-' + categoryName));
+  }
+
+  getCategoryTransactionNames(categoryName: string) {
+    return element.all(by.css('.existing-transaction-name-for-' + categoryName));
+  }
+
   addNewTransaction(categoryName: string, transactionAmount: number, transactionName?: string) {
 
     const amountTextbox = element(by.css('.transaction-amount-for-' + categoryName));
@@ -30,6 +38,11 @@ export class BudgetingPage {
     }
 
     const submit = element(by.css('.submit-transaction-for-' + categoryName));
+    submit.click();
+  }
+
+  toggleTransactionsForCategory(categoryName: string) {
+    const submit = element(by.css('.view-transactions-button-for-' + categoryName));
     submit.click();
   }
 }

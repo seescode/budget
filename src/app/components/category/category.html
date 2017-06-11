@@ -1,7 +1,8 @@
 <div class="category-line">
   <div class="category">
     <span>
-      <md-icon (click)="edit.emit(categoryId)" class="view-transactions-button">view_list</md-icon> 
+      <md-icon (click)="edit.emit(categoryId)" class="view-transactions-button"
+        ngClass="view-transactions-button-for-{{categoryName}}">view_list</md-icon> 
       <span class="category-name">{{categoryName}}</span>:
     <span class="category-amount">{{total | currency:'USD':true:'1.2-2'}}</span>
     </span>
@@ -29,8 +30,8 @@
     <th>Delete</th>
   </tr>
   <tr *ngFor="let transaction of transactions">
-    <td>{{transaction.amount | currency:'USD':true:'1.2-2'}}</td>
-    <td>{{transaction.name}}</td>
+    <td ngClass="existing-transaction-amount-for-{{categoryName}}">{{transaction.amount | currency:'USD':true:'1.2-2'}}</td>
+    <td ngClass="existing-transaction-name-for-{{categoryName}}">{{transaction.name}}</td>
     <td class="delete-transaction-button"><md-icon (click)="removeTransaction.emit(transaction)">delete_forever</md-icon></td>
   </tr>
 </table>
