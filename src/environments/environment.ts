@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  snackBarDuration: 500
+  snackBarDuration: 5000
 };

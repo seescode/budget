@@ -65,6 +65,7 @@ describe('App', function () {
     budgetingPage.addNewTransaction('Gas', 30);
     budgetingPage.addNewTransaction('Gas', 40);
 
+
     const categoryAmounts = budgetingPage.getCategoryAmounts();
 
     expect(categoryAmounts.get(0).getText()).toBe('$0.10');
@@ -117,6 +118,24 @@ describe('App', function () {
     names = budgetingPage.getCategoryTransactionNames('Food');
     expect(names.count()).toBe(0);
   });
+
+  it('should be able to refresh the app', () => {
+    browser.refresh();
+    const currentMonth = getCurrentMonth();
+
+    const month = currentMonth.format('MMMM');
+    const year = currentMonth.format('YYYY');
+
+    // verify today's year and month
+    const title = budgetingPage.getBudgetH1Title();
+    expect(title.getText()).toBe(month + ' ' + year + ' budget 2');
+
+    const categoryAmounts = budgetingPage.getCategoryAmounts();
+
+    expect(categoryAmounts.get(0).getText()).toBe('$0.10');
+    expect(categoryAmounts.get(1).getText()).toBe('$100.00');
+  });
+  
 
   it('should be able to go to previous month', () => {
 
@@ -174,6 +193,9 @@ describe('App', function () {
     amounts = budgetingPage.getCategoryTransactionAmounts('Gas');
     expect(amounts.count()).toBe(0);
   });
+
+
+
 
   it('should be able to create and undo transaction', () => {
     budgetingPage.addNewTransaction('Food', 1);
@@ -265,14 +287,47 @@ describe('App', function () {
 
   });
 
-  it('should be able to delete multiple categories', () => {
+  it('should attempt to delete category', () => {
+    let categoryNames = budgetingPage.getCategoryNames();
+    expect(categoryNames.count()).toBe(2);
+
+    // delete remaining transactions
+    let deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
+    deleteButtons.get(0).click();
+    deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
+    deleteButtons.get(0).click();
+
+    budgetingPage.attemptDeleteCategory();
+
+    categoryNames = budgetingPage.getCategoryNames();
+    expect(categoryNames.count()).toBe(2);
   });
+
+  it('should be able to delete multiple categories', () => {
+
+    budgetingPage.toggleTransactionsForCategory('Gas');
+
+    budgetingPage.attemptDeleteCategory();
+    budgetingPage.confirmDelete();
+
+    let categoryNames = budgetingPage.getCategoryNames();
+    expect(categoryNames.get(0).getText()).toBe('Food');
+
+    budgetingPage.toggleTransactionsForCategory('Food');
+
+    budgetingPage.attemptDeleteCategory();
+    budgetingPage.confirmDelete();
+
+    categoryNames = budgetingPage.getCategoryNames();
+    expect(categoryNames.count()).toBe(0);
+
+  });
+
+
 
   it('should update pie graph', () => {
   });
 
-  it('should be able to refresh the app', () => {
-  });
 
   it('should be able to create a second budget', () => {
     // Just create one similiarly named category and one transaction.

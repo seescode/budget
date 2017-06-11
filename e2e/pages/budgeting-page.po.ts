@@ -54,6 +54,13 @@ export class BudgetingPage {
     submit.click();
   }
 
+  attemptDeleteCategory() {
+    browser.sleep(200);
+    const submit = element(by.css('.delete-category-button'));
+    submit.click();
+  }
+
+
   clickPreviousMonth() {
     const submit = element(by.css('.previous-month-button'));
     submit.click();
@@ -67,6 +74,7 @@ export class BudgetingPage {
   private clickSnackBar() {
     const submit = element(by.css('.mat-simple-snackbar-action'));
     submit.click();
+
   }
 
   undoCreateTransaction() {

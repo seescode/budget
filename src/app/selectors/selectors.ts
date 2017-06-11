@@ -62,10 +62,19 @@ export const categoriesForCurrentBudget = createSelector(budgetPageRouteSelector
       return null;
     }
 
-    return categories.filter(cat => cat.budgetId === route.budgetId);
+    return categories.filter(cat => cat.budgetId === route.budgetId)
+      .sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        } else if (a.name > b.name) {
+          return 1;
+        }
+
+        return 0;
+      });
   });
 
-export const categoriesWithTransactions = createSelector(budgetPageRouteSelector, categorySelector,
+export const categoriesWithTransactions = createSelector(budgetPageRouteSelector, categoriesForCurrentBudget,
   transactionSelector, (route, categories, transactions) => {
 
     if (route === null || route.budgetId == null) {
@@ -73,7 +82,6 @@ export const categoriesWithTransactions = createSelector(budgetPageRouteSelector
     }
 
     return categories
-      .filter(cat => cat.budgetId === route.budgetId)
       .map(cat => ({
         ...cat,
         transactions: transactions
