@@ -10,7 +10,7 @@ export const routerSelector = (state: AppState) => state.router;
 export const transactionSelector = (state: AppState) => state.transaction;
 
 export const getCurrentMonth = () => {
-  return moment([new Date().getFullYear(), new Date().getMonth() + 1]);
+  return moment([new Date().getFullYear(), new Date().getMonth()]);
 };
 
 export const budgetPageRouteSelector = createSelector(routerSelector,
