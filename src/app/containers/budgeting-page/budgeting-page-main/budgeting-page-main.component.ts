@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment.prod';
 import {
   everyCategoryTotalSelector, totalBudgetInfoSelector,
   monthlyBudgetInfoSelector, runningSurplusSelector
@@ -74,15 +75,12 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(action);
 
-    this.openSnackbar(action, 'Added Transaction', 5000, REMOVE_TRANSACTION);
+    this.openSnackbar(action, 'Added Transaction', REMOVE_TRANSACTION);
   }
 
-  openSnackbar(action: Action, message: string, duration: number, undoType: string) {
+  openSnackbar(action: Action, message: string, undoType: string) {
     const instance = this.snackBar.open(message, 'Undo', {
-      // TODO: this should be 5000 but to make e2e tests run faster I set to 500
-      // There must be a way to have this be configurable to be shorter during a
-      // e2e test.
-      duration: duration,
+      duration: environment.snackBarDuration
     });
 
     const onActionSubscription = instance.onAction().subscribe(() => {
@@ -119,7 +117,7 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     const action = this.actionCreators.removeTransaction(transaction);
     this.store.dispatch(action);
 
-    this.openSnackbar(action, 'Removed Transaction', 5000, ADD_TRANSACTION);
+    this.openSnackbar(action, 'Removed Transaction', ADD_TRANSACTION);
   }
 
   removeCategory(categoryId: string) {

@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { MdSnackBar } from '@angular/material';
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy, Renderer } from '@angular/core';
 import { Transaction, ActiveDate } from './../../models/interfaces';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'yb-category',
@@ -49,10 +50,7 @@ export class CategoryComponent {
 
   openConfirmation() {
     const instance = this.snackBar.open('Are you sure you want to delete?', 'Yes', {
-      // TODO: this should be 5000 but to make e2e tests run faster I set to 500
-      // There must be a way to have this be configurable to be shorter during a
-      // e2e test.
-      duration: 5000,
+      duration: environment.snackBarDuration,
     });
 
     const onActionSubscription = instance.onAction().subscribe(() => {
