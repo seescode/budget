@@ -175,9 +175,36 @@ describe('App', function () {
     expect(amounts.count()).toBe(0);
   });
 
-  it('should be able to create create transactions in next month', () => {
+  it('should be able to create and undo transaction', () => {
+    budgetingPage.addNewTransaction('Food', 1);
+    budgetingPage.addNewTransaction('Food', 2);
+    budgetingPage.addNewTransaction('Food', 3);
+    budgetingPage.addNewTransaction('Food', 4);
 
+    let categoryAmounts = budgetingPage.getCategoryAmounts();
 
+    expect(categoryAmounts.get(0).getText()).toBe('$10.00');
+    expect(categoryAmounts.get(1).getText()).toBe('$0.00');
+
+    budgetingPage.addNewTransaction('Food', 5);
+    categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$15.00');
+    expect(categoryAmounts.get(1).getText()).toBe('$0.00');
+
+    // Click undo and verify that we don't see the removed transaction
+    budgetingPage.undoTransaction();
+    categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$10.00');
+    expect(categoryAmounts.get(1).getText()).toBe('$0.00');
+
+    // Verify that you only see 4 transactions after toggling
+    budgetingPage.toggleTransactionsForCategory('Food');
+    const amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+
+    expect(amounts.get(0).getText()).toBe('$1.00');
+    expect(amounts.get(1).getText()).toBe('$2.00');
+    expect(amounts.get(2).getText()).toBe('$3.00');
+    expect(amounts.get(3).getText()).toBe('$4.00');
   });
 
 

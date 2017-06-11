@@ -59,4 +59,19 @@ export class BudgetingPage {
     const submit = element(by.css('.next-month-button'));
     submit.click();
   }
+
+  private clickSnackBar() {
+    const submit = element(by.css('.mat-simple-snackbar-action'));
+    submit.click();
+  }
+
+  undoTransaction() {
+    this.clickSnackBar();
+  }
+
+  confirmDelete() {
+    this.clickSnackBar();
+  }
+
+
 }
