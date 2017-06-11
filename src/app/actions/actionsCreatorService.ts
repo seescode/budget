@@ -79,16 +79,16 @@ export class ActionsCreatorService {
     };
   }
 
-  addBudget() {
+  addBudget(name: string, details: string, budgetAmount: number, startDate: Date, endDate: Date) {
 
     // build a mock budget object and then dispatch to the store with this information
     const newBudget: Budget = {
       id: this.getUuid(),
-      name: 'budget 2',
-      details: 'Standard',
-      budgetAmount: 12000,
-      startDate: new Date(2017, 0, 1),
-      endDate: new Date(2017, 11, 12)
+      name: name,
+      details: details,
+      budgetAmount: budgetAmount,
+      startDate: startDate,
+      endDate: endDate
     };
 
     return {
