@@ -86,20 +86,3 @@ export function reducer(state: any, action: any) {
 }
 
 
-
-/**
- * Every reducer module exports selector functions, however child reducers
- * have no knowledge of the overall state tree. To make them useable, we
- * need to make new selectors that wrap them.
- *
- * The createSelector function from the reselect library creates
- * very efficient selectors that are memoized and only recompute when arguments change.
- * The created selectors can also be composed together to select different
- * pieces of state.
- */
-//  export const getBookEntities = createSelector(getBooksState, fromBooks.getEntities);
-//  export const getBookIds = createSelector(getBooksState, fromBooks.getIds);
-//  export const getSelectedBookId = createSelector(getBooksState, fromBooks.getSelectedId);
-//  export const getSelectedBook = createSelector(getBooksState, fromBooks.getSelected);
-
-

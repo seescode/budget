@@ -9,39 +9,15 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--delete editCategoryRouteSelector and the category page and route
-
--When you click edit category button 
-  -This component will list all transactions for this selected month sorted
-  from latest to newest.  
-  (Bug right now the selector is getting for whole history)
-  -Component will list like so (maybe in a table):
-    -heading: amount, name, delete 
-	-amount, name, Trash icon
-  -Stop showing add new transaction info and instead show a delete category 
-  button.
-  -delete category should have a popup that 
-  appears asking for confirmation
-  -delete transaction should have a snackbar that let's you undo the delete. 
-  -When switching budgets you must remember to clear the flag. 
-  -cool feature: have the ability to move a transaction to a previous or next month.
-  So just add <, > buttons per row that do this.  
--write end to end tests instead of smart component unit tests 
-  -start with a blank empty budget and create 2 budgets from 
-  scratch 
-  -Add categories and transactions to both budgets
-  -Go to the next month and add some more transactions
-  -Check that the numbers are good
-  -Make sure refresh works  
-  -Delete transactions
-  -Delete categories 
-  -Delete budgets
+-write e2e tests 
+-remove heading that shows budget totals 
 -group the end to end tests in a logical manner
 -implement exporting and importing budgets 
 -label your pie charts
 -research how to do angular2 forms.
 
 
+-have add new category button work with keyboard (enter key)
 
 -write unit tests for side effects
 -unit test actions creator service 
@@ -102,3 +78,5 @@ yet.
 -fix double scrollbar issue 
 -refactor category component to take in the whole object rather than passing 
 sub properties off of the whole object. 
+-cool feature: have the ability to move a transaction to a previous or next month.
+So just add <, > buttons per row that do this.  

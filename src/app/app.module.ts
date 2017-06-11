@@ -17,15 +17,12 @@ import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule } from '@angular/material';
 
-import { GoogleBooksService } from './services/google-books';
-
 import { routes } from './routes';
 import { reducer } from './reducers';
 import { schema } from './db';
 import { BudgetListPageComponent } from './containers/budget-list-page/budget-list-page.component';
 import { CreateBudgetPageComponent } from './containers/create-budget-page/create-budget-page.component';
 import { BudgetingPageComponent } from './containers/budgeting-page/budgeting-page.component';
-import { EditCategoryPageComponent } from './containers/edit-category-page/edit-category-page.component';
 import { AppComponent } from './containers/app/app.component';
 import { BudgetingPageLeftNavComponent } from './containers/budgeting-page/budgeting-page-left-nav/budgeting-page-left-nav.component';
 import { BudgetingPageMainComponent } from './containers/budgeting-page/budgeting-page-main/budgeting-page-main.component';
@@ -89,7 +86,6 @@ import { PieComponent } from './components/pie/pie.component';
     BudgetListPageComponent,
     CreateBudgetPageComponent,
     BudgetingPageComponent,
-    EditCategoryPageComponent,
     AppComponent,
     BudgetingPageLeftNavComponent,
     BudgetingPageMainComponent,
