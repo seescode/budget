@@ -31,6 +31,6 @@
   <tr *ngFor="let transaction of transactions">
     <td>{{transaction.amount | currency:'USD':true:'1.2-2'}}</td>
     <td>{{transaction.name}}</td>
-    <td><md-icon (click)="removeTransaction.emit(transaction)">delete_forever</md-icon></td>
+    <td class="delete-transaction-button"><md-icon (click)="removeTransaction.emit(transaction)">delete_forever</md-icon></td>
   </tr>
 </table>

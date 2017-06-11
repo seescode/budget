@@ -6,12 +6,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { Category, ActiveDate, TotalBudgetInfo, Transaction } from './../../../models/interfaces';
 import { Observable } from 'rxjs/Observable';
 import { ActionsCreatorService } from './../../../actions/actionsCreatorService';
-import { REMOVE_TRANSACTION } from './../../../actions/actions';
+import { REMOVE_TRANSACTION, ADD_TRANSACTION } from './../../../actions/actions';
 
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from './../../../reducers/index';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
@@ -36,7 +36,7 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
     private router: Router, private actionsCreatorService: ActionsCreatorService,
-    private snackBar: MdSnackBar, private actionCreators: ActionsCreatorService,) {
+    private snackBar: MdSnackBar, private actionCreators: ActionsCreatorService, ) {
     this.categories$ = this.store.select(everyCategoryTotalSelector);
     this.totalBudgetInfoSubscription = this.store.select(totalBudgetInfoSelector)
       .subscribe(info => {
@@ -74,17 +74,21 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(action);
 
-    const instance = this.snackBar.open('Added Transaction', 'Undo', {
+    this.openSnackbar(action, 'Added Transaction', 5000, REMOVE_TRANSACTION);
+  }
+
+  openSnackbar(action: Action, message: string, duration: number, undoType: string) {
+    const instance = this.snackBar.open(message, 'Undo', {
       // TODO: this should be 5000 but to make e2e tests run faster I set to 500
       // There must be a way to have this be configurable to be shorter during a
       // e2e test.
-      duration: 500,
+      duration: duration,
     });
 
     const onActionSubscription = instance.onAction().subscribe(() => {
       const undoTransaction = {
         ...action,
-        type: REMOVE_TRANSACTION
+        type: undoType
       };
 
       this.store.dispatch(undoTransaction);
@@ -114,6 +118,8 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
   removeTransaction(transaction: Transaction) {
     const action = this.actionCreators.removeTransaction(transaction);
     this.store.dispatch(action);
+
+    this.openSnackbar(action, 'Removed Transaction', 5000, ADD_TRANSACTION);
   }
 
   removeCategory() {
@@ -121,7 +127,8 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     this.store.dispatch(action);
 
     //TODO: remove the category for the url if it's the same one that got deleted
-  }  
+
+  }
 
   ngOnDestroy() {
     this.totalBudgetInfoSubscription.unsubscribe();

@@ -9,7 +9,6 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--setup delete transaction snackbar 
 -only show delete category when all transactions for that category in this 
 month have been deleted. Explicitedly word is so it says delete category.
 Most likely scenario where you would delete a category would be by making
@@ -107,4 +106,6 @@ yet.
  the ids on the client side. 
 -handle logging (maybe there's a few logging service, or at least free bug tracking)
 -router edge cases (invalid month, year in the url) 
-
+-use css resets
+-use consistent font throughout the app. 
+-fix double scrollbar issue 

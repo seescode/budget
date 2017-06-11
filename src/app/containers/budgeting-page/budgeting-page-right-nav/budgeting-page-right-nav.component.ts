@@ -32,12 +32,5 @@ export class BudgetingPageRightNavComponent implements OnInit {
     this.monthlyBudgetPieData$.subscribe(n => {
       this.renderPie2.emit(n);
     });
-
-
-
   }
-
-
-
-
 }

@@ -17,13 +17,17 @@
   top: 5px;
 }
 
+.delete-transaction-button {
+  text-align: center;
+}
+
 input {
   width: 100px;
 }
 
 table {
     margin-top: 10px;
-    font-family: arial, sans-serif;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     border-collapse: collapse;
 }
 
