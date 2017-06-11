@@ -21,6 +21,12 @@ describe('App', function () {
     const budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
     budgetListPageCreateButton.click();
 
+    createBudgetPage.setBudgetName('budget 2');
+    createBudgetPage.setBudgetDetails('some random stuff');
+    createBudgetPage.setBudgetAmount('12000');
+    createBudgetPage.setDate('1', '2017', '#budget-start');
+    createBudgetPage.setDate('12', '2017', '#budget-finish');
+
     const createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
     createBudgetPageCreateButton.click();
 

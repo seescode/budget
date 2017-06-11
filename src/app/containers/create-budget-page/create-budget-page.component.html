@@ -23,14 +23,14 @@
 <div>
   Budget Start:
   <md-input-container>
-    <input #budgetStartDate mdInput placeholder="Month, Year" type="month" name="bdaymonth">
+    <input #budgetStartDate mdInput placeholder="Month, Year" type="month" id="budget-start">
     <md-hint *ngIf="missingBudgetStart" align="start">This field is required</md-hint>
   </md-input-container>
 </div>
 <div>
   Budget Finish:
   <md-input-container>
-    <input #budgetEndDate mdInput placeholder="Month, Year" type="month" name="bdaymonth">
+    <input #budgetEndDate mdInput placeholder="Month, Year" type="month" id="budget-finish">
     <md-hint *ngIf="missingBudgetFinish" align="start">This field is required</md-hint>
     <md-hint *ngIf="budgetFinishIsBeforeBudgetStart" align="start">Must be after budget start</md-hint>
   </md-input-container>
