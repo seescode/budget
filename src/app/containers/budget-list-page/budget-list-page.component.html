@@ -7,7 +7,7 @@
   *ngFor="let budget of budgets$ | async">
   <span>{{budget.name}}</span>
   <button class="open" (click)="openBudget(budget.id)">Open</button>
-  <button class="delete">Delete</button>
+  <button class="delete" (click)="deleteBudget(budget.id)">Delete</button>
   <button class="make-default">Make Default</button>
 </div>
 

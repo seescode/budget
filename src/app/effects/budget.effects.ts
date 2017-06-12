@@ -1,9 +1,9 @@
-import { categoryTransactionsSelector } from './../selectors/selectors';
+import { categoryTransactionsSelector, budgetSelector, categorySelector, transactionSelector } from './../selectors/selectors';
 import {
   LOAD_BUDGET, LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA, LOAD_BUDGET_DATA_FROM_CACHE,
   LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET, ADD_BUDGET_COMPLETE, ADD_CATEGORY,
   ADD_CATEGORY_COMPLETE, ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION, REMOVE_TRANSACTION_COMPLETE,
-  REMOVE_TRANSACTION, REMOVE_CATEGORY, REMOVE_CATEGORY_COMPLETE
+  REMOVE_TRANSACTION, REMOVE_CATEGORY, REMOVE_CATEGORY_COMPLETE, REMOVE_BUDGET, REMOVE_BUDGET_COMPLETE
 } from './../actions/actions';
 import { AppState } from './../reducers/index';
 import { Budget, Category, Transaction, Loaded } from './../models/interfaces';
@@ -172,6 +172,64 @@ export class BudgetEffects {
           type: REMOVE_CATEGORY_COMPLETE,
           payload: categoryId
         });
+    });
+
+  @Effect()
+  removeBudget$: Observable<Action> = this.actions$
+    .ofType(REMOVE_BUDGET)
+    .map(toPayload)
+    // TODO: must get based on budget id
+    .withLatestFrom(this.store.select(budgetSelector),
+    this.store.select(categorySelector),
+    this.store.select(transactionSelector))
+    .mergeMap(([budgetId, budgets, categories, transactions]:
+      [string, Budget[], Category[], Transaction[]]) => {
+
+      const transactionIds = transactions
+        .filter(trans => trans.budgetId === budgetId)
+        .map(trans => trans.id);
+
+      const categoryIds = categories
+        .filter(cat => cat.budgetId === budgetId)
+        .map(cat => cat.id);
+
+      if (transactionIds.length > 0 && categoryIds.length === 0) {
+        console.log('budgetId', budgetId);
+        console.log('transactionIds', transactionIds);
+        throw {
+          name: 'removeBudget$ side effect failed',
+          message: 'We have floating transactionIds not associated with any category.  Our deletes are not properly working.'
+        };
+      }
+
+      if (transactionIds.length === 0 && categoryIds.length === 0) {
+        return this.db.executeWrite('budget', 'delete', [budgetId])
+          .mapTo({
+            type: REMOVE_BUDGET_COMPLETE,
+            payload: budgetId
+          });
+      }
+
+      if (transactionIds.length === 0) {
+        return Observable.forkJoin(
+          this.db.executeWrite('category', 'delete', categoryIds),
+          this.db.executeWrite('budget', 'delete', [budgetId])
+        )
+        .mapTo({
+          type: REMOVE_BUDGET_COMPLETE,
+          payload: budgetId
+        });
+      }
+
+      return Observable.forkJoin(
+        this.db.executeWrite('transaction', 'delete', transactionIds),
+        this.db.executeWrite('category', 'delete', categoryIds),
+        this.db.executeWrite('budget', 'delete', [budgetId])
+      )
+      .mapTo({
+        type: REMOVE_BUDGET_COMPLETE,
+        payload: budgetId
+      });
     });
 
   constructor(private actions$: Actions, private db: Database, private store: Store<AppState>) { }

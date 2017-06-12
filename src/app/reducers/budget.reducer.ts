@@ -1,4 +1,4 @@
-import { LOAD_BUDGET_COMPLETE, UPDATE_BUDGET, ADD_BUDGET_COMPLETE } from './../actions/actions';
+import { LOAD_BUDGET_COMPLETE, UPDATE_BUDGET, ADD_BUDGET_COMPLETE, REMOVE_BUDGET_COMPLETE } from './../actions/actions';
 import { Budget } from './../models/interfaces';
 
 export function BudgetReducer(state: Budget[] = [], action: any) {
@@ -15,6 +15,8 @@ export function BudgetReducer(state: Budget[] = [], action: any) {
 
         return budget;
       });
+    case REMOVE_BUDGET_COMPLETE:
+      return state.filter(budget => budget.id !== action.payload);
     default:
       return state;
   }

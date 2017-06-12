@@ -200,9 +200,6 @@ describe('App', function () {
     expect(amounts.count()).toBe(0);
   });
 
-
-
-
   it('should be able to create and undo transaction', () => {
     budgetingPage.addNewTransaction('Food', 1);
     budgetingPage.addNewTransaction('Food', 2);
@@ -234,7 +231,6 @@ describe('App', function () {
     expect(amounts.get(2).getText()).toBe('$3.00');
     expect(amounts.get(3).getText()).toBe('$4.00');
   });
-
 
   it('should be able to delete multiple transactions', () => {
 
@@ -329,9 +325,19 @@ describe('App', function () {
 
   });
 
+  it('should be able to delete a budget with no categories', () => {
+  });
 
+  it('should be able to delete a budget with no transactions', () => {
+  });
+
+  it('should be able to delete a budget with categories and transactions', () => {
+  });
 
   it('should update pie graph', () => {
+  });
+
+  it('should work with a one month budget', () => {
   });
 
 

@@ -1,3 +1,4 @@
+import { ActionsCreatorService } from './../../actions/actionsCreatorService';
 import { budgetSelector } from './../../selectors/selectors';
 import { Router } from '@angular/router';
 import { Budget } from './../../models/interfaces';
@@ -15,7 +16,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 export class BudgetListPageComponent implements OnInit {
   budgets$: Observable<Budget[]>;
 
-  constructor(private store: Store<AppState>, private router: Router) { }
+  constructor(private store: Store<AppState>, private router: Router,
+    private actionsCreatorService: ActionsCreatorService) { }
 
   ngOnInit() {
     this.budgets$ = this.store.select(budgetSelector);
@@ -26,5 +28,9 @@ export class BudgetListPageComponent implements OnInit {
     const year = new Date().getFullYear();
 
     this.router.navigate(['/budgeting', budgetId, year, month + 1]);
+  }
+
+  deleteBudget(budgetId: string) {
+    this.store.dispatch(this.actionsCreatorService.removeBudget(budgetId));
   }
 }
