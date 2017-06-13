@@ -16,10 +16,12 @@ export class PieComponent implements OnInit, OnDestroy {
   @Input() ringWidth: number;
   @Input() legendRectSize: any;
   @Input() legendSpacing: any;
+  @Input() title: string;
 
   updateSubscription: Subscription;
 
   svg: any;
+  g: any;
   color: any;
   pie: any;
   arc: any;
@@ -42,16 +44,34 @@ export class PieComponent implements OnInit, OnDestroy {
   }
 
   setup() {
-    this.svg = d3.select('.chart')
-      .append('svg')
-      .attr('width', this.width)
-      .attr('height', this.height)
-      .append('g')
-      .attr('transform', 'translate(' + (this.width / 2) +
-      ',' + (this.height / 2) + ')');
 
     this.rectSize = parseInt(this.legendRectSize);
     this.spacing = parseInt(this.legendSpacing);
+
+
+    this.svg = d3.select('.chart')
+      .append('svg')
+      .attr('width', this.width)
+      .attr('height', this.height + 20);
+
+    this.svg
+      .append('g')
+      .attr('transform', (d: any, i: any) => {
+        // const height = this.rectSize + this.spacing;
+        // const offset = height * this.color.domain().length / 2;
+        const horz = this.width / 2;
+        // const vert = i * height - offset;
+        return 'translate(' + horz + ',0)';
+      })
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('y', 15)
+      .text(this.title);
+
+    this.g = this.svg.append('g')
+      .attr('transform', 'translate(' + (this.width / 2) +
+      ',' + (this.height / 2 + 20) + ')');
+
 
     const radius = Math.min(this.width, this.height) / 2;
 
@@ -78,7 +98,7 @@ export class PieComponent implements OnInit, OnDestroy {
 
   renderPieSlices(data: any) {
     // Render the pie slices
-    const path = this.svg.selectAll('path')
+    const path = this.g.selectAll('path')
       .data(this.pie(data));
 
     path.enter()
@@ -97,7 +117,7 @@ export class PieComponent implements OnInit, OnDestroy {
       });
 
     // Render the text on the pie slices
-    const g = this.svg.selectAll('text')
+    const g = this.g.selectAll('text')
       .data(this.pie(data));
 
     g.enter()
@@ -114,7 +134,7 @@ export class PieComponent implements OnInit, OnDestroy {
   }
 
   renderLegend(data: any) {
-    const legend = this.svg.selectAll('.legend')
+    const legend = this.g.selectAll('.legend')
       .data(this.color.domain());
 
     legend.enter()

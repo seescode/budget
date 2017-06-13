@@ -9,16 +9,13 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--the monthly budget numbers are not correct.  It's still doing it 
-by year and not the time period I specified.  
--We need to also be able to view the start and end dates of a budget 
-as quick reference. 
+-the monthly budget numbers are not correct. It's still doing it by year and not the time period I specified.  
+-implement exporting and importing budgets.
+-We need to also be able to view the start and end dates of a budget as quick reference. 
 -write e2e tests 
--implement exporting and importing budgets 
 
 -remove heading that shows budget totals 
 -group the end to end tests in a logical manner
--label your pie charts
 
 
 -have add new category button work with keyboard (enter key)

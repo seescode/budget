@@ -276,6 +276,24 @@ describe('monthlyBudgetInfoSelector', () => {
 
 describe('calculatedBudgetAmountSelector', () => {
 
+  it('should calculate monthly budget for a 2 month budget', () => {
+
+    const actual = calculatedBudgetAmountSelector.resultFunc(
+      { budgetId: 'budget1', year: 2017, month: 1, categoryId: '' },
+      {
+        name: 'a', id: 'budget1', details: 'none', budgetAmount: 2000,
+        startDate: new Date(2017, 0), endDate: new Date(2017, 1)
+      },
+      moment([2017, 0])
+    );
+
+    expect(actual).toEqual({
+      rollingBudgetAmount: 1000,
+      monthlyBudgetAmount: 1000,
+      budgetId: 'budget1'
+    });
+  });
+
   it('should calculate for when current month is startDates month', () => {
 
     const actual = calculatedBudgetAmountSelector.resultFunc(

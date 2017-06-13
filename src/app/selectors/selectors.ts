@@ -209,7 +209,6 @@ export const calculatedBudgetAmountSelector = createSelector(budgetPageRouteSele
     };
   });
 
-
 export const monthlyBudgetInfoSelector = createSelector(budgetPageRouteSelector,
   getSelectedBudget, transactionSelector, calculatedBudgetAmountSelector, (route, selectedBudget, transactions, budgetAmountInfo) => {
 
