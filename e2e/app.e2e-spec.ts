@@ -325,7 +325,30 @@ describe('App', function () {
 
   });
 
-  it('should be able to delete a budget with no categories', () => {
+  it('should be able to delete a budget with no categories and no transactions', () => {
+    budgetingPage.clickManageBudgets();
+
+    const budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
+    budgetListPageCreateButton.click();
+
+    createBudgetPage.setBudgetName('no categories');
+    createBudgetPage.setBudgetDetails('');
+    createBudgetPage.setBudgetAmount('1');
+    createBudgetPage.setDate('1', '2017', '#budget-start');
+    createBudgetPage.setDate('2', '2017', '#budget-finish');
+
+    let open = budgetListPage.getOpenButtons();
+    expect(open.count()).toBe(2);
+
+    const createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
+    createBudgetPageCreateButton.click();
+
+    const deletes = budgetListPage.getDeleteButtons();
+    deletes.get(1).click();
+
+    open = budgetListPage.getOpenButtons();
+    expect(open.count()).toBe(1);
+
   });
 
   it('should be able to delete a budget with no transactions', () => {

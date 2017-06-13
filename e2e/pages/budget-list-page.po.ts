@@ -13,5 +13,9 @@ export class BudgetListPage {
   getOpenButtons() {
     return element.all(by.css('.open'));
   }
+
+  getDeleteButtons() {
+    return element.all(by.css('.delete-button'));
+  }
   
 }

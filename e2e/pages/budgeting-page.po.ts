@@ -2,7 +2,6 @@ import { browser, element, by, ElementFinder, promise, ElementArrayFinder } from
 
 export class BudgetingPage {
 
-
   addNewCategory(categoryName: string) {
     const newCategoryName = element(by.css('.new-category-name'));
     newCategoryName.sendKeys(categoryName);
@@ -60,7 +59,6 @@ export class BudgetingPage {
     submit.click();
   }
 
-
   clickPreviousMonth() {
     const submit = element(by.css('.previous-month-button'));
     submit.click();
@@ -71,10 +69,14 @@ export class BudgetingPage {
     submit.click();
   }
 
+  clickManageBudgets() {
+    const submit = element(by.css('#manage-budgets'));
+    submit.click();
+  }
+
   private clickSnackBar() {
     const submit = element(by.css('.mat-simple-snackbar-action'));
     submit.click();
-
   }
 
   undoCreateTransaction() {
@@ -88,6 +90,4 @@ export class BudgetingPage {
   confirmDelete() {
     this.clickSnackBar();
   }
-
-
 }

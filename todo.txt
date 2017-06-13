@@ -9,7 +9,6 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--automate deleting budgets
 -the monthly budget numbers are not correct.  It's still doing it 
 by year and not the time period I specified.  
 -We need to also be able to view the start and end dates of a budget 
