@@ -10,6 +10,12 @@ and lint isn't failing.
 
 Plan:
 
+
+-enable the ability to use the keyboard to undo a transaction.  Maybe escape 
+ or have it focus on the snackbar undo.  
+-Whenever you expand category transactions it resets your focus to beginning of
+ the list of categories.  Maybe you can have it refocus based on the categoryId 
+ in the url. 
 -the monthly budget numbers are not correct. It's still doing it by year and not the time period I specified.  
 -implement exporting and importing budgets.
 -We need to also be able to view the start and end dates of a budget as quick reference. 
@@ -17,7 +23,7 @@ Plan:
 
 -remove heading that shows budget totals 
 -group the end to end tests in a logical manner
-
+-create budget page needs a back button
 
 
 -write unit tests for side effects

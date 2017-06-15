@@ -2,7 +2,8 @@
   <div class="category">
     <span>
       <md-icon (click)="edit.emit(categoryId)" class="view-transactions-button"
-        ngClass="view-transactions-button-for-{{categoryName}}">view_list</md-icon> 
+        (keypress)="edit.emit(categoryId)"
+        ngClass="view-transactions-button-for-{{categoryName}}" tabindex="0">view_list</md-icon> 
       <span class="category-name">{{categoryName}}</span>:
     <span class="category-amount">{{total | currency:'USD':true:'1.2-2'}}</span>
     </span>
@@ -32,10 +33,15 @@
   <tr *ngFor="let transaction of transactions">
     <td ngClass="existing-transaction-amount-for-{{categoryName}}">{{transaction.amount | currency:'USD':true:'1.2-2'}}</td>
     <td ngClass="existing-transaction-name-for-{{categoryName}}">{{transaction.name}}</td>
-    <td class="delete-transaction-button"><md-icon class="" (click)="removeTransaction.emit(transaction)">delete_forever</md-icon></td>
+    <td class="delete-transaction-button">
+      <md-icon tabindex=0 (keypress)="removeTransaction.emit(transaction)" (click)="removeTransaction.emit(transaction)">delete_forever</md-icon>
+    </td>
   </tr>
 </table>
 
 <div *ngIf="total === 0 && selected">  
-  Delete Category Forever <md-icon  (click)="openConfirmation()" class="delete-category-button">delete_forever</md-icon>
+  Delete Category Forever <md-icon tabindex="0" 
+  (click)="openConfirmation()" 
+  (keypress)="openConfirmation()"
+  class="delete-category-button">delete_forever</md-icon>
 </div>
