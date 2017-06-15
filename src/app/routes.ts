@@ -1,6 +1,6 @@
-import { CreateBudgetPageComponent } from './containers/create-budget-page/create-budget-page.component';
-import { BudgetingPageComponent } from './containers/budgeting-page/budgeting-page.component';
-import { BudgetListPageComponent } from './containers/budget-list-page/budget-list-page.component';
+import { CreateBudgetPageComponent } from './pages/create-budget-page/create-budget-page.component';
+import { BudgetingPageComponent } from './pages/budgeting-page/budgeting-page.component';
+import { BudgetListPageComponent } from './pages/budget-list-page/budget-list-page.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
