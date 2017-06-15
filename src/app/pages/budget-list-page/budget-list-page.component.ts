@@ -33,4 +33,12 @@ export class BudgetListPageComponent implements OnInit {
   deleteBudget(budgetId: string) {
     this.store.dispatch(this.actionsCreatorService.removeBudget(budgetId));
   }
-}
+
+  importBudget() {
+    
+  }
+
+  exportBudget(budgetId: string) {
+
+  }
+ }
