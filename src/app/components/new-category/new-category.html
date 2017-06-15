@@ -1,4 +1,7 @@
 <div>
-  New Category Name: <input class="new-category-name" type="text" [(ngModel)]="name">
+  <md-input-container>
+    <input mdInput [(ngModel)]="name" placeholder="New Category Name" (keypress)="onKeyPress($event)" name="category-name">
+  </md-input-container>
+
   <md-icon class="add-new-category" (click)="addCategory()">add_box</md-icon>
 </div>

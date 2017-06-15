@@ -24,4 +24,10 @@ export class NewCategoryComponent {
     this.add.emit(newCategory);
     this.name = '';
   }
+
+  onKeyPress(event: any) {
+    if (event.key === 'Enter') {
+      this.addCategory();
+    }
+  }
 }

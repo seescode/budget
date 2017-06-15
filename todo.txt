@@ -9,8 +9,6 @@ Everyday:
 and lint isn't failing.
 
 Plan:
--have add new category button work with keyboard (enter key)
-
 
 -the monthly budget numbers are not correct. It's still doing it by year and not the time period I specified.  
 -implement exporting and importing budgets.
