@@ -9,6 +9,10 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-When you add a transaction and then delete it
+the pie graph will not remove the nodes from 
+the legend 
+-We have duplicate svg code being added 
 -if you get 0s for the pie graph don't show the legend for it and don't show 
 the 0 for it. 
 -enable the ability to use the keyboard to undo a transaction.  Maybe escape 

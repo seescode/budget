@@ -140,52 +140,77 @@ export class PieComponent implements OnInit, OnDestroy {
   }
 
   renderLegend(data: any) {
-    const legend = this.g.selectAll('.legend')
+    const legend = this.g.selectAll('g')
       .data(this.color.domain());
 
-      /**
-       * <g class="legend">
-       *   <rect>
-       *   <text>
-       * </g>
-       */
-    const g = legend.enter()
+    /**
+     * <g class="legend">
+     *   <rect>
+     *   <text>
+     * </g>
+     */
+    const text1 = legend.enter()
       .append('g')
       .attr('class', 'legend')
       .attr('transform', (d: any, i: any) => {
-        const height = this.rectSize + this.spacing;
-        const offset = height * this.color.domain().length / 2;
-        const horz = -2 * this.rectSize;
-        const vert = i * height - offset;
-        return 'translate(' + horz + ',' + vert + ')';
-      });
+      const height = this.rectSize + this.spacing;
+      const offset = height * this.color.domain().length / 2;
+      const horz = -2 * this.rectSize;
+      const vert = i * height - offset;
+      return 'translate(' + horz + ',' + vert + ')';
+    })
 
-    g.enter()
-      .append('rect')
-      .attr('width', this.rectSize)
-      .attr('height', this.rectSize)
-      .style('fill', this.color)
-      .style('stroke', this.color);
-
-    g.append('rect')
-      .attr('width', this.rectSize)
-      .attr('height', this.rectSize)
-      .style('fill', this.color)
-      .style('stroke', this.color);
-
-    g.enter()
-      .append('text')
-      .attr('x', this.rectSize + this.spacing)
-      .attr('y', this.rectSize - this.spacing)
-      .text(function (d: any) { return d; });
-
-    g.append('text')
-      .attr('x', this.rectSize + this.spacing)
-      .attr('y', this.rectSize - this.spacing)
-      .text(function (d: any) { return d; });
-
-    g.exit().remove();
     legend.exit().remove();
+
+    const text2 = legend
+      .attr('class', 'legend')
+      .attr('transform', (d: any, i: any) => {
+      const height = this.rectSize + this.spacing;
+      const offset = height * this.color.domain().length / 2;
+      const horz = -2 * this.rectSize;
+      const vert = i * height - offset;
+      return 'translate(' + horz + ',' + vert + ')';
+    })
+    
+
+    let rect2 = text2.append('rect')
+      .attr('width', this.rectSize)
+      .attr('height', this.rectSize)
+      .style('fill', this.color)
+      .style('stroke', this.color);
+
+    rect2.exit().remove();
+    
+
+    text2
+       .append('text')
+       .attr('x', this.rectSize + this.spacing)
+       .attr('y', this.rectSize - this.spacing)
+       .text(function (d: any) { return d; });
+
+    text1.exit().remove();
+    text2.exit().remove();
+
+
+    // let rect1 = text1.enter().append('rect')
+    // .attr('width', this.rectSize)
+    // .attr('height', this.rectSize)
+    // .style('fill', this.color)
+    // .style('stroke', this.color);
+    
+
+    // text1.enter()
+    //    .append('text')
+    //    .attr('x', this.rectSize + this.spacing)
+    //    .attr('y', this.rectSize - this.spacing)
+    //    .text(function (d: any) { return d; });
+
+
+    
+
+    // rect1.exit().remove();
+
+    
   }
 
   render(data: any) {
