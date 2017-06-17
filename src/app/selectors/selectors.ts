@@ -153,8 +153,6 @@ export const totalBudgetInfoSelector = createSelector(budgetPageRouteSelector,
     };
   });
 
-
-
 /**
  * This determines from the current month how much total budget
  * we have up to this point.  For example let's say we have a yearly
@@ -280,10 +278,15 @@ export const totalBudgetPieDataSelector = createSelector(totalBudgetInfoSelector
       return [];
     }
 
-    return [
-      { label: 'Spent', amount: totalBudgetInfo.spent },
-      { label: 'Remaining', amount: totalBudgetInfo.unspent }
-    ];
+    let pieData = [];
+
+    if (totalBudgetInfo.spent > 0) {
+      pieData.push({ label: 'Spent', amount: totalBudgetInfo.spent });
+    }
+    if (totalBudgetInfo.unspent > 0) {
+      pieData.push({ label: 'Remaining', amount: totalBudgetInfo.unspent });
+    }
+    return pieData;
   });
 
 

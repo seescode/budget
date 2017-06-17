@@ -114,7 +114,6 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     this.store.dispatch(action);
 
     //TODO: remove the category for the url if it's the same one that got deleted
-
   }
 
   ngOnDestroy() {

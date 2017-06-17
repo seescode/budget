@@ -534,10 +534,7 @@ describe('totalBudgetPieDataSelector', () => {
       spent: 0
     });
 
-    expect(actual).toEqual([
-      { label: 'Spent', amount: 0 },
-      { label: 'Remaining', amount: 0 }
-    ]);
+    expect(actual).toEqual([]);
   });
 
   it('should return for standard case', () => {
@@ -550,6 +547,30 @@ describe('totalBudgetPieDataSelector', () => {
     expect(actual).toEqual([
       { label: 'Spent', amount: 20 },
       { label: 'Remaining', amount: 10 }
+    ]);
+  });
+
+  it('should return only remaining when spent is 0', () => {
+    const actual = totalBudgetPieDataSelector.resultFunc({
+      totalBudget: 30,
+      unspent: 30,
+      spent: 0
+    });
+
+    expect(actual).toEqual([
+      { label: 'Remaining', amount: 30 }
+    ]);
+  });
+
+  it('should return only spent when unspent is 0', () => {
+    const actual = totalBudgetPieDataSelector.resultFunc({
+      totalBudget: 30,
+      unspent: 0,
+      spent: 30
+    });
+
+    expect(actual).toEqual([
+      { label: 'Spent', amount: 30 }
     ]);
   });
 

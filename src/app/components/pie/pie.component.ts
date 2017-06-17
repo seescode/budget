@@ -29,27 +29,30 @@ export class PieComponent implements OnInit, OnDestroy {
   spacing: number;
   labelArc: any;
 
+  isSetup = false;
+
   constructor() { }
 
 
   ngOnInit() {
-
-    this.setup();
-
     if (this.update != null) {
       this.updateSubscription = this.update.subscribe((data: any) => {
+
+        if (!this.isSetup) {
+          this.setup();
+        }
+
         this.render(data);
       });
     }
   }
 
   setup() {
-
+    this.isSetup = true;
     this.rectSize = parseInt(this.legendRectSize);
     this.spacing = parseInt(this.legendSpacing);
 
-
-    this.svg = d3.select('.chart')
+    this.svg = d3.select('.pie-' + this.title)
       .append('svg')
       .attr('width', this.width)
       .attr('height', this.height + 20);
@@ -97,6 +100,9 @@ export class PieComponent implements OnInit, OnDestroy {
   }
 
   renderPieSlices(data: any) {
+
+    console.log(this.title, data);
+
     // Render the pie slices
     const path = this.g.selectAll('path')
       .data(this.pie(data));
@@ -137,7 +143,13 @@ export class PieComponent implements OnInit, OnDestroy {
     const legend = this.g.selectAll('.legend')
       .data(this.color.domain());
 
-    legend.enter()
+      /**
+       * <g class="legend">
+       *   <rect>
+       *   <text>
+       * </g>
+       */
+    const g = legend.enter()
       .append('g')
       .attr('class', 'legend')
       .attr('transform', (d: any, i: any) => {
@@ -146,18 +158,33 @@ export class PieComponent implements OnInit, OnDestroy {
         const horz = -2 * this.rectSize;
         const vert = i * height - offset;
         return 'translate(' + horz + ',' + vert + ')';
-      })
+      });
+
+    g.enter()
       .append('rect')
       .attr('width', this.rectSize)
       .attr('height', this.rectSize)
       .style('fill', this.color)
       .style('stroke', this.color);
 
-    legend.append('text')
+    g.append('rect')
+      .attr('width', this.rectSize)
+      .attr('height', this.rectSize)
+      .style('fill', this.color)
+      .style('stroke', this.color);
+
+    g.enter()
+      .append('text')
       .attr('x', this.rectSize + this.spacing)
       .attr('y', this.rectSize - this.spacing)
       .text(function (d: any) { return d; });
 
+    g.append('text')
+      .attr('x', this.rectSize + this.spacing)
+      .attr('y', this.rectSize - this.spacing)
+      .text(function (d: any) { return d; });
+
+    g.exit().remove();
     legend.exit().remove();
   }
 

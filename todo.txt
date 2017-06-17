@@ -9,14 +9,13 @@ Everyday:
 and lint isn't failing.
 
 Plan:
-
-
+-if you get 0s for the pie graph don't show the legend for it and don't show 
+the 0 for it. 
 -enable the ability to use the keyboard to undo a transaction.  Maybe escape 
  or have it focus on the snackbar undo.  
 -Whenever you expand category transactions it resets your focus to beginning of
  the list of categories.  Maybe you can have it refocus based on the categoryId 
  in the url. 
--the monthly budget numbers are not correct. It's still doing it by year and not the time period I specified.  
 -implement exporting and importing budgets.
 -We need to also be able to view the start and end dates of a budget as quick reference. 
 -write e2e tests 
