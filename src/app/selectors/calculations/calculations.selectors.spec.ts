@@ -72,7 +72,7 @@ describe('totalBudgetInfoSelector', () => {
 
     expect(actual).toEqual({
       totalBudget: 100,
-      unspent: -50,
+      unspent: 0,
       spent: 150
     });
   });
@@ -90,7 +90,7 @@ describe('totalBudgetInfoSelector', () => {
 
     expect(actual).toEqual({
       totalBudget: 100,
-      unspent: -50,
+      unspent: 0,
       spent: 150
     });
 
@@ -195,7 +195,7 @@ describe('monthlyBudgetInfoSelector', () => {
     );
 
     expect(actual).toEqual({
-      unspent: -50,
+      unspent: 0,
       spent: 150
     });
   });

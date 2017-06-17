@@ -3,7 +3,6 @@ import { BudgetEffects } from './effects/budget.effects';
 import { NewCategoryComponent } from './components/new-category/new-category';
 import { FormsModule } from '@angular/forms';
 import { CategoryComponent } from './components/category/category';
-import { BudgetHeaderComponent } from './components/budget-header/budget-header';
 import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -80,7 +79,6 @@ import { PieComponent } from './components/pie/pie.component';
     DBModule.provideDB(schema)
   ],
   declarations: [
-    BudgetHeaderComponent,
     CategoryComponent,
     NewCategoryComponent,
     BudgetListPageComponent,

@@ -29,9 +29,7 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
   getRunningSurplus$: Observable<number>;
 
   budgetId: string;
-  totalBudgetInfoSubscription: Subscription;
   totalBudgetInfo: TotalBudgetInfo;
-  monthlyBudgetInfoSubscription: Subscription;
   monthlyBudgetInfo: any;
   selectedCategoryId: string;
 
@@ -39,15 +37,6 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     private router: Router, private actionsCreatorService: ActionsCreatorService,
     private snackBar: MdSnackBar, private actionCreators: ActionsCreatorService, ) {
     this.categories$ = this.store.select(everyCategoryTotalSelector);
-    this.totalBudgetInfoSubscription = this.store.select(totalBudgetInfoSelector)
-      .subscribe(info => {
-        this.totalBudgetInfo = info;
-      });
-
-    this.monthlyBudgetInfoSubscription = this.store.select(monthlyBudgetInfoSelector)
-      .subscribe(info => {
-        this.monthlyBudgetInfo = info;
-      });
 
     this.getRunningSurplus$ = this.store.select(runningSurplusSelector);
   }
@@ -129,7 +118,5 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.totalBudgetInfoSubscription.unsubscribe();
-    this.monthlyBudgetInfoSubscription.unsubscribe();
   }
 }

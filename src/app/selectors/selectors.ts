@@ -143,9 +143,12 @@ export const totalBudgetInfoSelector = createSelector(budgetPageRouteSelector,
         return prev + next.amount;
       }, 0);
 
+    let unspent = totalBudget - spent;
+    if (unspent < 0) { unspent = 0; };
+
     return {
       totalBudget: totalBudget,
-      unspent: totalBudget - spent,
+      unspent: unspent,
       spent: spent
     };
   });
@@ -226,8 +229,11 @@ export const monthlyBudgetInfoSelector = createSelector(budgetPageRouteSelector,
         return prev + next.amount;
       }, 0);
 
+    let unspent = budgetAmountInfo.monthlyBudgetAmount - spent;
+    if (unspent < 0) { unspent = 0; };
+
     return {
-      unspent: budgetAmountInfo.monthlyBudgetAmount - spent,
+      unspent: unspent,
       spent: spent
     };
   });

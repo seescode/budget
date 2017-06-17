@@ -1,7 +1,3 @@
-<yb-budget-header *ngIf="totalBudgetInfo != null" [budgetAmount]="totalBudgetInfo.totalBudget" [activeDate]="selectedMonthAndYear$"
-  [remainingTotalBudget]="totalBudgetInfo.unspent" [remainingMonthlyBudget]="monthlyBudgetInfo.unspent" [spentInTotal]="totalBudgetInfo.spent"
-  [spentThisMonth]="monthlyBudgetInfo.spent" [getRunningSurplus]="getRunningSurplus$ | async"></yb-budget-header>
-
 <yb-category *ngFor="let cat of categories$ | async" 
   [categoryName]="cat.name" 
   [categoryId]="cat.id" 
