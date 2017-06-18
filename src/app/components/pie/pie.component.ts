@@ -140,8 +140,21 @@ export class PieComponent implements OnInit, OnDestroy {
   }
 
   renderLegend(data: any) {
-    const legend = this.g.selectAll('g')
-      .data(this.color.domain());
+
+    function renderLegendSquare(selection: any, that: any) {
+      selection.append('rect')
+        .attr('width', that.rectSize)
+        .attr('height', that.rectSize)
+        .style('fill', that.color)
+        .style('stroke', that.color);
+    }
+
+    function renderLegendText(selection: any, that: any) {
+      selection.append('text')
+        .attr('x', that.rectSize + that.spacing)
+        .attr('y', that.rectSize - that.spacing)
+        .text(function (d: any) { return d; });
+    }
 
     /**
      * <g class="legend">
@@ -149,47 +162,48 @@ export class PieComponent implements OnInit, OnDestroy {
      *   <text>
      * </g>
      */
-    const text1 = legend.enter()
+    const legend = this.g.selectAll('g')
+      .data(this.color.domain())
+      .enter()
       .append('g')
       .attr('class', 'legend')
       .attr('transform', (d: any, i: any) => {
-      const height = this.rectSize + this.spacing;
-      const offset = height * this.color.domain().length / 2;
-      const horz = -2 * this.rectSize;
-      const vert = i * height - offset;
-      return 'translate(' + horz + ',' + vert + ')';
-    })
+        const height = this.rectSize + this.spacing;
+        const offset = height * this.color.domain().length / 2;
+        const horz = -2 * this.rectSize;
+        const vert = i * height - offset;
+        return 'translate(' + horz + ',' + vert + ')';
+      })
+      .call(renderLegendSquare, this)
+      .call(renderLegendText, this)
 
     legend.exit().remove();
 
-    const text2 = legend
-      .attr('class', 'legend')
-      .attr('transform', (d: any, i: any) => {
-      const height = this.rectSize + this.spacing;
-      const offset = height * this.color.domain().length / 2;
-      const horz = -2 * this.rectSize;
-      const vert = i * height - offset;
-      return 'translate(' + horz + ',' + vert + ')';
-    })
-    
+    // const text2 = legend
+    //   .attr('class', 'legend')
+    //   .attr('transform', (d: any, i: any) => {
+    //     const height = this.rectSize + this.spacing;
+    //     const offset = height * this.color.domain().length / 2;
+    //     const horz = -2 * this.rectSize;
+    //     const vert = i * height - offset;
+    //     return 'translate(' + horz + ',' + vert + ')';
+    //   })
+    //   .call(renderLegendSquare)
+    //   .call(renderLegendText)
 
-    let rect2 = text2.append('rect')
-      .attr('width', this.rectSize)
-      .attr('height', this.rectSize)
-      .style('fill', this.color)
-      .style('stroke', this.color);
 
-    rect2.exit().remove();
-    
+    // let rect2 = text2.append('rect')
+    //   .attr('width', this.rectSize)
+    //   .attr('height', this.rectSize)
+    //   .style('fill', this.color)
+    //   .style('stroke', this.color);
 
-    text2
-       .append('text')
-       .attr('x', this.rectSize + this.spacing)
-       .attr('y', this.rectSize - this.spacing)
-       .text(function (d: any) { return d; });
+    // rect2.exit().remove();
 
-    text1.exit().remove();
-    text2.exit().remove();
+
+
+    //text1.exit().remove();
+    //text2.exit().remove();
 
 
     // let rect1 = text1.enter().append('rect')
@@ -197,7 +211,6 @@ export class PieComponent implements OnInit, OnDestroy {
     // .attr('height', this.rectSize)
     // .style('fill', this.color)
     // .style('stroke', this.color);
-    
 
     // text1.enter()
     //    .append('text')
@@ -205,13 +218,11 @@ export class PieComponent implements OnInit, OnDestroy {
     //    .attr('y', this.rectSize - this.spacing)
     //    .text(function (d: any) { return d; });
 
-
-    
-
     // rect1.exit().remove();
 
-    
   }
+
+
 
   render(data: any) {
     this.renderPieSlices(data);
