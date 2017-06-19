@@ -164,7 +164,8 @@ export class PieComponent implements OnInit, OnDestroy {
      */
     const legend = this.g.selectAll('g')
       .data(this.color.domain())
-      .enter()
+      
+    legend.enter()
       .append('g')
       .attr('class', 'legend')
       .attr('transform', (d: any, i: any) => {
@@ -175,9 +176,19 @@ export class PieComponent implements OnInit, OnDestroy {
         return 'translate(' + horz + ',' + vert + ')';
       })
       .call(renderLegendSquare, this)
-      .call(renderLegendText, this)
+      .call(renderLegendText, this);
 
     legend.exit().remove();
+
+    legend.attr('class', 'legend')
+      .attr('transform', (d: any, i: any) => {
+        const height = this.rectSize + this.spacing;
+        const offset = height * this.color.domain().length / 2;
+        const horz = -2 * this.rectSize;
+        const vert = i * height - offset;
+        return 'translate(' + horz + ',' + vert + ')';
+      })
+      .call(renderLegendText, this);
 
     // const text2 = legend
     //   .attr('class', 'legend')

@@ -1,3 +1,29 @@
 <yb-pie [update]="renderPie" title="Yearly" [width]="240" [height]="240" ringWidth="50" legendRectSize="18" legendSpacing="4"></yb-pie>
-
 <yb-pie [update]="renderPie2" title="Monthly" [width]="240" [height]="240" ringWidth="50" legendRectSize="18" legendSpacing="4"></yb-pie>
+
+<svg width="600" height="350">
+  <g transform="translate(40,20)">
+    <g class="x axis" transform="translate(0,210)">
+      <g class="tick" transform="translate(33,0)" style="opacity: 1;">
+        <line y2="6" x2="0"></line>
+        <text dy="-.55em" y="9" x="0" dx="-.8em" transform="rotate(-90)" style="text-anchor: end;">Remaining</text>
+      </g>
+      <g class="tick" transform="translate(86,0)" style="opacity: 1;">
+        <line y2="6" x2="0"></line>
+        <text dy="-.55em" y="9" x="0" dx="-.8em" transform="rotate(-90)" style="text-anchor: end;">Spent</text>
+      </g>
+      <g class="tick" transform="translate(140,0)" style="opacity: 1;">
+        <line y2="6" x2="0"></line>
+        <text dy="-.55em" y="9" x="0" dx="-.8em" transform="rotate(-90)" style="text-anchor: end;">Surplus</text>
+      </g>
+      <path class="domain" d="M0,6V0H165V6"></path>
+    </g>
+    <rect x="5" width="50" y="186.7154811715481" height="23.284518828451894" style="fill: steelblue;"></rect>
+    <rect x="57" width="50" y="137.51046025104603" height="72.48953974895397" style="fill: steelblue;"></rect>
+    <rect x="109" width="50" y="91.82008368200837" height="118.17991631799163" style="fill: steelblue;"></rect>
+
+    <text x="29" y="180" style="text-anchor: middle;">$1</text>
+    <text x="81" y="131.5" style="text-anchor: middle;">$2</text>
+    <text x="134" y="86.8" style="text-anchor: middle;">$2</text>
+  </g>
+</svg>
