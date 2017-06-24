@@ -1,3 +1,4 @@
+import { BarGraphComponent } from './components/bar-graph/bar-graph.component';
 import { ActionsCreatorService } from './actions/actionsCreatorService';
 import { BudgetEffects } from './effects/budget.effects';
 import { NewCategoryComponent } from './components/new-category/new-category';
@@ -88,7 +89,8 @@ import { PieComponent } from './components/pie/pie.component';
     BudgetingPageLeftNavComponent,
     BudgetingPageMainComponent,
     BudgetingPageRightNavComponent,
-    PieComponent
+    PieComponent,
+    BarGraphComponent
   ],
   providers: [
     ActionsCreatorService
