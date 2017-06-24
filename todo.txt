@@ -10,13 +10,13 @@ and lint isn't failing.
 
 Plan:
 -Implement bar graph 
-  -Render the same bar graph using hardcodeed
-  d3 code. 
   -Modify the data to be dynamically generated.
     -there has to be a bunch of calculations 
     based on the array values. 
   -Have the bar graph handle displaying 
   2 or 3 bars based on the data.
+  -Write selector that maps to correct data 
+  -Have it animate whenever the data changes
 
 
 

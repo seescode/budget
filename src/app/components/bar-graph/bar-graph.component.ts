@@ -96,6 +96,10 @@ export class BarGraphComponent implements OnInit, OnDestroy {
           x: 29,
           y: 180,
           amount: '$1'
+        },
+        tick: {
+          x: 33,
+          text: 'Remaining'
         }
       },
       {
@@ -108,6 +112,10 @@ export class BarGraphComponent implements OnInit, OnDestroy {
           x: 81,
           y: 131.5,
           amount: '$2'
+        },
+        tick: {
+          x: 86,
+          text: 'Spent'
         }
       },
       {
@@ -120,12 +128,53 @@ export class BarGraphComponent implements OnInit, OnDestroy {
           x: 134,
           y: 86.8,
           amount: '$3'
+        },
+        tick: {
+          x: 140,
+          text: 'Surplus'
         }
       }
     ];
 
     this.renderMoneyOnBars();
     this.renderBars();
+    this.renderAxis();
+  }
+
+  renderAxis() {
+
+     const axis = this.g
+      .append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', 'translate(0, 210)');
+
+    const tick = axis.selectAll('g')
+      .data(this.data);
+
+    const tickEnter = tick.enter()
+      .append('g')
+      .attr('class', 'tick')
+      .attr('transform', (d: any) => {
+        return 'translate(' + d.tick.x + ', 0)';
+      })
+      .attr('style', 'opacity: 1;');
+
+    tickEnter.append('line')
+      .attr('y2', 6)
+      .attr('x2', 0);
+
+    tickEnter.append('text')
+      .attr('dy', '-.55em')
+      .attr('y', 9)
+      .attr('x', 0)
+      .attr('dx', '-.8em')
+      .attr('transform', 'rotate(-90)')
+      .attr('style', 'text-anchor: end;')
+      .text((d: any) => d.tick.text);
+
+    axis.append('path')
+      .attr('class', 'domain')
+      .attr('d', 'M0,6V0H165V6');
   }
 
   /**
