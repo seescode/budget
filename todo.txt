@@ -10,13 +10,10 @@ and lint isn't failing.
 
 Plan:
 -Implement bar graph 
-  -Modify the data to be dynamically generated.
-    -there has to be a bunch of calculations 
-    based on the array values. 
-  -Have the bar graph handle displaying 
-  2 or 3 bars based on the data.
-  -Write selector that maps to correct data 
+  -Need to update graph when user adds transaction 
   -Have it animate whenever the data changes
+  -need to clean up the code.  Tons of duplication among 
+  the render methods. 
 
 
 

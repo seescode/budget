@@ -26,6 +26,7 @@ export class BudgetingPageRightNavComponent implements OnInit {
     this.monthlyBudgetPieData$ = this.store.select(monthlyBudgetPieDataSelector);
 
     this.totalBudgetPieData$.subscribe(n => {
+      console.log(n);
       this.renderPie.emit(n);
     });
 

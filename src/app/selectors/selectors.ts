@@ -262,7 +262,11 @@ export const monthlyBudgetPieDataSelector = createSelector(monthlyBudgetInfoSele
   runningSurplusSelector, (monthlyBudgetInfo, runningSurplus) => {
 
     if (monthlyBudgetInfo == null) {
-      return [];
+      return [
+        { label: 'Spent', amount: 1 },
+        { label: 'Remaining', amount: 1 },
+        { label: 'Surplus', amount: 1 }
+      ];
     }
 
     return [
@@ -275,18 +279,16 @@ export const monthlyBudgetPieDataSelector = createSelector(monthlyBudgetInfoSele
 export const totalBudgetPieDataSelector = createSelector(totalBudgetInfoSelector,
   (totalBudgetInfo) => {
     if (totalBudgetInfo == null) {
-      return [];
+      return [
+        { label: 'Spent', amount: 0 },
+        { label: 'Remaining', amount: 10 }
+      ];
     }
 
-    let pieData = [];
-
-    if (totalBudgetInfo.spent > 0) {
-      pieData.push({ label: 'Spent', amount: totalBudgetInfo.spent });
-    }
-    if (totalBudgetInfo.unspent > 0) {
-      pieData.push({ label: 'Remaining', amount: totalBudgetInfo.unspent });
-    }
-    return pieData;
+    return [
+      { label: 'Spent', amount: totalBudgetInfo.spent },
+      { label: 'Remaining', amount: totalBudgetInfo.unspent },
+    ];
   });
 
 
