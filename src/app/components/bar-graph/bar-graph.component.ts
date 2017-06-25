@@ -132,7 +132,7 @@ export class BarGraphComponent implements OnInit, OnDestroy {
       })
       .attr("style", 'fill: steelblue;');
 
-    rect
+    rect.transition()
       .attr("y", function (d: any) {
         const percent = d.amount / total;
         return h - (maxRectSize * percent);
@@ -170,7 +170,7 @@ export class BarGraphComponent implements OnInit, OnDestroy {
       })
       .attr("fill", "black");
 
-    text.text(function (d: any) {
+    text.transition().text(function (d: any) {
       return '$' + d.amount;
     }).attr("y", function (d: any) {
         const percent = d.amount / total;
