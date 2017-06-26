@@ -13,6 +13,8 @@ export class BarGraphComponent implements OnInit, OnDestroy {
   @Input() width: number;
   @Input() height: number;
   @Input() title: string;
+  @Input() barPadding: number;
+  @Input() maxRectSize: number;
 
   updateSubscription: Subscription;
 
@@ -32,12 +34,17 @@ export class BarGraphComponent implements OnInit, OnDestroy {
         if (!this.isSetup) {
           this.setup(data);
         } else {
-          this.renderBars(data);
-          this.renderMoneyOnBars(data);
+          const total = this.calculateTotal(data);
+          this.renderBars(data, total);
+          this.renderMoneyOnBars(data, total);
         }
-
       });
     }
+  }
+
+  calculateTotal(data: any) {
+    return data.map((d: any) => d.amount)
+              .reduce((prev: number, next: number) => prev + next);
   }
 
   setup(data: any) {
@@ -48,25 +55,17 @@ export class BarGraphComponent implements OnInit, OnDestroy {
       .attr('width', this.width)
       .attr('height', this.height);
 
-    // this.data = [
-    //   { label: 'Remaining', amount: 250 },
-    //   { label: 'Spent', amount: 30 },
-    //   { label: 'Surplus', amount: 30 },
-    // ];
-
     this.above = this.svg
       .append('g')
       .attr('transform', 'translate(0, -90)');
 
-    this.renderBars(data);
-    this.renderMoneyOnBars(data);
+    const total = this.calculateTotal(data);
+    this.renderBars(data, total);
+    this.renderMoneyOnBars(data, total);
     this.renderAxis(data);
   }
 
   renderAxis(data: any) {
-    const barPadding = 10;
-    const w = this.width;
-
     const axis = this.svg
       .append('g')
       .attr('class', 'x-axis')
@@ -79,7 +78,7 @@ export class BarGraphComponent implements OnInit, OnDestroy {
       .append('g')
       .attr('class', 'tick')
       .attr('transform', (d: any, i: number) => {
-        const section = w / data.length / 2;
+        const section = this.width / data.length / 2;
         const x = section * (1 + (i * 2));
         return 'translate(' + x + ', 0)';
       })
@@ -100,81 +99,66 @@ export class BarGraphComponent implements OnInit, OnDestroy {
 
     axis.append('rect')
       .attr('x', 0)
-      .attr('width', this.width - barPadding)
+      .attr('width', this.width - this.barPadding)
       .attr('height', 5);
   }
 
-  renderBars(data: any) {
-
-    const barPadding = 10;
-    const w = this.width;
-    const h = this.height;
-    const maxRectSize = 120;
-
-    const total = data.map((d: any) => d.amount).reduce((prev: number, next: number) => prev + next);
-
+  renderBars(data: any, total: number) {
     const rect = this.above.selectAll("rect")
       .data(data);
 
     rect.enter()
       .append("rect")
-      .attr("x", function (d: any, i: number) {
-        return i * (w / data.length);
+      .attr("x", (d: any, i: number) => {
+        return i * (this.width / data.length);
       })
-      .attr("y", function (d: any) {
+      .attr("y", (d: any) => {
         const percent = d.amount / total;
-        return h - (maxRectSize * percent);
+        return this.height - (this.maxRectSize * percent);
       })
-      .attr("width", w / data.length - barPadding)
-      .attr("height", function (d: any) {
+      .attr("width", this.width / data.length - this.barPadding)
+      .attr("height", (d: any) => {
         const percent = d.amount / total;
-        return maxRectSize * percent;
+        return this.maxRectSize * percent;
       })
       .attr("style", 'fill: steelblue;');
 
     rect.transition()
-      .attr("y", function (d: any) {
+      .attr("y", (d: any) => {
         const percent = d.amount / total;
-        return h - (maxRectSize * percent);
+        return this.height - (this.maxRectSize * percent);
       })
-      .attr("height", function (d: any) {
+      .attr("height", (d: any) => {
         const percent = d.amount / total;
-        return maxRectSize * percent;
+        return this.maxRectSize * percent;
       });
 
   }
 
-  renderMoneyOnBars(data: any) {
-    const barPadding = 10;
-    const w = this.width;
-    const h = this.height;
-    const maxRectSize = 120;
-
-    const total = data.map((d: any) => d.amount).reduce((prev: number, next: number) => prev + next);
-
+  renderMoneyOnBars(data: any, total: number) {
     const text = this.above.selectAll("text")
       .data(data);
 
     text.enter()
       .append("text")
-      .text(function (d: any) {
+      .text((d: any) => {
         return '$' + d.amount;
       })
       .attr("text-anchor", "middle")
-      .attr("x", function (d: any, i: number) {
-        return i * (w / data.length) + (w / data.length - barPadding) / 2;
+      .attr("x", (d: any, i: number) => {
+        return i * (this.width / data.length) + (this.width / data.length - this.barPadding) / 2;
       })
-      .attr("y", function (d: any) {
+      .attr("y", (d: any) => {
         const percent = d.amount / total;
-        return h - (maxRectSize * percent) - 5;
+        return this.height - (this.maxRectSize * percent) - 5;
       })
       .attr("fill", "black");
 
-    text.transition().text(function (d: any) {
+    text.transition().text((d: any) => {
       return '$' + d.amount;
-    }).attr("y", function (d: any) {
+    }).attr("y", (d: any) => {
         const percent = d.amount / total;
-        return h - (maxRectSize * percent) - 5;
+        return this.height - (this.maxRectSize * percent) - 5;
     });
   }
 

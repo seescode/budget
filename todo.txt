@@ -10,8 +10,6 @@ and lint isn't failing.
 
 Plan:
 -Implement bar graph 
-  -need to clean up the code.  Tons of duplication among 
-  the render methods. 
   -Need to label yearly/monthly on each graph
   -center the graphs in the right hand sidebar 
 
