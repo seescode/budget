@@ -92,3 +92,10 @@ yet.
 sub properties off of the whole object. 
 -cool feature: have the ability to move a transaction to a previous or next month.
 So just add <, > buttons per row that do this.  
+
+-setup pa11y
+-use the latest ngrx example app patterns:
+  -actions as classes 
+-Setup route guard to prevent user from hitting the page. 
+-lazy loading 
+-gzip the application since angular cli doesn't do it automatically. 
