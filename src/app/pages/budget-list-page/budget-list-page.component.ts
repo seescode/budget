@@ -1,9 +1,7 @@
-import { ActionsCreatorService } from './../../actions/actionsCreatorService';
-import { budgetSelector } from './../../selectors/selectors';
+import { AppState, CustomObject } from './../../reducers/budget.reducer';
 import { Router } from '@angular/router';
 import { Budget } from './../../models/interfaces';
 import { Observable } from 'rxjs/Observable';
-import { AppState } from './../../reducers/index';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
@@ -14,31 +12,33 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BudgetListPageComponent implements OnInit {
-  budgets$: Observable<Budget[]>;
 
-  constructor(private store: Store<AppState>, private router: Router,
-    private actionsCreatorService: ActionsCreatorService) { }
+customObjects: CustomObject[];
 
-  ngOnInit() {
-    this.budgets$ = this.store.select(budgetSelector);
-  }
+constructor(private appStore: Store<AppState>) {
+  appStore.select(store => store.Main)
+    .subscribe(objs => {
+      this.customObjects = objs;
+      console.log(this.customObjects);
+    })
+}
 
-  openBudget(budgetId: string) {
-    const month = new Date().getMonth();
-    const year = new Date().getFullYear();
+ngOnInit() {
+}
 
-    this.router.navigate(['/budgeting', budgetId, year, month + 1]);
-  }
 
-  deleteBudget(budgetId: string) {
-    this.store.dispatch(this.actionsCreatorService.removeBudget(budgetId));
-  }
+loadCustomObjects() {
+  let initialItems: CustomObject[] = [
+    {
+      directoryName: "d_name_1",
+      brokenLinks: 0,
+    },
+    {
+      directoryName: "d_name_2",
+      brokenLinks: 0,
+    }
+  ];
 
-  importBudget() {
-    
-  }
-
-  exportBudget(budgetId: string) {
-
-  }
- }
+  this.appStore.dispatch({ type: 'LOAD_CUSTOM_OBJECTS', payload: initialItems });
+}
+}

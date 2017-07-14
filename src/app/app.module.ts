@@ -1,9 +1,4 @@
-import { BarGraphComponent } from './components/bar-graph/bar-graph.component';
-import { ActionsCreatorService } from './actions/actionsCreatorService';
-import { BudgetEffects } from './effects/budget.effects';
-import { NewCategoryComponent } from './components/new-category/new-category';
 import { FormsModule } from '@angular/forms';
-import { CategoryComponent } from './components/category/category';
 import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,13 +16,7 @@ import { routes } from './routes';
 import { reducer } from './reducers';
 import { schema } from './db';
 import { BudgetListPageComponent } from './pages/budget-list-page/budget-list-page.component';
-import { CreateBudgetPageComponent } from './pages/create-budget-page/create-budget-page.component';
-import { BudgetingPageComponent } from './pages/budgeting-page/budgeting-page.component';
 import { AppComponent } from './pages/app/app.component';
-import { BudgetingPageLeftNavComponent } from './pages/budgeting-page/budgeting-page-left-nav/budgeting-page-left-nav.component';
-import { BudgetingPageMainComponent } from './pages/budgeting-page/budgeting-page-main/budgeting-page-main.component';
-import { BudgetingPageRightNavComponent } from './pages/budgeting-page/budgeting-page-right-nav/budgeting-page-right-nav.component';
-import { PieComponent } from './components/pie/pie.component';
 
 @NgModule({
   imports: [
@@ -71,7 +60,6 @@ import { PieComponent } from './components/pie/pie.component';
      *
      * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
      */
-    EffectsModule.run(BudgetEffects),
 
     /**
      * `provideDB` sets up @ngrx/db with the provided schema and makes the Database
@@ -80,20 +68,8 @@ import { PieComponent } from './components/pie/pie.component';
     DBModule.provideDB(schema)
   ],
   declarations: [
-    CategoryComponent,
-    NewCategoryComponent,
     BudgetListPageComponent,
-    CreateBudgetPageComponent,
-    BudgetingPageComponent,
-    AppComponent,
-    BudgetingPageLeftNavComponent,
-    BudgetingPageMainComponent,
-    BudgetingPageRightNavComponent,
-    PieComponent,
-    BarGraphComponent
-  ],
-  providers: [
-    ActionsCreatorService
+    AppComponent
   ],
   bootstrap: [
     AppComponent

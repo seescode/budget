@@ -3,10 +3,7 @@ import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 import { environment } from '../../environments/environment';
-import {BudgetReducer } from './budget.reducer';
-import {CategoryReducer } from './category.reducer';
-import {TransactionReducer } from './transaction.reducer';
-import { BudgetLoadedReducer } from './budget-loaded.reducer';
+import { MainReducer, AppState } from './budget.reducer';
 import { RouterState } from '@angular/router';
 
 
@@ -38,40 +35,9 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 
 
-/**
- * Every reducer module's default export is the reducer function itself. In
- * addition, each module should export a type or interface that describes
- * the state of the reducer plus any selector functions. The `* as`
- * notation packages up all of the exports into a single object.
- */
 
-
-/**
- * As mentioned, we treat each reducer like a table in a database. This means
- * our top level state interface is just a map of keys to inner state types.
- */
-export interface AppState {
-  budget: Budget[];
-  transaction: Transaction[];
-  category: Category[];
-  router: RouterState;
-  budgetLoaded: Loaded;
-}
-
-
-/**
- * Because metareducers take a reducer function and return a new reducer,
- * we can use our compose helper to chain them together. Here we are
- * using combineReducers to make our top level reducer, and then
- * wrapping that in storeLogger. Remember that compose applies
- * the result from right to left.
- */
 const reducers = {
-  budget: BudgetReducer,
-  category: CategoryReducer,
-  transaction: TransactionReducer,
-  router: fromRouter.routerReducer,
-  budgetLoaded: BudgetLoadedReducer
+  Main: MainReducer
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
