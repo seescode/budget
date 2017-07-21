@@ -9,12 +9,21 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-write e2e tests 
+  -use your more higher level operations to simplify writing e2e 
+  tests.
+    -create a method that will just create a new budget 
+    completely from scratch.  So it takes name, categories, 
+    transactions per month 
+  -Break out your app.e2e-spec.ts into multiple files.  
+  -fix all e2e tests 
+  -write missing e2e tests 
+-Write more unit tests 
+
+
 -Implement bar graph 
   -Need to label yearly/monthly on each graph
   -center the graphs in the right hand sidebar 
-
-
-
 -When you add a transaction and then delete it
 the pie graph will not remove the nodes from 
 -enable the ability to use the keyboard to undo a transaction.  Maybe escape 
@@ -24,7 +33,6 @@ the pie graph will not remove the nodes from
  in the url. 
 -implement exporting and importing budgets.
 -We need to also be able to view the start and end dates of a budget as quick reference. 
--write e2e tests 
 
 -remove heading that shows budget totals 
 -group the end to end tests in a logical manner

@@ -90,4 +90,12 @@ export class BudgetingPage {
   confirmDelete() {
     this.clickSnackBar();
   }
+
+  createCategoryWithTransactions(categoryName: string, transactions: any[]) {
+    this.addNewCategory(categoryName);
+
+    transactions.forEach(t => {
+      this.addNewTransaction(categoryName, t.amount, t.name);
+    });
+  }
 }

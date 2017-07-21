@@ -32,4 +32,17 @@ export class CreateBudgetPage {
     monthElement.sendKeys(year);
   }
 
+  createBudget(name: string, details: string, amount: string,
+    startMonth: string, startYear: string, endMonth: string, endYear: string) {
+
+    this.setBudgetName(name);
+    this.setBudgetDetails(details);
+    this.setBudgetAmount(amount);
+    this.setDate(startMonth, startYear, '#budget-start');
+    this.setDate(endMonth, endYear, '#budget-finish');
+
+    const createBudgetPageCreateButton = this.getCreateBudgetButton();
+    createBudgetPageCreateButton.click();
+  }
+
 }

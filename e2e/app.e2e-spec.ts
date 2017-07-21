@@ -21,14 +21,8 @@ describe('App', function () {
     const budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
     budgetListPageCreateButton.click();
 
-    createBudgetPage.setBudgetName('budget 2');
-    createBudgetPage.setBudgetDetails('some random stuff');
-    createBudgetPage.setBudgetAmount('12000');
-    createBudgetPage.setDate('1', '2017', '#budget-start');
-    createBudgetPage.setDate('12', '2017', '#budget-finish');
-
-    const createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
-    createBudgetPageCreateButton.click();
+    createBudgetPage.createBudget('budget 2', 'some random stuff', '12000', '1', '2017',
+      '12', '2017');
 
     const openButtons = budgetListPage.getOpenButtons();
 
@@ -50,27 +44,22 @@ describe('App', function () {
 
   });
 
-  it('should be able to create multiple categories', () => {
-    budgetingPage.addNewCategory('Food');
-    budgetingPage.addNewCategory('Gas');
-
-    const categoryName = budgetingPage.getCategoryNames();
-
-    expect(categoryName.get(0).getText()).toBe('Food');
-    expect(categoryName.get(1).getText()).toBe('Gas');
-  });
 
   it('should update category totals when adding transactions', () => {
-    budgetingPage.addNewTransaction('Food', .01, 'Chicken');
-    budgetingPage.addNewTransaction('Food', .02, 'Chicken');
-    budgetingPage.addNewTransaction('Food', .03, 'Beef');
-    budgetingPage.addNewTransaction('Food', .04);
 
-    budgetingPage.addNewTransaction('Gas', 10, 'NYC');
-    budgetingPage.addNewTransaction('Gas', 20);
-    budgetingPage.addNewTransaction('Gas', 30);
-    budgetingPage.addNewTransaction('Gas', 40);
+    budgetingPage.createCategoryWithTransactions('Food', [
+      {amount: .01, name: 'Chicken'},
+      {amount: .02, name: 'Chicken'},
+      {amount: .03, name: 'Beef'},
+      {amount: .04, name: null}
+    ]);
 
+    budgetingPage.createCategoryWithTransactions('Gas', [
+      {amount: 10, name: 'NYC'},
+      {amount: 20, name: null},
+      {amount: 30, name: null},
+      {amount: 40, name: null}
+    ]);
 
     const categoryAmounts = budgetingPage.getCategoryAmounts();
 
@@ -331,17 +320,12 @@ describe('App', function () {
     const budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
     budgetListPageCreateButton.click();
 
-    createBudgetPage.setBudgetName('no categories');
-    createBudgetPage.setBudgetDetails('');
-    createBudgetPage.setBudgetAmount('1');
-    createBudgetPage.setDate('1', '2017', '#budget-start');
-    createBudgetPage.setDate('2', '2017', '#budget-finish');
+    createBudgetPage.createBudget('no categories', '', '1', '1', '2017', '2', '2017');
+
 
     let open = budgetListPage.getOpenButtons();
     expect(open.count()).toBe(2);
 
-    const createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
-    createBudgetPageCreateButton.click();
 
     const deletes = budgetListPage.getDeleteButtons();
     deletes.get(1).click();
