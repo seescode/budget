@@ -88,6 +88,15 @@ export const categoriesWithTransactions = createSelector(budgetPageRouteSelector
           .filter(t => t.categoryId === cat.id &&
             t.timestamp.getFullYear() === route.year &&
             t.timestamp.getMonth() === route.month - 1)
+          .sort((a, b) => {
+            if (a.timestamp < b.timestamp) {
+              return -1;
+            } else if (a.timestamp > b.timestamp) {
+              return 1;
+            }
+
+            return 0;
+          })
       }));
   });
 

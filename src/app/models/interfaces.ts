@@ -20,12 +20,21 @@ export interface Transaction {
 }
 
 export interface Budget {
-  id: string;
+  id?: string;
   name: string;
   details: string;
   budgetAmount: number;
   startDate: Date;
   endDate: Date;
+}
+
+
+export interface CategoryRecipe extends Category {
+  transactions: Transaction[];
+}
+
+export interface BudgetRecipe extends Budget {
+  categories: CategoryRecipe[];
 }
 
 export interface ActiveDate {

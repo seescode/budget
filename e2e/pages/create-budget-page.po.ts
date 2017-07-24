@@ -1,6 +1,12 @@
+import { BudgetingPage } from './budgeting-page.po';
+import { BudgetListPage } from './budget-list-page.po';
+import { Budget, BudgetRecipe } from './../../src/app/models/interfaces';
 import { browser, element, by, ElementFinder, promise, protractor } from 'protractor';
 
 export class CreateBudgetPage {
+
+  budgetListPage = new BudgetListPage();
+  budgetingPage = new BudgetingPage();
 
   navigateTo() {
     return browser.get('/create-budget');
@@ -45,4 +51,17 @@ export class CreateBudgetPage {
     createBudgetPageCreateButton.click();
   }
 
+  createWholeBudget(budget: BudgetRecipe) {
+    this.createBudget(budget.name, budget.details, String(budget.budgetAmount),
+      String(budget.startDate.getMonth() + 1), String(budget.startDate.getFullYear()),
+      String(budget.endDate.getMonth() + 1), String(budget.endDate.getFullYear()));
+
+    const openButtons = this.budgetListPage.getOpenButtons();
+    openButtons.click();
+
+    budget.categories.forEach((category) => {
+      this.budgetingPage.createCategoryWithTransactions(
+        category.name, category.transactions);
+    });
+  }
 }
