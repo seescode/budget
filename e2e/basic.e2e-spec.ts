@@ -5,8 +5,7 @@ import { CreateBudgetPage } from './pages/create-budget-page.po';
 import { BudgetListPage } from './pages/budget-list-page.po';
 import { BudgetingPage } from './pages/budgeting-page.po';
 
-
-fdescribe('App', function () {
+describe('App', function () {
   let budgetListPage: BudgetListPage;
   let createBudgetPage: CreateBudgetPage;
   let budgetingPage: BudgetingPage;
@@ -17,7 +16,7 @@ fdescribe('App', function () {
     budgetingPage = new BudgetingPage();
   });
 
-  it('should be able to create a budget', () => {
+  it('should be able to create a budget 1', () => {
 
     // browser.restartSync();
 
@@ -54,7 +53,7 @@ fdescribe('App', function () {
 
     createBudgetPage.createWholeBudget(budgetRecipe);
 
-    budgetListPage.navigateTo();
+    // budgetListPage.navigateTo();
     const openButtons = budgetListPage.getOpenButtons();
     expect(openButtons.count()).toBe(1);
   });
@@ -144,64 +143,6 @@ fdescribe('App', function () {
     expect(categoryAmounts.get(0).getText()).toBe('$0.10');
     expect(categoryAmounts.get(1).getText()).toBe('$100.00');
   });
-
-  // it('should be able to go to previous month', () => {
-
-  //   budgetingPage.clickPreviousMonth();
-
-  //   const previousMonth = getCurrentMonth().add(-1, 'month');;
-  //   const month = previousMonth.format('MMMM');
-  //   const year = previousMonth.format('YYYY');
-
-  //   // Verify title
-  //   const title = budgetingPage.getBudgetH1Title();
-  //   expect(title.getText()).toBe(month + ' ' + year + ' budget 2');
-
-
-  //   // Verify that category totals are 0
-  //   const categoryAmounts = budgetingPage.getCategoryAmounts();
-  //   expect(categoryAmounts.get(0).getText()).toBe('$0.00');
-  //   expect(categoryAmounts.get(1).getText()).toBe('$0.00');
-
-  //   // Verify that when you click on category total there are no transactions
-  //   budgetingPage.toggleTransactionsForCategory('Food');
-  //   let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
-  //   expect(amounts.count()).toBe(0);
-
-  //   budgetingPage.toggleTransactionsForCategory('Gas');
-  //   amounts = budgetingPage.getCategoryTransactionAmounts('Gas');
-  //   expect(amounts.count()).toBe(0);
-
-  // });
-
-  // it('should be able to go to next month', () => {
-  //   budgetingPage.clickNextMonth();
-  //   budgetingPage.clickNextMonth();
-
-  //   const nextMonth = getCurrentMonth().add(1, 'month');;
-  //   const month = nextMonth.format('MMMM');
-  //   const year = nextMonth.format('YYYY');
-
-  //   // Verify title
-  //   const title = budgetingPage.getBudgetH1Title();
-  //   expect(title.getText()).toBe(month + ' ' + year + ' budget 2');
-
-
-  //   // Verify that category totals are 0
-  //   const categoryAmounts = budgetingPage.getCategoryAmounts();
-  //   expect(categoryAmounts.get(0).getText()).toBe('$0.00');
-  //   expect(categoryAmounts.get(1).getText()).toBe('$0.00');
-
-  //   // Verify that when you click on category total there are no transactions
-  //   budgetingPage.toggleTransactionsForCategory('Food');
-  //   let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
-  //   expect(amounts.count()).toBe(0);
-
-  //   budgetingPage.toggleTransactionsForCategory('Gas');
-  //   amounts = budgetingPage.getCategoryTransactionAmounts('Gas');
-  //   expect(amounts.count()).toBe(0);
-  // });
-
 
   it('should update pie graph', () => {
   });

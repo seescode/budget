@@ -1,3 +1,4 @@
+import { BudgetRecipe } from './../src/app/models/interfaces';
 import { getCurrentMonth } from './../src/app/selectors/selectors';
 import { browser, element, by } from 'protractor';
 import { CreateBudgetPage } from './pages/create-budget-page.po';
@@ -16,182 +17,111 @@ describe('App', function () {
     budgetingPage = new BudgetingPage();
   });
 
-  it('should be able to create and undo transaction', () => {
-    budgetingPage.addNewTransaction('Food', 1);
-    budgetingPage.addNewTransaction('Food', 2);
-    budgetingPage.addNewTransaction('Food', 3);
-    budgetingPage.addNewTransaction('Food', 4);
+  it('should be able to create a budget 2', () => {
 
+    browser.restartSync();
+
+    budgetListPage.navigateTo();
+    const budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
+    budgetListPageCreateButton.click();
+
+    const budgetRecipe: BudgetRecipe = {
+      name: 'japan',
+      details: '',
+      budgetAmount: 12000,
+      startDate: new Date(2017, 0),
+      endDate: new Date(2017, 11),
+      categories: [{
+        name: 'Food',
+        transactions: [
+          { amount: 1, name: 'Chicken' }
+        ]
+      },
+      ]
+    };
+
+    createBudgetPage.createWholeBudget(budgetRecipe);
+
+    const openButtons = budgetListPage.getOpenButtons();
+    openButtons.click();
+  });
+
+
+  it('should be able to go to previous month', () => {
+    budgetingPage.clickPreviousMonth();
+
+    const previousMonth = getCurrentMonth().add(-1, 'month');;
+    const month = previousMonth.format('MMMM');
+    const year = previousMonth.format('YYYY');
+
+    // Verify title
+    const title = budgetingPage.getBudgetH1Title();
+    expect(title.getText()).toBe(month + ' ' + year + ' japan');
+
+    // Verify that category totals are 0
     let categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$0.00');
 
-    expect(categoryAmounts.get(0).getText()).toBe('$10.00');
-    expect(categoryAmounts.get(1).getText()).toBe('$0.00');
+    // Verify that when you click on category total there are no transactions
+    budgetingPage.toggleTransactionsForCategory('Food');
+    let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+    expect(amounts.count()).toBe(0);
 
-    budgetingPage.addNewTransaction('Food', 5);
+    budgetingPage.toggleTransactionsForCategory('Food');
+
+    budgetingPage.addNewTransaction('Food', 100);
+    budgetingPage.addNewTransaction('Food', 200);
+
     categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$15.00');
-    expect(categoryAmounts.get(1).getText()).toBe('$0.00');
+    expect(categoryAmounts.get(0).getText()).toBe('$300.00');
+  });
+
+  it('should be able to go to next month', () => {
+    budgetingPage.clickNextMonth();
+    budgetingPage.clickNextMonth();
+
+    const nextMonth = getCurrentMonth().add(1, 'month');;
+    const month = nextMonth.format('MMMM');
+    const year = nextMonth.format('YYYY');
+
+    // Verify title
+    const title = budgetingPage.getBudgetH1Title();
+    expect(title.getText()).toBe(month + ' ' + year + ' japan');
+
+
+    // Verify that category totals are 0
+    let categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$0.00');
+
+    // Verify that when you click on category total there are no transactions
+    budgetingPage.toggleTransactionsForCategory('Food');
+    let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+    expect(amounts.count()).toBe(0);
+
+    budgetingPage.toggleTransactionsForCategory('Food');
+
+    budgetingPage.addNewTransaction('Food', 10);
+    budgetingPage.addNewTransaction('Food', 20);
+
+    categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$30.00');
+  });
+
+  it('should be able to create and undo transaction', () => {
 
     // Click undo and verify that we don't see the removed transaction
+    budgetingPage.addNewTransaction('Food', 1);
+    let categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$31.00');
+    
     budgetingPage.undoCreateTransaction();
     categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$10.00');
-    expect(categoryAmounts.get(1).getText()).toBe('$0.00');
+    expect(categoryAmounts.get(0).getText()).toBe('$30.00');
 
-    // Verify that you only see 4 transactions after toggling
-    budgetingPage.toggleTransactionsForCategory('Food');
-    const amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+    // // Verify that you only see 4 transactions after toggling
+    // budgetingPage.toggleTransactionsForCategory('Food');
+    // const amounts = budgetingPage.getCategoryTransactionAmounts('Food');
 
-    expect(amounts.get(0).getText()).toBe('$1.00');
-    expect(amounts.get(1).getText()).toBe('$2.00');
-    expect(amounts.get(2).getText()).toBe('$3.00');
-    expect(amounts.get(3).getText()).toBe('$4.00');
+    // expect(amounts.get(0).getText()).toBe('$10.00');
   });
-
-  it('should be able to delete multiple transactions', () => {
-
-    // delete first transaction
-    let deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
-
-    deleteButtons.get(0).click();
-    let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
-
-    expect(amounts.get(0).getText()).toBe('$2.00');
-    expect(amounts.get(1).getText()).toBe('$3.00');
-    expect(amounts.get(2).getText()).toBe('$4.00');
-
-    let categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$9.00');
-
-
-    // delete second transaction
-    deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
-
-    deleteButtons.get(0).click();
-    amounts = budgetingPage.getCategoryTransactionAmounts('Food');
-
-    expect(amounts.get(0).getText()).toBe('$3.00');
-    expect(amounts.get(1).getText()).toBe('$4.00');
-
-    categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$7.00');
-
-  });
-
-
-  it('should be able to undo transaction delete', () => {
-
-    // delete second transaction
-    const deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
-
-    deleteButtons.get(0).click();
-    let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
-
-    expect(amounts.get(0).getText()).toBe('$4.00');
-
-    let categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$4.00');
-
-    // undo delete
-    budgetingPage.undoDeleteTransaction();
-
-    amounts = budgetingPage.getCategoryTransactionAmounts('Food');
-
-    expect(amounts.get(0).getText()).toBe('$4.00');
-    expect(amounts.get(1).getText()).toBe('$3.00');
-
-    categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$7.00');
-
-  });
-
-  it('should attempt to delete category', () => {
-    let categoryNames = budgetingPage.getCategoryNames();
-    expect(categoryNames.count()).toBe(2);
-
-    // delete remaining transactions
-    let deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
-    deleteButtons.get(0).click();
-    deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
-    deleteButtons.get(0).click();
-
-    budgetingPage.attemptDeleteCategory();
-
-    categoryNames = budgetingPage.getCategoryNames();
-    expect(categoryNames.count()).toBe(2);
-  });
-
-  it('should be able to delete multiple categories', () => {
-
-    budgetingPage.toggleTransactionsForCategory('Gas');
-
-    budgetingPage.attemptDeleteCategory();
-    budgetingPage.confirmDelete();
-
-    let categoryNames = budgetingPage.getCategoryNames();
-    expect(categoryNames.get(0).getText()).toBe('Food');
-
-    budgetingPage.toggleTransactionsForCategory('Food');
-
-    budgetingPage.attemptDeleteCategory();
-    budgetingPage.confirmDelete();
-
-    categoryNames = budgetingPage.getCategoryNames();
-    expect(categoryNames.count()).toBe(0);
-
-  });
-
-  // ///////////////////////////
-
-  // it('should be able to delete a budget with no categories and no transactions', () => {
-  //   budgetingPage.clickManageBudgets();
-
-  //   const budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
-  //   budgetListPageCreateButton.click();
-
-  //   createBudgetPage.createBudget('no categories', '', '1', '1', '2017', '2', '2017');
-
-
-  //   let open = budgetListPage.getOpenButtons();
-  //   expect(open.count()).toBe(2);
-
-
-  //   const deletes = budgetListPage.getDeleteButtons();
-  //   deletes.get(1).click();
-
-  //   open = budgetListPage.getOpenButtons();
-  //   expect(open.count()).toBe(1);
-
-  // });
-
-  // it('should be able to delete a budget with no transactions', () => {
-  // });
-
-  // it('should be able to delete a budget with categories and transactions', () => {
-  // });
-
-
-  // it('should work with a one month budget', () => {
-  // });
-
-
-  // it('should be able to create a second budget', () => {
-  //   // Just create one similiarly named category and one transaction.
-  //   // Verify the numbers update
-  // });
-
-  // it('second budget adds should not affect first budget', () => {
-  //   // Create new transactions
-  //   // Verify that the other budget didn't change
-  // });
-
-  // it('second budget deletes should not affect first budget', () => {
-  //   // Delete transactions
-  //   // Delete a category
-  //   // Verify that the other budget didn't change
-  // });
-
-  // it('should be able to delete both budgets', () => {
-  // });
-
 });
