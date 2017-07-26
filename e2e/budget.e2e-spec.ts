@@ -5,7 +5,6 @@ import { CreateBudgetPage } from './pages/create-budget-page.po';
 import { BudgetListPage } from './pages/budget-list-page.po';
 import { BudgetingPage } from './pages/budgeting-page.po';
 
-
 describe('App', function () {
   let budgetListPage: BudgetListPage;
   let createBudgetPage: CreateBudgetPage;
@@ -111,12 +110,12 @@ describe('App', function () {
 
     // Click undo and verify that we don't see the removed transaction
     budgetingPage.addNewTransaction('Food', 1);
-    let categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$31.00');
-    
+    // let categoryAmounts = budgetingPage.getCategoryAmounts();
+    // expect(categoryAmounts.get(0).getText()).toBe('$31.00');
+
     budgetingPage.undoCreateTransaction();
-    categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$30.00');
+    // categoryAmounts = budgetingPage.getCategoryAmounts();
+    // expect(categoryAmounts.get(0).getText()).toBe('$30.00');
 
     // // Verify that you only see 4 transactions after toggling
     // budgetingPage.toggleTransactionsForCategory('Food');

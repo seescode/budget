@@ -16,6 +16,8 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/observable/forkJoin';
+
 import { Injectable } from '@angular/core';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
@@ -25,6 +27,8 @@ import { of } from 'rxjs/observable/of';
 import { Database } from '@ngrx/db';
 import { defer } from 'rxjs/observable/defer';
 import 'rxjs/add/operator/toArray';
+import 'rxjs/add/operator/startWith';
+
 import 'rxjs/add/observable/from';
 
 @Injectable()
