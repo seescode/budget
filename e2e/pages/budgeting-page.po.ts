@@ -75,8 +75,10 @@ export class BudgetingPage {
   }
 
   private clickSnackBar() {
+    // Could not get this to click it so I had to resort to javascript clicking.
+    // https://stackoverflow.com/questions/37809915/element-not-visible-error-not-able-to-click-an-element
     const submit = element(by.css('.mat-simple-snackbar-action'));
-    submit.click();
+    browser.executeScript("arguments[0].click();", submit.getWebElement());
   }
 
   undoCreateTransaction() {

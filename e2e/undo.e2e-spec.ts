@@ -19,6 +19,8 @@ describe('App', function () {
   it('should be able to create a budget 2', () => {
 
     browser.restartSync();
+    browser.manage().window().maximize();
+    // browser.manage().window().setSize(1600, 1000);
 
     budgetListPage.navigateTo();
     const budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
@@ -33,7 +35,7 @@ describe('App', function () {
       categories: [{
         name: 'Food',
         transactions: [
-          { amount: 1, name: 'Chicken' }
+          { amount: 30, name: 'Chicken' }
         ]
       },
       ]
@@ -41,8 +43,8 @@ describe('App', function () {
 
     createBudgetPage.createWholeBudget(budgetRecipe);
 
-    const openButtons = budgetListPage.getOpenButtons();
-    openButtons.click();
+    // const openButtons = budgetListPage.getOpenButtons();
+    // openButtons.click();
   });
 
 
@@ -50,12 +52,12 @@ describe('App', function () {
 
     // Click undo and verify that we don't see the removed transaction
     budgetingPage.addNewTransaction('Food', 1);
-    // let categoryAmounts = budgetingPage.getCategoryAmounts();
-    // expect(categoryAmounts.get(0).getText()).toBe('$31.00');
+    let categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$31.00');
 
     budgetingPage.undoCreateTransaction();
-    // categoryAmounts = budgetingPage.getCategoryAmounts();
-    // expect(categoryAmounts.get(0).getText()).toBe('$30.00');
+    categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$30.00');
 
     // // Verify that you only see 4 transactions after toggling
     // budgetingPage.toggleTransactionsForCategory('Food');
