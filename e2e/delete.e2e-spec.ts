@@ -131,47 +131,7 @@
   // });
 
 
-  // it('should be able to undo transaction delete', () => {
-
-  //   // delete second transaction
-  //   const deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
-
-  //   deleteButtons.get(0).click();
-  //   let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
-
-  //   expect(amounts.get(0).getText()).toBe('$4.00');
-
-  //   let categoryAmounts = budgetingPage.getCategoryAmounts();
-  //   expect(categoryAmounts.get(0).getText()).toBe('$4.00');
-
-  //   // undo delete
-  //   budgetingPage.undoDeleteTransaction();
-
-  //   amounts = budgetingPage.getCategoryTransactionAmounts('Food');
-
-  //   expect(amounts.get(0).getText()).toBe('$4.00');
-  //   expect(amounts.get(1).getText()).toBe('$3.00');
-
-  //   categoryAmounts = budgetingPage.getCategoryAmounts();
-  //   expect(categoryAmounts.get(0).getText()).toBe('$7.00');
-
-  // });
-
-  // it('should attempt to delete category', () => {
-  //   let categoryNames = budgetingPage.getCategoryNames();
-  //   expect(categoryNames.count()).toBe(2);
-
-  //   // delete remaining transactions
-  //   let deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
-  //   deleteButtons.get(0).click();
-  //   deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
-  //   deleteButtons.get(0).click();
-
-  //   budgetingPage.attemptDeleteCategory();
-
-  //   categoryNames = budgetingPage.getCategoryNames();
-  //   expect(categoryNames.count()).toBe(2);
-  // });
+ 
 
   // it('should be able to delete multiple categories', () => {
 

@@ -54,7 +54,7 @@ export class BudgetingPage {
   }
 
   attemptDeleteCategory() {
-    browser.sleep(200);
+    // browser.sleep(300);
     const submit = element(by.css('.delete-category-button'));
     submit.click();
   }

@@ -35,10 +35,17 @@ describe('App', function () {
       categories: [{
         name: 'Food',
         transactions: [
-          { amount: 30, name: 'Chicken' }
+          { amount: 30, name: 'Chicken' },
+          { amount: 20, name: 'Ham' },
+          { amount: 10, name: 'Lettuce' },
         ]
       },
-      ]
+      {
+        name: 'Stuff',
+        transactions: [
+          { amount: 50 }
+        ]
+      }]
     };
 
     createBudgetPage.createWholeBudget(budgetRecipe);
@@ -53,16 +60,51 @@ describe('App', function () {
     // Click undo and verify that we don't see the removed transaction
     budgetingPage.addNewTransaction('Food', 1);
     let categoryAmounts = budgetingPage.getCategoryAmounts();
-    expect(categoryAmounts.get(0).getText()).toBe('$31.00');
+    expect(categoryAmounts.get(0).getText()).toBe('$61.00');
 
     budgetingPage.undoCreateTransaction();
     categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$60.00');
+  });
+
+  it('should be able to undo transaction delete', () => {
+
+    // delete second transaction
+    budgetingPage.toggleTransactionsForCategory('Food');
+    const deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
+
+    deleteButtons.get(0).click();
+    // let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+
+    // expect(amounts.get(0).getText()).toBe('$20.00');
+    // expect(amounts.get(1).getText()).toBe('$10.00');
+
+    let categoryAmounts = budgetingPage.getCategoryAmounts();
     expect(categoryAmounts.get(0).getText()).toBe('$30.00');
 
-    // // Verify that you only see 4 transactions after toggling
-    // budgetingPage.toggleTransactionsForCategory('Food');
-    // const amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+    // undo delete
+    budgetingPage.undoDeleteTransaction();
 
-    // expect(amounts.get(0).getText()).toBe('$10.00');
+    let amounts = budgetingPage.getCategoryTransactionAmounts('Food');
+
+    expect(amounts.get(0).getText()).toBe('$30.00');
+    expect(amounts.get(1).getText()).toBe('$20.00');
+    expect(amounts.get(2).getText()).toBe('$10.00');
+
+    categoryAmounts = budgetingPage.getCategoryAmounts();
+    expect(categoryAmounts.get(0).getText()).toBe('$60.00');
+  });
+
+  it('should attempt to delete category', () => {
+    // delete remaining transactions
+    budgetingPage.toggleTransactionsForCategory('Stuff');
+    const deleteButtons = budgetingPage.getCategoryTransactionDeleteButtons();
+    deleteButtons.get(0).click();
+
+    budgetingPage.attemptDeleteCategory();
+
+    let categoryNames = budgetingPage.getCategoryNames();
+    categoryNames = budgetingPage.getCategoryNames();
+    expect(categoryNames.count()).toBe(2);
   });
 });
