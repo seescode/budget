@@ -34,6 +34,17 @@ export class BudgetingPage {
     return element(by.css('h1'));
   }
 
+  getBarGraphData() {
+
+    return {
+      monthlySpent: element(by.id('Monthly-Spent')),
+      monthlyRemaining: element(by.id('Monthly-Remaining')),
+      monthlySurplus: element(by.id('Monthly-Surplus')),
+      yearlySpent: element(by.id('Yearly-Spent')),
+      yearlyRemaining: element(by.id('Yearly-Remaining'))
+    }
+  }
+
   addNewTransaction(categoryName: string, transactionAmount: number, transactionName?: string) {
 
     const amountTextbox = element(by.css('.transaction-amount-for-' + categoryName));

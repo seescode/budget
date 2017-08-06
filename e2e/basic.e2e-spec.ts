@@ -118,6 +118,16 @@ describe('App', function () {
     expect(names.count()).toBe(0);
   });
 
+  it('should update pie graph', () => {
+    const barGraphData = budgetingPage.getBarGraphData();
+
+    expect(barGraphData.yearlySpent.getText()).toBe('$100.10');
+    expect(barGraphData.yearlyRemaining.getText()).toBe('$11899.90');
+    expect(barGraphData.monthlySpent.getText()).toBe('$100.10');
+    expect(barGraphData.monthlyRemaining.getText()).toBe('$899.90');
+    // expect(barGraphData.monthlySurplus.getText()).toBe('$6899.99');
+  });
+
   it('should be able to refresh the app', () => {
     browser.refresh();
     const currentMonth = getCurrentMonth();
@@ -195,9 +205,7 @@ describe('App', function () {
     categoryAmounts = budgetingPage.getCategoryAmounts();
     expect(categoryAmounts.get(0).getText()).toBe('$30.00');
   });
-  
 
-  it('should update pie graph', () => {
-  });
+
 
 });

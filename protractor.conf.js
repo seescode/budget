@@ -8,7 +8,8 @@ exports.config = {
   allScriptsTimeout: 11000,
   specs: [
     //'./e2e/**/*.e2e-spec.ts',
-    './e2e/**/undo.e2e-spec.ts',
+    './e2e/**/basic.e2e-spec.ts'
+    // './e2e/**/undo.e2e-spec.ts',
     // './e2e/delete.e2e-spec.ts'
   ],
   capabilities: {

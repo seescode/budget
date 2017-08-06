@@ -142,8 +142,9 @@ export class BarGraphComponent implements OnInit, OnDestroy {
     text.enter()
       .append("text")
       .text((d: any) => {
-        return '$' + d.amount;
+        return '$' + d.amount.toFixed(2);
       })
+      .attr('id', (d: any) => this.title + '-' + d.label)
       .attr("text-anchor", "middle")
       .attr("x", (d: any, i: number) => {
         return i * (this.width / data.length) + (this.width / data.length - this.barPadding) / 2;
@@ -155,7 +156,7 @@ export class BarGraphComponent implements OnInit, OnDestroy {
       .attr("fill", "black");
 
     text.transition().text((d: any) => {
-      return '$' + d.amount;
+        return '$' + d.amount.toFixed(2);
     }).attr("y", (d: any) => {
         const percent = d.amount / total;
         return this.height - (this.maxRectSize * percent) - 5;
