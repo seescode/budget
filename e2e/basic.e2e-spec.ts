@@ -125,7 +125,7 @@ describe('App', function () {
     expect(barGraphData.yearlyRemaining.getText()).toBe('$11899.90');
     expect(barGraphData.monthlySpent.getText()).toBe('$100.10');
     expect(barGraphData.monthlyRemaining.getText()).toBe('$899.90');
-    // expect(barGraphData.monthlySurplus.getText()).toBe('$6899.99');
+    expect(barGraphData.monthlySurplus.getText()).toBe('$7899.99');
   });
 
   it('should be able to refresh the app', () => {

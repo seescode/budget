@@ -1,104 +1,103 @@
-// import { getCurrentMonth } from './../src/app/selectors/selectors';
-// import { browser, element, by } from 'protractor';
-// import { CreateBudgetPage } from './pages/create-budget-page.po';
-// import { BudgetListPage } from './pages/budget-list-page.po';
-// import { BudgetingPage } from './pages/budgeting-page.po';
+import { getCurrentMonth } from './../src/app/selectors/selectors';
+import { browser, element, by } from 'protractor';
+import { CreateBudgetPage } from './pages/create-budget-page.po';
+import { BudgetListPage } from './pages/budget-list-page.po';
+import { BudgetingPage } from './pages/budgeting-page.po';
+import { BudgetRecipe } from './../src/app/models/interfaces';
+
+describe('App', function () {
+  let budgetListPage: BudgetListPage;
+  let createBudgetPage: CreateBudgetPage;
+  let budgetingPage: BudgetingPage;
+
+  beforeEach(() => {
+    budgetListPage = new BudgetListPage();
+    createBudgetPage = new CreateBudgetPage();
+    budgetingPage = new BudgetingPage();
+  });
+
+  it('should create 3 budgets', () => {
+    // create first budget with no categories
+    browser.restartSync();
+    browser.manage().window().maximize();
+    // browser.manage().window().setSize(1600, 1000);
+
+    budgetListPage.navigateTo();
+    let budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
+    budgetListPageCreateButton.click();
+
+    let budgetRecipe: BudgetRecipe = {
+      name: 'no categories',
+      details: 'a',
+      budgetAmount: 1,
+      startDate: new Date(2017, 0),
+      endDate: new Date(2017, 1),
+      categories: []
+    };
+
+    createBudgetPage.createWholeBudget(budgetRecipe);
 
 
-// describe('App', function () {
-//   let budgetListPage: BudgetListPage;
-//   let createBudgetPage: CreateBudgetPage;
-//   let budgetingPage: BudgetingPage;
-
-//   beforeEach(() => {
-//     budgetListPage = new BudgetListPage();
-//     createBudgetPage = new CreateBudgetPage();
-//     budgetingPage = new BudgetingPage();
-//   });
-
-//   it('should create 3 budgets', () => {
-//     // create first budget with no categories
-//     budgetListPage.navigateTo();
-//     let budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
-//     budgetListPageCreateButton.click();
-
-//     createBudgetPage.setBudgetName('no categories');
-//     createBudgetPage.setBudgetDetails('a');
-//     createBudgetPage.setBudgetAmount('1');
-//     createBudgetPage.setDate('1', '2017', '#budget-start');
-//     createBudgetPage.setDate('2', '2017', '#budget-finish');
-
-//     let createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
-//     createBudgetPageCreateButton.click();
-
-//     let open = budgetListPage.getOpenButtons();
-//     expect(open.count()).toBe(1);
-
-//     // create second budget with categories
-//     budgetListPage.navigateTo();
-//     budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
-//     budgetListPageCreateButton.click();
-
-//     createBudgetPage.setBudgetName('only categories');
-//     createBudgetPage.setBudgetDetails('a');
-//     createBudgetPage.setBudgetAmount('1');
-//     createBudgetPage.setDate('1', '2017', '#budget-start');
-//     createBudgetPage.setDate('2', '2017', '#budget-finish');
-
-//     createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
-//     createBudgetPageCreateButton.click();
-
-//     open = budgetListPage.getOpenButtons();
-
-//     open.get(1).click();
-
-//     budgetingPage.addNewCategory('Food');
-//     budgetingPage.addNewCategory('Gas');
-
-//     let categoryName = budgetingPage.getCategoryNames();
-
-//     expect(categoryName.get(0).getText()).toBe('Food');
-//     expect(categoryName.get(1).getText()).toBe('Gas');
-
-//     budgetingPage.clickManageBudgets();
 
 
-//     expect(open.count()).toBe(2);
+    // create second budget with categories
 
-//     // create final budget with categories and transactions
-//     budgetListPage.navigateTo();
-//     budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
-//     budgetListPageCreateButton.click();
+    budgetListPage.navigateTo();
+    budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
+    budgetListPageCreateButton.click();
 
-//     createBudgetPage.setBudgetName('categories and transactions');
-//     createBudgetPage.setBudgetDetails('a');
-//     createBudgetPage.setBudgetAmount('1');
-//     createBudgetPage.setDate('1', '2017', '#budget-start');
-//     createBudgetPage.setDate('2', '2017', '#budget-finish');
+    budgetRecipe = {
+      name: 'only categories',
+      details: 'a',
+      budgetAmount: 1,
+      startDate: new Date(2017, 0),
+      endDate: new Date(2017, 1),
+      categories: [{
+        name: 'Food',
+        transactions: null
+      },
+      {
+        name: 'Gas',
+        transactions: null
+      }
+      ]
+    };
 
-//     createBudgetPageCreateButton = createBudgetPage.getCreateBudgetButton();
-//     createBudgetPageCreateButton.click();
+    createBudgetPage.createWholeBudget(budgetRecipe);
 
-//     open = budgetListPage.getOpenButtons();
 
-//     open.get(2).click();
+    // // create final budget with categories and transactions
 
-//     budgetingPage.addNewCategory('Stuff');
+    budgetListPage.navigateTo();
+    budgetListPageCreateButton = budgetListPage.getCreateBudgetButton();
+    budgetListPageCreateButton.click();
 
-//     categoryName = budgetingPage.getCategoryNames();
+    budgetRecipe = {
+      name: 'categories and transactions',
+      details: 'a',
+      budgetAmount: 1,
+      startDate: new Date(2017, 0),
+      endDate: new Date(2017, 1),
+      categories: [{
+        name: 'Stuff',
+        transactions: [
+          { amount: .01, name: 'Chicken'},
+          { amount: .02, name: 'Chicken'}
+        ]
+      },
+      {
+        name: 'Gas',
+        transactions: null
+      }
+      ]
+    };
 
-//     expect(categoryName.get(0).getText()).toBe('Stuff');
+    createBudgetPage.createWholeBudget(budgetRecipe);
+    
 
-//     budgetingPage.addNewTransaction('Stuff', .01, 'Chicken');
-//     budgetingPage.addNewTransaction('Stuff', .02, 'Chicken');
+  });
 
-//     budgetingPage.clickManageBudgets();
 
-//     expect(open.count()).toBe(3);
-
-//   });
-
-  
 
   // it('should be able to delete multiple transactions', () => {
 
@@ -131,7 +130,7 @@
   // });
 
 
- 
+
 
   // it('should be able to delete multiple categories', () => {
 
@@ -207,27 +206,27 @@
   // });
 
 
-//   it('should be able to delete a budget with no categories and no transactions', () => {
-//     const deletes = budgetListPage.getDeleteButtons();
-//     deletes.get(0).click();
+  // it('should be able to delete a budget with no categories and no transactions', () => {
+  //   const deletes = budgetListPage.getDeleteButtons();
+  //   deletes.get(0).click();
 
-//     const open = budgetListPage.getOpenButtons();
-//     expect(open.count()).toBe(2);
-//   });
+  //   const open = budgetListPage.getOpenButtons();
+  //   expect(open.count()).toBe(2);
+  // });
 
-//   it('should be able to delete a budget with no transactions', () => {
-//     const deletes = budgetListPage.getDeleteButtons();
-//     deletes.get(0).click();
+  // it('should be able to delete a budget with no transactions', () => {
+  //   const deletes = budgetListPage.getDeleteButtons();
+  //   deletes.get(0).click();
 
-//     const open = budgetListPage.getOpenButtons();
-//     expect(open.count()).toBe(1);
-//   });
+  //   const open = budgetListPage.getOpenButtons();
+  //   expect(open.count()).toBe(1);
+  // });
 
-//   it('should be able to delete a budget with categories and transactions', () => {
-//     const deletes = budgetListPage.getDeleteButtons();
-//     deletes.get(0).click();
+  // it('should be able to delete a budget with categories and transactions', () => {
+  //   const deletes = budgetListPage.getDeleteButtons();
+  //   deletes.get(0).click();
 
-//     const open = budgetListPage.getOpenButtons();
-//     expect(open.count()).toBe(0);
-//   });
-// });
+  //   const open = budgetListPage.getOpenButtons();
+  //   expect(open.count()).toBe(0);
+  // });
+});
