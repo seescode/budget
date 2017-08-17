@@ -10,12 +10,11 @@ export class BudgetListPage {
     return element(by.css('#create-budget'));
   }
 
-  getOpenButtons() {
-    return element.all(by.css('.open'));
+  getOpenButtons(name: string) {
+    return element.all(by.css('.open-button-for-' + name));
   }
 
   getDeleteButtons() {
     return element.all(by.css('.delete-button'));
   }
-  
 }

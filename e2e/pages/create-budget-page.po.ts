@@ -56,7 +56,7 @@ export class CreateBudgetPage {
       String(budget.startDate.getMonth() + 1), String(budget.startDate.getFullYear()),
       String(budget.endDate.getMonth() + 1), String(budget.endDate.getFullYear()));
 
-    const openButtons = this.budgetListPage.getOpenButtons();
+    const openButtons = this.budgetListPage.getOpenButtons(budget.name);
     openButtons.click();
 
     budget.categories.forEach((category) => {
