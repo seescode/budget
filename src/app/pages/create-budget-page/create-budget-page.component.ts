@@ -97,4 +97,8 @@ export class CreateBudgetPageComponent implements OnInit {
 
     this.router.navigateByUrl('/budget-list');
   }
+
+  manageBudgets() {
+    this.router.navigateByUrl('/budget-list');
+  }
 }

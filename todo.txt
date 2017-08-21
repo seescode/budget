@@ -9,6 +9,9 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-We need to also be able to view the start and end dates of a budget as quick reference. 
+
+
 -write e2e tests 
   -use your more higher level operations to simplify writing e2e 
   tests.
@@ -32,11 +35,10 @@ the pie graph will not remove the nodes from
  the list of categories.  Maybe you can have it refocus based on the categoryId 
  in the url. 
 -implement exporting and importing budgets.
--We need to also be able to view the start and end dates of a budget as quick reference. 
 
--remove heading that shows budget totals 
+
+
 -group the end to end tests in a logical manner
--create budget page needs a back button
 
 
 -write unit tests for side effects

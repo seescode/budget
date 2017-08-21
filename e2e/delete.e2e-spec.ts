@@ -15,7 +15,7 @@ describe('App', function () {
     budgetingPage = new BudgetingPage();
   });
 
-  it('should create 3 budgets', () => {
+  fit('should create 3 budgets', () => {
     // create first budget with no categories
     //browser.restartSync();
     //browser.manage().window().maximize();
