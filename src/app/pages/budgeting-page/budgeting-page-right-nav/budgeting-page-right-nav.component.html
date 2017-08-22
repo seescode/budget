@@ -1,19 +1,20 @@
-<div class="example-scrolling-content">
-  List of budgets:
-</div>
+<h3>List of budgets:</h3>
 
-<div *ngFor="let budget of budgets$ | async">
-  <span>{{budget.name}}</span>
-  <button (click)="openBudget(budget.id)">Open</button>
-</div>
+<nav>
+  <ul>
+    <li *ngFor="let budget of budgets$ | async">
+      <a (click)="openBudget(budget.id)">{{budget.name}}</a>
+    </li>
+  </ul>
+  <nav>
 
-<div>
-<button routerLink="/create-budget">Create Budget</button>
-</div>
-<div>
-<button id="manage-budgets" routerLink="/budget-list">Manage Budgets</button>
-</div>
+    <div>
+      <button routerLink="/create-budget">Create Budget</button>
+    </div>
+    <div>
+      <button id="manage-budgets" routerLink="/budget-list">Manage Budgets</button>
+    </div>
 
 
 
-<yb-new-category (add)="addCategory($event)"></yb-new-category>
+    <yb-new-category (add)="addCategory($event)"></yb-new-category>
