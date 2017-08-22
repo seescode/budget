@@ -12,6 +12,11 @@ Plan:
 -We need to also be able to view the start and end dates of a budget as quick reference. 
 -Materify the manage budget page 
 
+-Styling 
+  -the angular material site adds shadows to the sidebars.  You 
+  should do the same. 
+  -make all buttons use the nice material buttons 
+
 
 -write e2e tests 
   -use your more higher level operations to simplify writing e2e 

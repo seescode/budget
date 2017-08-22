@@ -4,11 +4,11 @@ h1 {
 }
 
 #left-nav {
-  width: 200px
+  width: 300px
 }
 
 #right-nav {
-  width: 300px;
+  width: 200px;
 }
 
 @media only screen and (min-width: 900px) {

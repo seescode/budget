@@ -1,20 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { BudgetingPageRightNavComponent } from './budgeting-page-right-nav.component';
+// import { BudgetingPageLeftNavComponent } from './budgeting-page-left-nav.component';
 
-// describe('BudgetingPageRightNavComponent', () => {
-//   let component: BudgetingPageRightNavComponent;
-//   let fixture: ComponentFixture<BudgetingPageRightNavComponent>;
+// describe('BudgetingPageLeftNavComponent', () => {
+//   let component: BudgetingPageLeftNavComponent;
+//   let fixture: ComponentFixture<BudgetingPageLeftNavComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ BudgetingPageRightNavComponent ]
+//       declarations: [ BudgetingPageLeftNavComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(BudgetingPageRightNavComponent);
+//     fixture = TestBed.createComponent(BudgetingPageLeftNavComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

@@ -15,3 +15,7 @@ html {
 body, yb-app, yb-budgeting-page, yb-budgeting-page>div, md-sidenav-container {
   height: 100%;
 }
+
+body {
+  margin: 0;
+}

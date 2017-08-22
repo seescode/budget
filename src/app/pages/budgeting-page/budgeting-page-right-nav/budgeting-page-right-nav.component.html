@@ -1,11 +1,19 @@
-<!--<yb-pie [update]="renderPie" title="Yearly" [width]="240" [height]="240" ringWidth="50" legendRectSize="18" legendSpacing="4"></yb-pie>
-<yb-pie [update]="renderPie2" title="Monthly" [width]="240" [height]="240" ringWidth="50" legendRectSize="18" legendSpacing="4"></yb-pie>-->
+<div class="example-scrolling-content">
+  List of budgets:
+</div>
 
-<h2>Yearly</h2>
-<yb-bar-graph [update]="renderPie" [width]="200" [height]="300" [barPadding]="10" [maxRectSize]="120" title="Yearly"></yb-bar-graph>
+<div *ngFor="let budget of budgets$ | async">
+  <span>{{budget.name}}</span>
+  <button (click)="openBudget(budget.id)">Open</button>
+</div>
 
-<hr>
+<div>
+<button routerLink="/create-budget">Create Budget</button>
+</div>
+<div>
+<button id="manage-budgets" routerLink="/budget-list">Manage Budgets</button>
+</div>
 
-<h2>Monthly</h2>
-<yb-bar-graph [update]="renderPie2" [width]="200" [height]="300" [barPadding]="10" [maxRectSize]="120" title="Monthly"></yb-bar-graph>
 
+
+<yb-new-category (add)="addCategory($event)"></yb-new-category>
