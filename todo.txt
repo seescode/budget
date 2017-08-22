@@ -10,6 +10,7 @@ and lint isn't failing.
 
 Plan:
 -We need to also be able to view the start and end dates of a budget as quick reference. 
+-Materify the manage budget page 
 
 
 -write e2e tests 
@@ -24,9 +25,6 @@ Plan:
 -Write more unit tests 
 
 
--Implement bar graph 
-  -Need to label yearly/monthly on each graph
-  -center the graphs in the right hand sidebar 
 -When you add a transaction and then delete it
 the pie graph will not remove the nodes from 
 -enable the ability to use the keyboard to undo a transaction.  Maybe escape 

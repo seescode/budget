@@ -44,7 +44,7 @@ export class BarGraphComponent implements OnInit, OnDestroy {
 
   calculateTotal(data: any) {
     return data.map((d: any) => d.amount)
-              .reduce((prev: number, next: number) => prev + next);
+      .reduce((prev: number, next: number) => prev + next);
   }
 
   setup(data: any) {
@@ -104,31 +104,31 @@ export class BarGraphComponent implements OnInit, OnDestroy {
   }
 
   renderBars(data: any, total: number) {
-    const rect = this.above.selectAll("rect")
+    const rect = this.above.selectAll('rect')
       .data(data);
 
     rect.enter()
-      .append("rect")
-      .attr("x", (d: any, i: number) => {
+      .append('rect')
+      .attr('x', (d: any, i: number) => {
         return i * (this.width / data.length);
       })
-      .attr("y", (d: any) => {
+      .attr('y', (d: any) => {
         const percent = d.amount / total;
         return this.height - (this.maxRectSize * percent);
       })
-      .attr("width", this.width / data.length - this.barPadding)
-      .attr("height", (d: any) => {
+      .attr('width', this.width / data.length - this.barPadding)
+      .attr('height', (d: any) => {
         const percent = d.amount / total;
         return this.maxRectSize * percent;
       })
-      .attr("style", 'fill: steelblue;');
+      .attr('style', 'fill: #673ab7;');
 
     rect.transition()
-      .attr("y", (d: any) => {
+      .attr('y', (d: any) => {
         const percent = d.amount / total;
         return this.height - (this.maxRectSize * percent);
       })
-      .attr("height", (d: any) => {
+      .attr('height', (d: any) => {
         const percent = d.amount / total;
         return this.maxRectSize * percent;
       });
@@ -136,30 +136,30 @@ export class BarGraphComponent implements OnInit, OnDestroy {
   }
 
   renderMoneyOnBars(data: any, total: number) {
-    const text = this.above.selectAll("text")
+    const text = this.above.selectAll('text')
       .data(data);
 
     text.enter()
-      .append("text")
+      .append('text')
       .text((d: any) => {
         return '$' + d.amount.toFixed(2);
       })
       .attr('id', (d: any) => this.title + '-' + d.label)
-      .attr("text-anchor", "middle")
-      .attr("x", (d: any, i: number) => {
+      .attr('text-anchor', 'middle')
+      .attr('x', (d: any, i: number) => {
         return i * (this.width / data.length) + (this.width / data.length - this.barPadding) / 2;
       })
-      .attr("y", (d: any) => {
+      .attr('y', (d: any) => {
         const percent = d.amount / total;
         return this.height - (this.maxRectSize * percent) - 5;
       })
-      .attr("fill", "black");
+      .attr('fill', 'black');
 
     text.transition().text((d: any) => {
-        return '$' + d.amount.toFixed(2);
-    }).attr("y", (d: any) => {
-        const percent = d.amount / total;
-        return this.height - (this.maxRectSize * percent) - 5;
+      return '$' + d.amount.toFixed(2);
+    }).attr('y', (d: any) => {
+      const percent = d.amount / total;
+      return this.height - (this.maxRectSize * percent) - 5;
     });
   }
 
