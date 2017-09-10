@@ -24,9 +24,9 @@ import { MdSnackBar } from '@angular/material';
 export class BudgetingPageMainComponent implements OnInit, OnDestroy {
 
   categories$: Observable<Category[]>;
+  routeSubscription: Subscription;
 
-  selectedMonthAndYear$: ActiveDate;
-  getRunningSurplus$: Observable<number>;
+  selectedMonthAndYear: ActiveDate;
 
   budgetId: string;
   totalBudgetInfo: TotalBudgetInfo;
@@ -38,19 +38,14 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     private snackBar: MdSnackBar, private actionCreators: ActionsCreatorService, ) {
     this.categories$ = this.store.select(everyCategoryTotalSelector);
 
-    this.getRunningSurplus$ = this.store.select(runningSurplusSelector);
   }
 
   ngOnInit() {
-
-    // TODO should unsubscribe in ngDestroy
-    this.activatedRoute.params.subscribe(params => {
-
-
+    this.routeSubscription = this.activatedRoute.params.subscribe(params => {
       console.log('route change');
       this.budgetId = params['budgetId'];
 
-      this.selectedMonthAndYear$ = {
+      this.selectedMonthAndYear = {
         month: parseInt(params['month']),
         year: parseInt(params['year'])
       };
@@ -61,9 +56,13 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
+  }
+
   addTransaction(transaction: Transaction) {
     const action = this.actionsCreatorService.addTransaction(transaction,
-      this.budgetId, this.selectedMonthAndYear$.year, this.selectedMonthAndYear$.month);
+      this.budgetId, this.selectedMonthAndYear.year, this.selectedMonthAndYear.month);
 
     this.store.dispatch(action);
 
@@ -95,11 +94,11 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
 
     if (this.selectedCategoryId === categoryId) {
       // Toggle off the selected category
-      this.router.navigate(['/budgeting', this.budgetId, this.selectedMonthAndYear$.year,
-        this.selectedMonthAndYear$.month]);
+      this.router.navigate(['/budgeting', this.budgetId, this.selectedMonthAndYear.year,
+        this.selectedMonthAndYear.month]);
     } else {
-      this.router.navigate(['/budgeting', this.budgetId, this.selectedMonthAndYear$.year,
-        this.selectedMonthAndYear$.month, {
+      this.router.navigate(['/budgeting', this.budgetId, this.selectedMonthAndYear.year,
+        this.selectedMonthAndYear.month, {
           category: categoryId
         }]);
     }
@@ -119,6 +118,4 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
     //TODO: remove the category for the url if it's the same one that got deleted
   }
 
-  ngOnDestroy() {
-  }
 }

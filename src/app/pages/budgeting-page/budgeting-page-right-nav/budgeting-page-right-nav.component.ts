@@ -19,6 +19,7 @@ export class BudgetingPageRightNavComponent implements OnInit, OnDestroy {
   budgetId: string;
   categoriesForCurrentBudgetSubscription: Subscription;
   categoriesForCurrentBudget: Category[];
+  routeSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private router: Router,
     private actionsCreatorService: ActionsCreatorService,
@@ -31,13 +32,14 @@ export class BudgetingPageRightNavComponent implements OnInit, OnDestroy {
     this.categoriesForCurrentBudgetSubscription = this.store.select(categoriesForCurrentBudget)
       .subscribe(cat => this.categoriesForCurrentBudget = cat);
 
-    this.activatedRoute.params.subscribe(params => {
+    this.routeSubscription = this.activatedRoute.params.subscribe(params => {
       this.budgetId = params['budgetId'];
     });
   }
 
   ngOnDestroy() {
     this.categoriesForCurrentBudgetSubscription.unsubscribe();
+    this.routeSubscription.unsubscribe();
   }
 
   openBudget(budgetId: string) {

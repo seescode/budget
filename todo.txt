@@ -9,6 +9,12 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-Need to stop abusing withLatestFrom.
+-Maybe consider decoupling your application's
+state from the db data.  Honestly probably 
+doesn't make sense since the db data is something 
+you control whereas an api is something you don't.
+-Bold the selected budget on the right hand side 
 -We need to also be able to view the start and end dates of a budget as quick reference. 
 -Materify the manage budget page 
 

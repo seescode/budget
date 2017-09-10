@@ -19,11 +19,12 @@ import { Store } from '@ngrx/store';
 })
 export class BudgetingPageComponent implements OnInit, OnDestroy {
 
+  routeSubscription: Subscription;
   leftNavDisplayMode: string;
   rightNavDisplayMode: string;
   leftNavOpened: string;
   rightNavOpened: string;
-  selectedMonthAndYear$: ActiveDate;
+  selectedMonthAndYear: ActiveDate;
   budgetId: string;
   selectedBudgetName: Observable<string>;
 
@@ -36,58 +37,58 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
     const width = window.innerWidth;
     this.resizeScreen(width);
 
-    // TODO should unsubscribe in ngDestroy
-    this.activatedRoute.params.subscribe(params => {
+    this.routeSubscription = this.activatedRoute.params.subscribe(params => {
       this.budgetId = params['budgetId'];
 
-      this.selectedMonthAndYear$ = {
+      this.selectedMonthAndYear = {
         month: parseInt(params['month']),
         year: parseInt(params['year'])
       };
 
       // TODO move to a service or pipe
-      switch (this.selectedMonthAndYear$.month) {
+      switch (this.selectedMonthAndYear.month) {
         case 1:
-          this.selectedMonthAndYear$.fullMonth = 'January';
+          this.selectedMonthAndYear.fullMonth = 'January';
           break;
         case 2:
-          this.selectedMonthAndYear$.fullMonth = 'February';
+          this.selectedMonthAndYear.fullMonth = 'February';
           break;
         case 3:
-          this.selectedMonthAndYear$.fullMonth = 'March';
+          this.selectedMonthAndYear.fullMonth = 'March';
           break;
         case 4:
-          this.selectedMonthAndYear$.fullMonth = 'April';
+          this.selectedMonthAndYear.fullMonth = 'April';
           break;
         case 5:
-          this.selectedMonthAndYear$.fullMonth = 'May';
+          this.selectedMonthAndYear.fullMonth = 'May';
           break;
         case 6:
-          this.selectedMonthAndYear$.fullMonth = 'June';
+          this.selectedMonthAndYear.fullMonth = 'June';
           break;
         case 7:
-          this.selectedMonthAndYear$.fullMonth = 'July';
+          this.selectedMonthAndYear.fullMonth = 'July';
           break;
         case 8:
-          this.selectedMonthAndYear$.fullMonth = 'August';
+          this.selectedMonthAndYear.fullMonth = 'August';
           break;
         case 9:
-          this.selectedMonthAndYear$.fullMonth = 'September';
+          this.selectedMonthAndYear.fullMonth = 'September';
           break;
         case 10:
-          this.selectedMonthAndYear$.fullMonth = 'October';
+          this.selectedMonthAndYear.fullMonth = 'October';
           break;
         case 11:
-          this.selectedMonthAndYear$.fullMonth = 'November';
+          this.selectedMonthAndYear.fullMonth = 'November';
           break;
         case 12:
-          this.selectedMonthAndYear$.fullMonth = 'December';
+          this.selectedMonthAndYear.fullMonth = 'December';
           break;
       }
     });
   }
 
   ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
   }
 
   resizeScreen(width: number) {
@@ -112,8 +113,8 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   }
 
   previousMonth() {
-    let month = this.selectedMonthAndYear$.month - 1;
-    let year = this.selectedMonthAndYear$.year;
+    let month = this.selectedMonthAndYear.month - 1;
+    let year = this.selectedMonthAndYear.year;
 
     if (month === 0) {
       year--;
@@ -124,8 +125,8 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   }
 
   nextMonth() {
-    let month = this.selectedMonthAndYear$.month + 1;
-    let year = this.selectedMonthAndYear$.year;
+    let month = this.selectedMonthAndYear.month + 1;
+    let year = this.selectedMonthAndYear.year;
 
     if (month > 12) {
       year++;
