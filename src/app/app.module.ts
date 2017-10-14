@@ -28,6 +28,7 @@ import { BudgetingPageLeftNavComponent } from './pages/budgeting-page/budgeting-
 import { BudgetingPageMainComponent } from './pages/budgeting-page/budgeting-page-main/budgeting-page-main.component';
 import { BudgetingPageRightNavComponent } from './pages/budgeting-page/budgeting-page-right-nav/budgeting-page-right-nav.component';
 import { PieComponent } from './components/pie/pie.component';
+import './app.rxjs-imports';
 
 @NgModule({
   imports: [

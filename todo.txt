@@ -9,6 +9,11 @@ Everyday:
 and lint isn't failing.
 
 Plan:
+-search for TODO in the code 
+
+
+-Need a 404 page when user accesses bad urls 
+-Need a 500 page for when the app gets errors 
 -Need to stop abusing withLatestFrom.
 -Maybe consider decoupling your application's
 state from the db data.  Honestly probably 

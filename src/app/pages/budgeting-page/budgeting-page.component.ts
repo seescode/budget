@@ -6,7 +6,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from './../../reducers/index';
 import { ActiveDate, Budget, Transaction, Category, TotalBudgetInfo } from './../../models/interfaces';
-import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
