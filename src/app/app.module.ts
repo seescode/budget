@@ -4,7 +4,7 @@ import { BudgetEffects } from './effects/budget.effects';
 import { NewCategoryComponent } from './components/new-category/new-category';
 import { FormsModule } from '@angular/forms';
 import { CategoryComponent } from './components/category/category';
-import { NgModule, } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { DBModule } from '@ngrx/db';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MaterialModule } from '@angular/material';
+import { MatListModule, MatButtonModule } from '@angular/material';
 
 import { routes } from './routes';
 import { reducer } from './reducers';
@@ -35,7 +35,8 @@ import './app.rxjs-imports';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule,
+    MatListModule,
+    MatButtonModule,
     FormsModule,
     RouterModule.forRoot(routes, { useHash: false }),
 
@@ -98,6 +99,7 @@ import './app.rxjs-imports';
   ],
   bootstrap: [
     AppComponent
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

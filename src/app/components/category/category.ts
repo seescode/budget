@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar  } from '@angular/material';
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy, Renderer } from '@angular/core';
 import { Transaction, ActiveDate } from './../../models/interfaces';
 import { environment } from './../../../environments/environment';
@@ -25,7 +25,7 @@ export class CategoryComponent {
 
   showAddTransaction = false;
 
-  constructor(private renderer: Renderer, private snackBar: MdSnackBar) {
+  constructor(private renderer: Renderer, private snackBar: MatSnackBar ) {
 
   }
 

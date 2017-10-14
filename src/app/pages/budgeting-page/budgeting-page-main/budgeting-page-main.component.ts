@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from './../../../reducers/index';
 import { Store, Action } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'yb-budgeting-page-main',
@@ -35,7 +35,7 @@ export class BudgetingPageMainComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
     private router: Router, private actionsCreatorService: ActionsCreatorService,
-    private snackBar: MdSnackBar, private actionCreators: ActionsCreatorService, ) {
+    private snackBar: MatSnackBar, private actionCreators: ActionsCreatorService, ) {
     this.categories$ = this.store.select(everyCategoryTotalSelector);
 
   }

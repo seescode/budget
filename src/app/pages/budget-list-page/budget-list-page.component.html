@@ -1,17 +1,22 @@
-<h1>
-  Please select a Budget
-</h1>
+<div class="nav-bar">
+  Budget List
+</div>
 
-<div class="budget" *ngFor="let budget of budgets$ | async">
-  <span>{{budget.name}}</span>
+<!-- <div class="budget" *ngFor="">
+  <span></span>
   <button class="open" ngClass="open-button-for-{{budget.name}}" 
   (click)="openBudget(budget.id)">Open</button>
   <button class="delete-button" (click)="deleteBudget(budget.id)">Delete</button>
   <button id="export-budget" (click)="exportBudget(budget.id)">Export Budget</button>  
   <button class="make-default">Make Default</button>
-</div>
+</div> -->
 
-<div>
-  <button id="create-budget" routerLink="/create-budget">Create Budget</button>
-  <button id="import-budget" (click)="importBudget()">Import Budget</button>
-</div>
+<mat-list>
+
+  <div *ngFor="let budget of budgets$ | async">
+    <mat-list-item> {{budget.name}} </mat-list-item>
+    <mat-divider></mat-divider>
+  </div>
+</mat-list>
+
+<a mat-fab id="create-budget" class="fab-bottom-right" routerLink="/create-budget">+</a>

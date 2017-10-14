@@ -3,6 +3,14 @@ How to deploy to surge:
 -cd into the dist directory 
 -surge --domain ng-budget.surge.sh
 
+Make it look like ionic:
+-Move ionic related styles to the main style.css
+-Get add budget styled 
+
+
+
+
+
 Everyday:
 -Always have the unit tests running
 -Deploy at the end of each session assuming unit tests aren't breaking 
