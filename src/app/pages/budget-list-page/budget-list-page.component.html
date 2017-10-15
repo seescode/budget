@@ -1,20 +1,14 @@
-<div class="nav-bar">
-  Budget List
-</div>
-
-<!-- <div class="budget" *ngFor="">
-  <span></span>
-  <button class="open" ngClass="open-button-for-{{budget.name}}" 
-  (click)="openBudget(budget.id)">Open</button>
-  <button class="delete-button" (click)="deleteBudget(budget.id)">Delete</button>
-  <button id="export-budget" (click)="exportBudget(budget.id)">Export Budget</button>  
-  <button class="make-default">Make Default</button>
-</div> -->
+<mat-toolbar color="primary">
+  <span>Budget List</span>
+</mat-toolbar>
 
 <mat-list>
 
   <div *ngFor="let budget of budgets$ | async">
-    <mat-list-item> {{budget.name}} </mat-list-item>
+    <mat-list-item>
+      <span (click)="openBudget(budget.id)">{{budget.name}}</span>
+      <div class="list-item-button warning" (click)="deleteBudget(budget.id)"><mat-icon>delete</mat-icon></div>
+    </mat-list-item>
     <mat-divider></mat-divider>
   </div>
 </mat-list>

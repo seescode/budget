@@ -15,7 +15,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { DBModule } from '@ngrx/db';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MatListModule, MatButtonModule } from '@angular/material';
+import { MatListModule, MatButtonModule, MatSnackBarModule, MatToolbarModule,
+  MatIconModule } from '@angular/material';
 
 import { routes } from './routes';
 import { reducer } from './reducers';
@@ -37,6 +38,9 @@ import './app.rxjs-imports';
     BrowserAnimationsModule,
     MatListModule,
     MatButtonModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatIconModule,
     FormsModule,
     RouterModule.forRoot(routes, { useHash: false }),
 

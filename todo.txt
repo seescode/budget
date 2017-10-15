@@ -4,11 +4,22 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 Make it look like ionic:
--Move ionic related styles to the main style.css
 -Get add budget styled 
-
-
-
+-style the fab button with an icon instead of just the character +
+-Make sure to use the built in angular material theme instead of 
+hardcoding colors.  Speaking of which you did hardcode the navbar 
+color 
+-maybe use BEM for styling 
+-be consistent with rems or pixels
+-I don't think it's necessary to make a custom angular material theme.  
+The only advantage of making one is that you can share the file across 
+multiple projects.
+  -I guess the big thing is not to import a default theme though.  The 
+  problem is that you are always overriding the default colors without 
+  a proper theme. 
+-Try and switch to sass.  See if you can get the warning color coming 
+from angular material warning sass variable.
+-Add new category for fees 
 
 
 Everyday:
