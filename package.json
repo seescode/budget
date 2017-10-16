@@ -10,7 +10,8 @@
     "test": "ng test --code-coverage",
     "e2e": "ng e2e",
     "4300": "ng serve --port=4300",
-    "build": "ng build --prod"
+    "build": "ng build --prod --aot",
+    "publish": "surge --domain https://ng-budget.surge.sh"    
   },
   "repository": {
     "type": "git",
