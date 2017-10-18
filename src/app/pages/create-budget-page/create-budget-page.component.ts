@@ -6,6 +6,7 @@ import { Budget } from './../../models/interfaces';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import * as moment from 'moment';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
 
 @Component({
@@ -14,89 +15,67 @@ import * as moment from 'moment';
   styleUrls: ['./create-budget-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateBudgetPageComponent implements OnInit {
-
-  missingBudgetName = false;
-  missingBudgetAmount = false;
-  missingBudgetStart = false;
-  missingBudgetFinish = false;
-  budgetFinishIsBeforeBudgetStart = false;
+export class CreateBudgetPageComponent {
+  budget: FormGroup;
 
   constructor(private store: Store<AppState>, private router: Router,
-    private actionsCreatorService: ActionsCreatorService) { }
+    private actions: ActionsCreatorService) {
 
-  ngOnInit() {
+    // Great article on reactive forms:
+    // https://toddmotto.com/reactive-formgroup-validation-angular-2
+    this.budget = new FormGroup({
+      budgetName: new FormControl(null, [Validators.required]),
+      budgetAmount: new FormControl(null, [this.positiveNumber]),
+      budgetDate: new FormGroup({
+        budgetStartDate: new FormControl(null),
+        budgetEndDate: new FormControl(null)
+      }, this.endDateIsAfterStartDate.bind(this))
+    });
   }
 
-  validateRequiredData(budgetName: string, details: string, budgetAmount: string, budgetStartDate: string, budgetEndDate: string) {
-    if (budgetName == null || budgetName.trim() === '') {
-      this.missingBudgetName = true;
-    } else {
-      this.missingBudgetName = false;
-    }
+  addBudget() {
+    const inputs = this.budget.value;
+    const startDate = this.getMomentDate(inputs.budgetDate.budgetStartDate);
+    const endDate = this.getMomentDate(inputs.budgetDate.budgetEndDate);
 
-    if (budgetAmount.trim() === '') {
-      this.missingBudgetAmount = true;
-    } else {
-      this.missingBudgetAmount = false;
-    }
+    this.store.dispatch(this.actions.addBudget(inputs.budgetName, '',
+      parseFloat(inputs.budgetAmount), startDate.toDate(), endDate.toDate()));
 
-    if (budgetStartDate.trim() === '') {
-      this.missingBudgetStart = true;
-    } else {
-      this.missingBudgetStart = false;
-    }
-
-    if (budgetEndDate.trim() === '') {
-      this.missingBudgetFinish = true;
-    } else {
-      this.missingBudgetFinish = false;
-    }
+    this.manageBudgets();
   }
 
-  validateStartDateIsBeforeEndDate(budgetStartDate: string, budgetEndDate: string) {
+  positiveNumber(control: FormControl): { [s: string]: boolean } {
 
-    const parsedBeginDate = budgetStartDate.split('-');
-    const parsedEndDate = budgetEndDate.split('-');
+    if (control.value && control.value.match(/^\d+\.?\d?\d?$/)) {
+      return null;
+    }
 
-    const startDate = moment([parsedBeginDate[0], parsedBeginDate[1]]);
-    const endDate = moment([parsedEndDate[0], parsedEndDate[1]]);
+    return { 'invalidNumber': true };
+  }
+
+  getMomentDate(budgetDate: any) {
+    const parsedDate = budgetDate.split('-');
+    return moment([parsedDate[0], parsedDate[1] - 1]);
+  }
+
+  endDateIsAfterStartDate(control: AbstractControl): { [key: string]: boolean } {
+
+    const budgetStartDate = control.get('budgetStartDate').value;
+    const budgetEndDate = control.get('budgetEndDate').value;
+
+    if (budgetStartDate == null || budgetEndDate == null) {
+      return { 'startDateIsAfterEndDate': true };
+    }
+
+    const startDate = this.getMomentDate(budgetStartDate);
+    const endDate = this.getMomentDate(budgetEndDate);
 
     if (startDate.isAfter(endDate)) {
-      this.budgetFinishIsBeforeBudgetStart = true;
-    } else {
-      this.budgetFinishIsBeforeBudgetStart = false;
-    }
-    return [startDate, endDate];
-  }
-
-  create(budgetName: string, details: string, budgetAmount: string, budgetStartDate: string, budgetEndDate: string) {
-
-    this.validateRequiredData(budgetName, details, budgetAmount, budgetStartDate, budgetEndDate);
-
-    let startDate, endDate;
-    [startDate, endDate] = this.validateStartDateIsBeforeEndDate(budgetStartDate, budgetEndDate);
-
-    if (this.missingBudgetName ||
-      this.missingBudgetAmount ||
-      this.missingBudgetStart ||
-      this.missingBudgetFinish ||
-      this.budgetFinishIsBeforeBudgetStart) {
-      return;
+      return { 'startDateIsAfterEndDate': true };
     }
 
-    const action = this.actionsCreatorService.addBudget(
-      budgetName,
-      details,
-      parseInt(budgetAmount),
-      startDate.toDate(),
-      endDate.toDate()
-    )
-
-    this.store.dispatch(action);
-
-    this.router.navigateByUrl('/budget-list');
-  }
+    return null;
+  };
 
   manageBudgets() {
     this.router.navigateByUrl('/budget-list');

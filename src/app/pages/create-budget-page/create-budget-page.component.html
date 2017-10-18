@@ -1,46 +1,51 @@
-<button (click)="manageBudgets()">Manage Budgets</button>
-<h1>
-  Create a new Budget
-</h1>
+<mat-toolbar color="primary">
+  <mat-icon (click)="manageBudgets()">arrow_back</mat-icon>
+  <span>Add New Budget</span>
+</mat-toolbar>
 
-<div>
-  <md-input-container>
-    <input #budgetName mdInput placeholder="Budget Name" class="budget-name">
-    <md-hint *ngIf="missingBudgetName" align="start">This field is required</md-hint>
-  </md-input-container>
-</div>
-<div>
-  <md-input-container>
-    <input #details mdInput placeholder="Details" class="details" size="64" maxlength="64">
-  </md-input-container>
-</div>
-<div>
-  <md-input-container>
-    <input #budgetAmount mdInput placeholder="Budget Amount (ex: 200)" class="budget-amount" type="number" min="1">
-    <md-hint *ngIf="missingBudgetAmount" align="start">This field is required</md-hint>
-  </md-input-container>
-</div>
+<form [formGroup]="budget" (ngSubmit)="addBudget()">
 
-<div>
-  Budget Start:
-  <md-input-container>
-    <input #budgetStartDate mdInput placeholder="Month, Year" type="month" id="budget-start">
-    <md-hint *ngIf="missingBudgetStart" align="start">This field is required</md-hint>
-  </md-input-container>
-</div>
-<div>
-  Budget Finish:
-  <md-input-container>
-    <input #budgetEndDate mdInput placeholder="Month, Year" type="month" id="budget-finish">
-    <md-hint *ngIf="missingBudgetFinish" align="start">This field is required</md-hint>
-    <md-hint *ngIf="budgetFinishIsBeforeBudgetStart" align="start">Must be after budget start</md-hint>
-  </md-input-container>
-</div>
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="budgetName" placeholder="Budget Name">
+      <mat-error *ngIf="budget.get('budgetName').hasError('required')">
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-<div>
-  Create Budget
-  <md-icon id="create-budget" 
-  (click)="create(budgetName.value, details.value, budgetAmount.value, budgetStartDate.value, budgetEndDate.value)">
-    add_box
-  </md-icon>
-</div>
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="budgetAmount" placeholder="Budget Amount">
+      <mat-error *ngIf="budget.get('budgetAmount').hasError('required')">
+        <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="budget.get('budgetAmount').hasError('invalidNumber')">
+        <strong>must be a valid amount</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div formGroupName="budgetDate">
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="budgetStartDate" placeholder="Budget Start" type="month">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput formControlName="budgetEndDate" placeholder="Budget Finish" type="month">
+      </mat-form-field>
+    </div>
+    <mat-error *ngIf="budget.get('budgetDate').hasError('startDateIsAfterEndDate')">
+      <strong>Budget Start must be before Budget Finish</strong>
+    </mat-error>
+
+  </div>
+  <div>    
+    <button mat-raised-button color="primary" [disabled]="budget.invalid" type="submit">Submit</button>
+  </div>
+  
+</form>
+
+

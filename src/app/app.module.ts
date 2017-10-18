@@ -2,7 +2,7 @@ import { BarGraphComponent } from './components/bar-graph/bar-graph.component';
 import { ActionsCreatorService } from './actions/actionsCreatorService';
 import { BudgetEffects } from './effects/budget.effects';
 import { NewCategoryComponent } from './components/new-category/new-category';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CategoryComponent } from './components/category/category';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,8 +15,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { DBModule } from '@ngrx/db';
 import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MatListModule, MatButtonModule, MatSnackBarModule, MatToolbarModule,
-  MatIconModule } from '@angular/material';
+import {
+  MatListModule, MatButtonModule, MatSnackBarModule, MatToolbarModule,
+  MatIconModule, MatFormFieldModule, MatInputModule
+} from '@angular/material';
 
 import { routes } from './routes';
 import { reducer } from './reducers';
@@ -41,7 +43,9 @@ import './app.rxjs-imports';
     MatSnackBarModule,
     MatToolbarModule,
     MatIconModule,
-    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes, { useHash: false }),
 
     /**
@@ -104,6 +108,6 @@ import './app.rxjs-imports';
   bootstrap: [
     AppComponent
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
