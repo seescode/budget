@@ -1,12 +1,14 @@
-import { categoryTransactionsSelector, budgetSelector, categorySelector, transactionSelector } from './../selectors/selectors';
+//import { categoryTransactionsSelector, budgetSelector, transactionSelector } from './../selectors/selectors';
+
+import { budgetSelector, transactionSelector } from '../selectors/selectors';
 import {
   LOAD_BUDGET, LOAD_BUDGET_COMPLETE, LOAD_BUDGET_DATA, LOAD_BUDGET_DATA_FROM_CACHE,
-  LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET, ADD_BUDGET_COMPLETE, ADD_CATEGORY,
-  ADD_CATEGORY_COMPLETE, ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION, REMOVE_TRANSACTION_COMPLETE,
-  REMOVE_TRANSACTION, REMOVE_CATEGORY, REMOVE_CATEGORY_COMPLETE, REMOVE_BUDGET, REMOVE_BUDGET_COMPLETE
+  LOAD_BUDGET_DATA_COMPLETE, ADD_BUDGET, ADD_BUDGET_COMPLETE,
+  ADD_TRANSACTION_COMPLETE, ADD_TRANSACTION, REMOVE_TRANSACTION_COMPLETE,
+  REMOVE_TRANSACTION, REMOVE_BUDGET, REMOVE_BUDGET_COMPLETE
 } from './../actions/actions';
 import { AppState } from './../reducers/index';
-import { Budget, Category, Transaction, Loaded } from './../models/interfaces';
+import { Budget, Transaction, Loaded } from './../models/interfaces';
 
 
 import { Injectable } from '@angular/core';
@@ -54,23 +56,18 @@ export class BudgetEffects {
         }]);
       }
 
-      return this.db.query('category', n => n.budgetId === budgetId)
+      return this.db.query('transaction', n => n.budgetId === budgetId)
         .toArray()
-        .mergeMap((categories: Category[]) => {
-          return this.db.query('transaction', n => n.budgetId === budgetId)
-            .toArray()
-            .map((transactions: Transaction[]) => ({
-              type: LOAD_BUDGET_DATA_COMPLETE,
-              payload: {
-                budgetId: budgetId,
-                categories: categories,
-                transactions: transactions
-              }
-            }));
-        });
+        .map((transactions: Transaction[]) => ({
+          type: LOAD_BUDGET_DATA_COMPLETE,
+          payload: {
+            budgetId: budgetId,
+            transactions: transactions
+          }
+        }));
     });
-  // TODO handle catches
-  // .catch();
+  //TODO handle catches
+  //.catch();
 
   @Effect()
   budget$: Observable<Action> = this.actions$
@@ -82,23 +79,6 @@ export class BudgetEffects {
       return this.db.insert('budget', [budget])
         .map((response: any) => ({
           type: ADD_BUDGET_COMPLETE,
-          payload: response
-        }));
-
-      // TODO handle catches
-      // .catch();
-    });
-
-  @Effect()
-  category$: Observable<Action> = this.actions$
-    .ofType(ADD_CATEGORY)
-    .map(toPayload)
-    .mergeMap((category: Category) => {
-
-      // insert does inserts and updates
-      return this.db.insert('category', [category])
-        .map((response: any) => ({
-          type: ADD_CATEGORY_COMPLETE,
           payload: response
         }));
 
@@ -140,61 +120,19 @@ export class BudgetEffects {
     });
 
   @Effect()
-  removeCategory$: Observable<Action> = this.actions$
-    .ofType(REMOVE_CATEGORY)
-    .map(toPayload)
-    .withLatestFrom(this.store.select(categoryTransactionsSelector))
-    .mergeMap(([categoryId, transactions]: [string, Transaction[]]) => {
-
-      const transactionIds = transactions.map(trans => trans.id);
-
-      if (transactionIds.length === 0) {
-        return this.db.executeWrite('category', 'delete', [categoryId])
-          .mapTo({
-            type: REMOVE_CATEGORY_COMPLETE,
-            payload: categoryId
-          });
-      }
-
-      return Observable.forkJoin(
-        this.db.executeWrite('category', 'delete', [categoryId]),
-        this.db.executeWrite('transaction', 'delete', transactionIds)
-      )
-        .mapTo({
-          type: REMOVE_CATEGORY_COMPLETE,
-          payload: categoryId
-        });
-    });
-
-  @Effect()
   removeBudget$: Observable<Action> = this.actions$
     .ofType(REMOVE_BUDGET)
     .map(toPayload)
-    // TODO: must get based on budget id
     .withLatestFrom(this.store.select(budgetSelector),
-    this.store.select(categorySelector),
     this.store.select(transactionSelector))
-    .mergeMap(([budgetId, budgets, categories, transactions]:
-      [string, Budget[], Category[], Transaction[]]) => {
+    .mergeMap(([budgetId, budgets, transactions]:
+      [string, Budget[], Transaction[]]) => {
 
       const transactionIds = transactions
         .filter(trans => trans.budgetId === budgetId)
         .map(trans => trans.id);
 
-      const categoryIds = categories
-        .filter(cat => cat.budgetId === budgetId)
-        .map(cat => cat.id);
-
-      if (transactionIds.length > 0 && categoryIds.length === 0) {
-        console.log('budgetId', budgetId);
-        console.log('transactionIds', transactionIds);
-        throw {
-          name: 'removeBudget$ side effect failed',
-          message: 'We have floating transactionIds not associated with any category.  Our deletes are not properly working.'
-        };
-      }
-
-      if (transactionIds.length === 0 && categoryIds.length === 0) {
+      if (transactionIds.length === 0) {
         return this.db.executeWrite('budget', 'delete', [budgetId])
           .mapTo({
             type: REMOVE_BUDGET_COMPLETE,
@@ -202,32 +140,22 @@ export class BudgetEffects {
           });
       }
 
-      if (transactionIds.length === 0) {
-        return Observable.forkJoin(
-          this.db.executeWrite('category', 'delete', categoryIds),
-          this.db.executeWrite('budget', 'delete', [budgetId])
-        )
+      return Observable.forkJoin(
+        this.db.executeWrite('transaction', 'delete', transactionIds),
+        this.db.executeWrite('budget', 'delete', [budgetId])
+      )
         .mapTo({
           type: REMOVE_BUDGET_COMPLETE,
           payload: budgetId
         });
-      }
-
-      return Observable.forkJoin(
-        this.db.executeWrite('transaction', 'delete', transactionIds),
-        this.db.executeWrite('category', 'delete', categoryIds),
-        this.db.executeWrite('budget', 'delete', [budgetId])
-      )
-      .mapTo({
-        type: REMOVE_BUDGET_COMPLETE,
-        payload: budgetId
-      });
     });
 
   constructor(private actions$: Actions, private db: Database, private store: Store<AppState>) { }
 }
 
 
+
+// TODO: delete these comments:
 //     db.open('budget');
 
 // insert does inserts and updates

@@ -4,18 +4,12 @@ export interface TotalBudgetInfo {
   spent: number;
 }
 
-export interface Category {
-  name: string;
-  id?: string;
-  budgetId?: string;
-}
-
 export interface Transaction {
-  name?: string;
+  name: string;
+  categoryName: string;
   id?: string;
   amount: number;
   timestamp?: Date;
-  categoryId?: string;
   budgetId?: string;
 }
 
@@ -28,13 +22,22 @@ export interface Budget {
   endDate: Date;
 }
 
+// export interface ActiveDate {
+//   month: number;
+//   year: number;
+//   fullMonth?: string;
+// }
 
-export interface CategoryRecipe extends Category {
-  transactions: Transaction[];
+export interface Loaded {
+  loadedBudgetInfo: boolean;
+  loadedBudgetIds: string[];
 }
 
-export interface BudgetRecipe extends Budget {
-  categories: CategoryRecipe[];
+export interface UserSelection {
+  budgetId: string;
+  month: number;
+  year: number;
+  categoryId: string;
 }
 
 export interface ActiveDate {
@@ -43,7 +46,20 @@ export interface ActiveDate {
   fullMonth?: string;
 }
 
-export interface Loaded {
-  loadedBudgetInfo: boolean;
-  loadedBudgetIds: string[];
+export interface Category {
+  icon: string;
+  name: string;
+}
+
+export interface Subcategory {
+
+  education: string[];
+  food: string[];
+  fun: string[];
+  home: string[];
+  medical: string[];
+  stuff: string[];
+  transportation: string[];
+  utilities: string[];
+
 }

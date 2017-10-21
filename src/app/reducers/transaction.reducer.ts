@@ -1,6 +1,6 @@
 import { toPayload } from '@ngrx/effects';
 import { UPDATE_TRANSACTION, LOAD_BUDGET_DATA_COMPLETE, ADD_TRANSACTION_COMPLETE, 
-  REMOVE_TRANSACTION_COMPLETE, REMOVE_CATEGORY_COMPLETE, REMOVE_BUDGET_COMPLETE } from './../actions/actions';
+  REMOVE_TRANSACTION_COMPLETE, REMOVE_BUDGET_COMPLETE } from './../actions/actions';
 import { Transaction } from './../models/interfaces';
 
 export function TransactionReducer(state: Transaction[] = [], action: any) {
@@ -19,8 +19,6 @@ export function TransactionReducer(state: Transaction[] = [], action: any) {
 
         return transaction;
       });
-    case REMOVE_CATEGORY_COMPLETE:
-      return state.filter(transaction => transaction.categoryId !== action.payload);
     case REMOVE_BUDGET_COMPLETE:
       return state.filter(transaction => transaction.budgetId !== action.payload);
     default:

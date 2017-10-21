@@ -1,8 +1,10 @@
-import { ADD_TRANSACTION, LOAD_BUDGET_DATA, ADD_CATEGORY, ADD_BUDGET, REMOVE_TRANSACTION, REMOVE_CATEGORY, REMOVE_CATEGORY_COMPLETE, REMOVE_BUDGET, REMOVE_BUDGET_COMPLETE } from './actions';
-import { Transaction, Category, Budget } from './../models/interfaces';
+import {
+  ADD_TRANSACTION, LOAD_BUDGET_DATA, ADD_BUDGET, REMOVE_TRANSACTION, REMOVE_BUDGET,
+  REMOVE_BUDGET_COMPLETE, SELECT, PREVIOUS_MONTH, NEXT_MONTH
+} from './actions';
+import { Transaction, Budget } from './../models/interfaces';
 import { UUID } from 'angular2-uuid';
 import { Injectable } from '@angular/core';
-
 
 @Injectable()
 export class ActionsCreatorService {
@@ -52,32 +54,56 @@ export class ActionsCreatorService {
     };
   }
 
-  addCategory(categoryName: string, budgetId: string) {
-    const newCategory: Category = {
-      name: categoryName,
-      id: this.getUuid(),
-      budgetId: budgetId
-    };
-
+  selectBudget(budgetId: string, categoryId?: string) {
     return {
-      type: ADD_CATEGORY,
-      payload: newCategory
+      type: SELECT,
+      payload: {
+        budgetId: budgetId,
+        year: this.getToday().getFullYear(),
+        month: this.getToday().getMonth() + 1,
+        categoryId: categoryId
+      }
     };
   }
 
-  removeCategory(categoryId: string) {
+  select(budgetId: string, year: any, month: any, categoryId?: string) {
     return {
-      type: REMOVE_CATEGORY,
-      payload: categoryId
+      type: SELECT,
+      payload: {
+        budgetId: budgetId,
+        year: year,
+        month: month,
+        categoryId: categoryId
+      }
     };
   }
 
-  removeCategoryComplete(categoryId: string) {
-    return {
-      type: REMOVE_CATEGORY_COMPLETE,
-      payload: categoryId
-    };
-  }
+  // addCategory(categoryName: string, budgetId: string) {
+  //   const newCategory: Category = {
+  //     name: categoryName,
+  //     id: this.getUuid(),
+  //     budgetId: budgetId
+  //   };
+
+  //   return {
+  //     type: ADD_CATEGORY,
+  //     payload: newCategory
+  //   };
+  // }
+
+  // removeCategory(categoryId: string) {
+  //   return {
+  //     type: REMOVE_CATEGORY,
+  //     payload: categoryId
+  //   };
+  // }
+
+  // removeCategoryComplete(categoryId: string) {
+  //   return {
+  //     type: REMOVE_CATEGORY_COMPLETE,
+  //     payload: categoryId
+  //   };
+  // }
 
   removeBudget(budgetId: string) {
     return {
@@ -108,6 +134,18 @@ export class ActionsCreatorService {
     return {
       type: ADD_BUDGET,
       payload: newBudget
+    };
+  }
+
+  previousMonth() {
+    return {
+      type: PREVIOUS_MONTH
+    };
+  }
+
+  nextMonth() {
+    return {
+      type: NEXT_MONTH
     };
   }
 }

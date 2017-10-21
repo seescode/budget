@@ -4,10 +4,14 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 Make it look like ionic:
--style the fab button with an icon instead of just the character +
+
+-Get the main page hooked up
+-Install ngx charts and d3 
+
 -Make sure to use the built in angular material theme instead of 
 hardcoding colors.  Speaking of which you did hardcode the navbar 
 color 
+-delete unused styles in all of the css files 
 -setup animations 
 -maybe use BEM for styling 
 -be consistent with rems or pixels

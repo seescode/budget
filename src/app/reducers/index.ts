@@ -1,13 +1,9 @@
-import { Budget, Transaction, Category, Loaded } from './../models/interfaces';
-import { createSelector } from 'reselect';
-import { ActionReducer } from '@ngrx/store';
-import * as fromRouter from '@ngrx/router-store';
-import { environment } from '../../environments/environment';
+import { Budget, Transaction, Loaded, UserSelection, Category, Subcategory } from './../models/interfaces';
+// import * as fromRouter from '@ngrx/router-store';
+// import { environment } from '../../environments/environment';
 import {BudgetReducer } from './budget.reducer';
-import {CategoryReducer } from './category.reducer';
 import {TransactionReducer } from './transaction.reducer';
 import { BudgetLoadedReducer } from './budget-loaded.reducer';
-import { RouterState } from '@angular/router';
 
 
 /**
@@ -18,7 +14,6 @@ import { RouterState } from '@angular/router';
  *
  * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
  */
-import { compose } from '@ngrx/core/compose';
 
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
@@ -35,7 +30,10 @@ import { storeFreeze } from 'ngrx-store-freeze';
  *
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
-import { combineReducers } from '@ngrx/store';
+import { ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { SelectionReducer } from './selection.reducer';
+import { CategoryReducer } from './category.reducer';
+import { SubcategoryReducer } from './subcategory.reducer';
 
 
 /**
@@ -53,9 +51,10 @@ import { combineReducers } from '@ngrx/store';
 export interface AppState {
   budget: Budget[];
   transaction: Transaction[];
-  category: Category[];
-  router: RouterState;
+  selection: UserSelection;
   budgetLoaded: Loaded;
+  category: Category[]; 
+  subcategory: Subcategory; 
 }
 
 
@@ -66,23 +65,41 @@ export interface AppState {
  * wrapping that in storeLogger. Remember that compose applies
  * the result from right to left.
  */
-const reducers = {
+
+// const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
+// const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
+
+// export function reducer(state: any, action: any) {
+
+//   //TODO: FIX ME
+//   return developmentReducer(state, action)
+
+//   // if (environment.production) {
+//   //   return productionReducer(state, action);
+//   // } else {
+//   //   return developmentReducer(state, action);
+//   // }
+// }
+
+
+export const reducers: ActionReducerMap<AppState> = {
   budget: BudgetReducer,
-  category: CategoryReducer,
   transaction: TransactionReducer,
-  router: fromRouter.routerReducer,
-  budgetLoaded: BudgetLoadedReducer
+  selection: SelectionReducer,
+  budgetLoaded: BudgetLoadedReducer,
+  category: CategoryReducer,
+  subcategory: SubcategoryReducer
 };
 
-const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
 
-export function reducer(state: any, action: any) {
-  if (environment.production) {
-    return productionReducer(state, action);
-  } else {
-    return developmentReducer(state, action);
-  }
+/**
+ * By default, @ngrx/store uses combineReducers with the reducer map to compose
+ * the root meta-reducer. To add more meta-reducers, provide an array of meta-reducers
+ * that will be composed to form the root meta-reducer.
+ */
+var environment = {
+  production: false
 }
-
-
+export const metaReducers: MetaReducer<AppState>[] = !environment.production
+? [storeFreeze]
+: [];

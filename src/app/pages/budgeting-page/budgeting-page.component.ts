@@ -1,7 +1,7 @@
 import { ActionsCreatorService } from './../../actions/actionsCreatorService';
 import { Subscription } from 'rxjs/Subscription';
 import {
-  getSelectedBudgetName
+  getSelectedBudgetName, categoriesForCurrentBudget
 } from './../../selectors/selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from './../../reducers/index';
@@ -26,15 +26,20 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   selectedMonthAndYear: ActiveDate;
   budgetId: string;
   selectedBudgetName: Observable<string>;
+  categories$: Observable<any>
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
     private router: Router, private actionsCreatorService: ActionsCreatorService) {
       this.selectedBudgetName = store.select(getSelectedBudgetName);
+
+
+      this.categories$ = this.store.select(categoriesForCurrentBudget);
+      
   }
 
   ngOnInit() {
     const width = window.innerWidth;
-    this.resizeScreen(width);
+    // this.resizeScreen(width);
 
     this.routeSubscription = this.activatedRoute.params.subscribe(params => {
       this.budgetId = params['budgetId'];
@@ -88,27 +93,6 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routeSubscription.unsubscribe();
-  }
-
-  resizeScreen(width: number) {
-    if (width <= 900) {
-      this.leftNavDisplayMode = 'push';
-      this.rightNavDisplayMode = 'push';
-      this.leftNavOpened = 'false';
-      this.rightNavOpened = 'false';
-    } else {
-      this.leftNavDisplayMode = 'side';
-      this.rightNavDisplayMode = 'side';
-      this.leftNavOpened = 'true';
-      this.rightNavOpened = 'true';
-    }
-  }
-
-  onResize(event: any) {
-
-    const width: number = parseInt(event.target.innerWidth);
-
-    this.resizeScreen(width);
   }
 
   previousMonth() {

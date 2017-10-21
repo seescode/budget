@@ -1,24 +1,21 @@
-<div (window:resize)="onResize($event)">
-<md-sidenav-container class="example-sidenav-fab-container">
-  <md-sidenav id="left-nav" #leftnav [mode]="leftNavDisplayMode" [opened]="leftNavOpened" align="start">       
-    <yb-budgeting-page-left-nav></yb-budgeting-page-left-nav>    
-  </md-sidenav>
+<mat-toolbar color="primary">
+  <mat-icon>arrow_back</mat-icon>
+  <h1>{{selectedBudgetName | async}}</h1>
+</mat-toolbar>
+<mat-toolbar>
+  <mat-icon (click)="previousMonth()">arrow_back</mat-icon>
+  <h2>{{selectedMonthAndYear.fullMonth}} {{selectedMonthAndYear.year}}</h2>
+  <mat-icon (click)="nextMonth()">arrow_forward</mat-icon>
+</mat-toolbar>
 
-  <div id="main">
-    <md-toolbar color="primary">
-      <md-icon id="left-nav-toggle" (click)="leftnav.toggle()">insert_chart</md-icon>
-      <span class="example-spacer"></span>
-      <md-icon (click)="previousMonth()" class="previous-month-button">chevron_left</md-icon> 
-      <h1>{{selectedMonthAndYear.fullMonth}} {{selectedMonthAndYear.year}} {{selectedBudgetName | async}}</h1>
-      <md-icon (click)="nextMonth()"  class="next-month-button">chevron_right</md-icon>
-      <md-icon id="right-nav-toggle" (click)="rightnav.toggle()">menu</md-icon>
-    </md-toolbar>
-    <yb-budgeting-page-main></yb-budgeting-page-main>
+<mat-list>
+  <div *ngFor="let budget of budgets$ | async">
+    <mat-list-item>
+      <span (click)="openBudget(budget.id)">{{budget.name}}</span>
+      <div class="list-item-button warning" (click)="deleteBudget(budget.id)">
+        <mat-icon>delete</mat-icon>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
   </div>
-
-  <md-sidenav id="right-nav" #rightnav [mode]="rightNavDisplayMode" [opened]="rightNavOpened" align="end">
-    <yb-budgeting-page-right-nav></yb-budgeting-page-right-nav> 
-  </md-sidenav>
-
-</md-sidenav-container>
-</div>
+</mat-list>

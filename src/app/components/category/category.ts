@@ -40,7 +40,7 @@ export class CategoryComponent {
       const newTransaction: Transaction = {
         name: name,
         amount: parseFloat(amount),
-        categoryId: this.categoryId
+        categoryName: this.categoryId
       };
 
       this.renderer.invokeElementMethod(this.amountInput.nativeElement, 'focus');
