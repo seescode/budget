@@ -14,7 +14,7 @@ import { DBModule } from '@ngrx/db';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
   MatListModule, MatButtonModule, MatSnackBarModule, MatToolbarModule,
-  MatIconModule, MatFormFieldModule, MatInputModule
+  MatIconModule, MatFormFieldModule, MatInputModule, MatChipsModule
 } from '@angular/material';
 // import { NgxChartsModule } from '@swimlane/ngx-charts';
 
@@ -25,6 +25,10 @@ import { BudgetListPageComponent } from './pages/budget-list-page/budget-list-pa
 import { CreateBudgetPageComponent } from './pages/create-budget-page/create-budget-page.component';
 import { BudgetingPageComponent } from './pages/budgeting-page/budgeting-page.component';
 import { AppComponent } from './pages/app/app.component';
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer,
+} from '@ngrx/router-store';
 import './app.rxjs-imports';
 
 @NgModule({
@@ -38,6 +42,7 @@ import './app.rxjs-imports';
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
+    MatChipsModule,
     MatInputModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { useHash: false }),
@@ -45,9 +50,9 @@ import './app.rxjs-imports';
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([BudgetEffects]),
     DBModule.provideDB(schema),
+    // StoreRouterConnectingModule,
     // NgxChartsModule
 
-    // RouterStoreModule.connectRouter(),
   ],
   declarations: [
     CategoryComponent,

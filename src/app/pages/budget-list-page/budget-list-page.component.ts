@@ -27,6 +27,11 @@ export class BudgetListPageComponent implements OnInit {
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
 
+
+    // TODO: remove me
+    this.store.dispatch(this.actionsCreatorService.loadBudgetData(budgetId));
+    this.store.dispatch(this.actionsCreatorService.selectBudget(budgetId));
+
     this.router.navigate(['/budgeting', budgetId, year, month + 1]);
   }
 
@@ -35,10 +40,10 @@ export class BudgetListPageComponent implements OnInit {
   }
 
   importBudget() {
-    
+
   }
 
   exportBudget(budgetId: string) {
 
   }
- }
+}

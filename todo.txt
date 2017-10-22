@@ -3,9 +3,15 @@ How to deploy to surge:
 -cd into the dist directory 
 -surge --domain ng-budget.surge.sh
 
-Make it look like ionic:
 
--Get the main page hooked up
+
+Make it look like ionic:
+-Get the routing really working and remove the selector reducer 
+  -refresh on the budget page should work!
+-Get the subcategory page working so you can add transactions 
+-Get the view category page working 
+
+
 -Install ngx charts and d3 
 
 -Make sure to use the built in angular material theme instead of 

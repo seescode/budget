@@ -34,7 +34,6 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
 
       this.categories$ = this.store.select(categoriesForCurrentBudget);
-      
   }
 
   ngOnInit() {
@@ -117,6 +116,16 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
     }
 
     this.router.navigate(['/budgeting', this.budgetId, year, month]);
+  }
+
+  addTransaction(category: string) {
+    // this.store.dispatch(this.actions.select(this.budgetId, this.year, this.month, category.toLowerCase()));    
+  //  this.navCtrl.push(AddTransactionPage);
+  }
+
+  viewTransactionList(category: string) {
+    // this.store.dispatch(this.actions.select(this.budgetId, this.year, this.month, category.toLowerCase()));
+    // this.navCtrl.push(TransactionListPage);
   }
 
 }

@@ -96,6 +96,7 @@ export const getSelectedBudget = createSelector(selectionSelector,
 
 export const getSelectedBudgetName = createSelector(getSelectedBudget,
   (budget: Budget) => {
+
     if (budget == null) {
       return null;
     }

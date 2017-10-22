@@ -1,20 +1,24 @@
 export function CategoryReducer(state: any, action: any) {
   return [
     {
-      icon: 'pizza',
+      icon: 'kitchen',
       name: 'Food'
     },
     {
-      icon: 'pricetag',
+      icon: 'lightbulb_outline',
+      name: 'Utilities'
+    },
+    {
+      icon: 'tag_faces',
+      name: 'Fun'
+    },
+    {
+      icon: 'shopping_cart',
       name: 'Stuff'
     },
     {
-      icon: 'car',
+      icon: 'train',
       name: 'Transportation'
-    },
-    {
-      icon: 'outlet',
-      name: 'Utilities'
     },
     {
       icon: 'home',
@@ -25,12 +29,12 @@ export function CategoryReducer(state: any, action: any) {
       name: 'Education'
     },
     {
-      icon: 'happy',
-      name: 'Fun'
+      icon: 'favorite',
+      name: 'Medical'
     },
     {
-      icon: 'heart',
-      name: 'Medical'
+      icon: 'mood_bad',
+      name: 'Fees'
     }
   ];
 }
