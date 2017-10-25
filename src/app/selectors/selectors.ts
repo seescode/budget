@@ -8,13 +8,35 @@ import * as moment from 'moment';
 
 export const budgetSelector = (state: AppState) => state.budget;
 export const transactionSelector = (state: AppState) => state.transaction;
-export const selectionSelector = (state: AppState) => state.selection;
+// export const selectionSelector = (state: AppState) => state.selection;
 export const categorySelector = (state: AppState) => state.category;
 export const subcategorySelector = (state: AppState) => state.subcategory;
+export const routerSelector = (state: AppState) => state.routerReducer;
 
 export const getCurrentMonth = () => {
   return moment([new Date().getFullYear(), new Date().getMonth()]);
 };
+
+
+export const selectionSelector = createSelector(routerSelector, (route) => {
+  if (route == null) {
+    return null;
+  }
+
+  const segments = route.state.url.split('/');
+
+  if (segments[1] === 'budgeting') {
+    return {
+      budgetId: segments[2],
+      year: segments[3],
+      month: segments[4],
+      categoryId: segments[5]
+    }
+  }
+
+  return null;
+});
+
 
 export const categoriesForCurrentBudget = createSelector(selectionSelector, categorySelector,
   transactionSelector, (userSelection, categories, transactions) => {

@@ -30,7 +30,6 @@ export class BudgetListPageComponent implements OnInit {
 
     // TODO: remove me
     this.store.dispatch(this.actionsCreatorService.loadBudgetData(budgetId));
-    this.store.dispatch(this.actionsCreatorService.selectBudget(budgetId));
 
     this.router.navigate(['/budgeting', budgetId, year, month + 1]);
   }

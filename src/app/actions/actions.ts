@@ -22,8 +22,6 @@ export const REMOVE_BUDGET_COMPLETE = '[Budget] REMOVE_BUDGET_COMPLETE';
 export const UPDATE_BUDGET = '[Budget] UPDATE_BUDGET';
 export const UPDATE_TRANSACTION = '[Budget] UPDATE_TRANSACTION';
 
-export const SELECT = '[Budget] SELECT';
-
 export const PREVIOUS_MONTH = '[Budget] PREVIOUS_MONTH';
 export const NEXT_MONTH = '[Budget] NEXT_MONTH';
 

@@ -31,7 +31,6 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { SelectionReducer } from './selection.reducer';
 import { CategoryReducer } from './category.reducer';
 import { SubcategoryReducer } from './subcategory.reducer';
 
@@ -51,7 +50,6 @@ import { SubcategoryReducer } from './subcategory.reducer';
 export interface AppState {
   budget: Budget[];
   transaction: Transaction[];
-  selection: UserSelection;
   budgetLoaded: Loaded;
   category: Category[]; 
   subcategory: Subcategory; 
@@ -86,7 +84,6 @@ export interface AppState {
 export const reducers: ActionReducerMap<AppState> = {
   budget: BudgetReducer,
   transaction: TransactionReducer,
-  selection: SelectionReducer,
   budgetLoaded: BudgetLoadedReducer,
   category: CategoryReducer,
   subcategory: SubcategoryReducer,

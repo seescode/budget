@@ -6,8 +6,6 @@ How to deploy to surge:
 
 
 Make it look like ionic:
--Get the routing really working and remove the selector reducer 
-  -refresh on the budget page should work!
 -Get the subcategory page working so you can add transactions 
 -Get the view category page working 
 

@@ -1,6 +1,6 @@
 import {
   ADD_TRANSACTION, LOAD_BUDGET_DATA, ADD_BUDGET, REMOVE_TRANSACTION, REMOVE_BUDGET,
-  REMOVE_BUDGET_COMPLETE, SELECT, PREVIOUS_MONTH, NEXT_MONTH
+  REMOVE_BUDGET_COMPLETE, PREVIOUS_MONTH, NEXT_MONTH
 } from './actions';
 import { Transaction, Budget } from './../models/interfaces';
 import { UUID } from 'angular2-uuid';
@@ -51,30 +51,6 @@ export class ActionsCreatorService {
     return {
       type: LOAD_BUDGET_DATA,
       payload: budgetId
-    };
-  }
-
-  selectBudget(budgetId: string, categoryId?: string) {
-    return {
-      type: SELECT,
-      payload: {
-        budgetId: budgetId,
-        year: this.getToday().getFullYear(),
-        month: this.getToday().getMonth() + 1,
-        categoryId: categoryId
-      }
-    };
-  }
-
-  select(budgetId: string, year: any, month: any, categoryId?: string) {
-    return {
-      type: SELECT,
-      payload: {
-        budgetId: budgetId,
-        year: year,
-        month: month,
-        categoryId: categoryId
-      }
     };
   }
 
