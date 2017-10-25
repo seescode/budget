@@ -4,7 +4,7 @@ import { Budget, Transaction, Loaded, UserSelection, Category, Subcategory } fro
 import {BudgetReducer } from './budget.reducer';
 import {TransactionReducer } from './transaction.reducer';
 import { BudgetLoadedReducer } from './budget-loaded.reducer';
-
+import * as fromRouter from '@ngrx/router-store';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -55,6 +55,7 @@ export interface AppState {
   budgetLoaded: Loaded;
   category: Category[]; 
   subcategory: Subcategory; 
+  routerReducer: fromRouter.RouterReducerState<any>;
 }
 
 
@@ -88,7 +89,8 @@ export const reducers: ActionReducerMap<AppState> = {
   selection: SelectionReducer,
   budgetLoaded: BudgetLoadedReducer,
   category: CategoryReducer,
-  subcategory: SubcategoryReducer
+  subcategory: SubcategoryReducer,
+  routerReducer: fromRouter.routerReducer
 };
 
 
@@ -99,7 +101,8 @@ export const reducers: ActionReducerMap<AppState> = {
  */
 var environment = {
   production: false
-}
+};
+
 export const metaReducers: MetaReducer<AppState>[] = !environment.production
 ? [storeFreeze]
 : [];

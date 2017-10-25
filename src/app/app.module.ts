@@ -1,3 +1,4 @@
+import { CustomRouterStateSerializer } from './routerSerializer';
 import { ActionsCreatorService } from './actions/actionsCreatorService';
 import { BudgetEffects } from './effects/budget.effects';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -50,7 +51,8 @@ import './app.rxjs-imports';
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([BudgetEffects]),
     DBModule.provideDB(schema),
-    // StoreRouterConnectingModule,
+    StoreRouterConnectingModule,
+
     // NgxChartsModule
 
   ],
@@ -62,7 +64,8 @@ import './app.rxjs-imports';
     AppComponent
   ],
   providers: [
-    ActionsCreatorService
+    ActionsCreatorService,
+    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }
   ],
   bootstrap: [
     AppComponent
