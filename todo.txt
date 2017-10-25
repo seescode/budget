@@ -6,17 +6,17 @@ How to deploy to surge:
 
 
 Make it look like ionic:
--Get the subcategory page working so you can add transactions 
 -Get the view category page working 
-
-
+-Get the budgeting page to render correctly 
+-Setup reactive forms on subcategory page
 -Install ngx charts and d3 
+-setup animations between the various pages to look like ionic styling. 
+
 
 -Make sure to use the built in angular material theme instead of 
 hardcoding colors.  Speaking of which you did hardcode the navbar 
 color 
 -delete unused styles in all of the css files 
--setup animations 
 -maybe use BEM for styling 
 -be consistent with rems or pixels
 -I don't think it's necessary to make a custom angular material theme.  

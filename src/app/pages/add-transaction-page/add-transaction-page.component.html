@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <span>Add Transaction</span>
+</mat-toolbar>
+
+<form [formGroup]="" (ngSubmit)="addTransaction()">
+  <mat-list>
+    <div *ngFor="let category of subcategories$ | async">
+      <mat-list-item>
+        <span>{{category}}</span>
+        <input type="radio" [value]="category">
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+    <input matInput placeholder="Amount">
+    <div>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </mat-list>
+</form>

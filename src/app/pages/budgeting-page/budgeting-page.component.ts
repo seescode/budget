@@ -30,10 +30,10 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
     private router: Router, private actionsCreatorService: ActionsCreatorService) {
-      this.selectedBudgetName = store.select(getSelectedBudgetName);
+    this.selectedBudgetName = store.select(getSelectedBudgetName);
 
 
-      this.categories$ = this.store.select(categoriesForCurrentBudget);
+    this.categories$ = this.store.select(categoriesForCurrentBudget);
   }
 
   ngOnInit() {
@@ -120,7 +120,10 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
 
   addTransaction(category: string) {
     // this.store.dispatch(this.actions.select(this.budgetId, this.year, this.month, category.toLowerCase()));    
-  //  this.navCtrl.push(AddTransactionPage);
+
+    this.router.navigate(['/budgeting', this.budgetId, this.selectedMonthAndYear.year,
+      this.selectedMonthAndYear.month, category.toLowerCase()]);
+    //  this.navCtrl.push(AddTransactionPage);
   }
 
   viewTransactionList(category: string) {

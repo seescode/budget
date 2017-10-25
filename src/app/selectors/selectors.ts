@@ -59,8 +59,6 @@ export const categoriesForCurrentBudget = createSelector(selectionSelector, cate
   });
 
 
-
-
 // export const categoriesWithTransactions = createSelector(selectionSelector, categoriesForCurrentBudget,
 //   transactionSelector, (userSelection, categories, transactions) => {
 
@@ -382,7 +380,7 @@ export const getTotalGraph = createSelector(selectionSelector, getSelectedBudget
         {
           name: 'Surplus',
           value: 0
-        }      
+        }
       ];
     }
 
@@ -405,6 +403,6 @@ export const getTotalGraph = createSelector(selectionSelector, getSelectedBudget
       {
         name: 'Surplus: $' + 20,
         value: 20
-      }      
+      }
     ]
   });
