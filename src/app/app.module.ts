@@ -1,3 +1,4 @@
+import { RoutingEffects } from './effects/routing.effects';
 import { TransactionListPageComponent } from './pages/transaction-list-page/transaction-list-page.component';
 import { AddTransactionPageComponent } from './pages/add-transaction-page/add-transaction-page.component';
 import { CustomRouterStateSerializer } from './routerSerializer';
@@ -51,7 +52,7 @@ import './app.rxjs-imports';
     RouterModule.forRoot(routes, { useHash: false }),
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([BudgetEffects]),
+    EffectsModule.forRoot([BudgetEffects, RoutingEffects]),
     DBModule.provideDB(schema),
     StoreRouterConnectingModule,
 

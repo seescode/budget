@@ -26,6 +26,10 @@ export const PREVIOUS_MONTH = '[Budget] PREVIOUS_MONTH';
 export const NEXT_MONTH = '[Budget] NEXT_MONTH';
 
 
+export const BACK_TO_BUDGETING = '[Budget] BACK_TO_BUDGETING';
+
+
+
 // Our app has prebuilt categories. Maybe I can just hardcode the values into 
 // the store as the default value.
 // export const ADD_CATEGORY = 'ADD_CATEGORY';

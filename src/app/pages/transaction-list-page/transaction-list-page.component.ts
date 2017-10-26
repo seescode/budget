@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppState } from './../../reducers/index';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { BACK_TO_BUDGETING } from '../../actions/actions';
 
 @Component({
   selector: 'yb-transaction-list-page',
@@ -23,5 +24,11 @@ export class TransactionListPageComponent {
 
   deleteTransaction(transaction: any) {
     this.store.dispatch(this.actions.removeTransaction(transaction));
+  }
+
+  back() {
+    this.store.dispatch({
+      type: BACK_TO_BUDGETING
+    });
   }
 }

@@ -1,11 +1,12 @@
 import { ActionsCreatorService } from './../../actions/actionsCreatorService';
-import { subcategoriesForSelectedCategorySelector } from './../../selectors/selectors';
+import { subcategoriesForSelectedCategorySelector, selectionSelector } from './../../selectors/selectors';
 import { Router } from '@angular/router';
 import { Budget, Category } from './../../models/interfaces';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from './../../reducers/index';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { BACK_TO_BUDGETING } from '../../actions/actions';
 
 @Component({
   selector: 'yb-add-transaction-page',
@@ -14,7 +15,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddTransactionPageComponent implements OnInit {
-  subcategories$ : Observable<string[]>;
+  subcategories$: Observable<string[]>;
 
   constructor(private store: Store<AppState>, private router: Router,
     private actionsCreatorService: ActionsCreatorService) { }
@@ -37,5 +38,11 @@ export class AddTransactionPageComponent implements OnInit {
     // ))
 
     // this.navCtrl.pop();
+  }
+
+  back() {
+    this.store.dispatch({
+      type: BACK_TO_BUDGETING
+    });
   }
 }

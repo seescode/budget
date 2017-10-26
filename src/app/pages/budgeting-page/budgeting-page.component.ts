@@ -32,7 +32,6 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
     private router: Router, private actionsCreatorService: ActionsCreatorService) {
     this.selectedBudgetName = store.select(getSelectedBudgetName);
 
-
     this.categories$ = this.store.select(categoriesForCurrentBudget);
   }
 
@@ -126,6 +125,10 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   viewTransactionList(category: string) {
     this.router.navigate(['/transactions', this.budgetId, this.selectedMonthAndYear.year,
       this.selectedMonthAndYear.month, category.toLowerCase()]);
+  }
+
+  back() {
+    this.router.navigateByUrl('/budget-list');
   }
 
 }

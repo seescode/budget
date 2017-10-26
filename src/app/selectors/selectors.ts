@@ -8,7 +8,6 @@ import * as moment from 'moment';
 
 export const budgetSelector = (state: AppState) => state.budget;
 export const transactionSelector = (state: AppState) => state.transaction;
-// export const selectionSelector = (state: AppState) => state.selection;
 export const categorySelector = (state: AppState) => state.category;
 export const subcategorySelector = (state: AppState) => state.subcategory;
 export const routerSelector = (state: AppState) => state.routerReducer;
@@ -25,13 +24,13 @@ export const selectionSelector = createSelector(routerSelector, (route) => {
 
   const segments = route.state.url.split('/');
 
-  if (segments[1] === 'budgeting') {
+  if (segments[1] === 'budgeting' || segments[1] === 'transactions') {
     return {
       budgetId: segments[2],
-      year: segments[3],
-      month: segments[4],
+      year: parseInt(segments[3], 10),
+      month: parseInt(segments[4], 10),
       categoryId: segments[5]
-    }
+    };
   }
 
   return null;
