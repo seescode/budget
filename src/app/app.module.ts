@@ -1,3 +1,4 @@
+import { TransactionListPageComponent } from './pages/transaction-list-page/transaction-list-page.component';
 import { AddTransactionPageComponent } from './pages/add-transaction-page/add-transaction-page.component';
 import { CustomRouterStateSerializer } from './routerSerializer';
 import { ActionsCreatorService } from './actions/actionsCreatorService';
@@ -63,6 +64,7 @@ import './app.rxjs-imports';
     CreateBudgetPageComponent,
     BudgetingPageComponent,
     AddTransactionPageComponent,
+    TransactionListPageComponent,
     AppComponent
   ],
   providers: [

@@ -119,16 +119,13 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   }
 
   addTransaction(category: string) {
-    // this.store.dispatch(this.actions.select(this.budgetId, this.year, this.month, category.toLowerCase()));    
-
     this.router.navigate(['/budgeting', this.budgetId, this.selectedMonthAndYear.year,
       this.selectedMonthAndYear.month, category.toLowerCase()]);
-    //  this.navCtrl.push(AddTransactionPage);
   }
 
   viewTransactionList(category: string) {
-    // this.store.dispatch(this.actions.select(this.budgetId, this.year, this.month, category.toLowerCase()));
-    // this.navCtrl.push(TransactionListPage);
+    this.router.navigate(['/transactions', this.budgetId, this.selectedMonthAndYear.year,
+      this.selectedMonthAndYear.month, category.toLowerCase()]);
   }
 
 }

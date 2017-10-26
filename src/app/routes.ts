@@ -1,3 +1,4 @@
+import { TransactionListPageComponent } from './pages/transaction-list-page/transaction-list-page.component';
 import { CreateBudgetPageComponent } from './pages/create-budget-page/create-budget-page.component';
 import { BudgetingPageComponent } from './pages/budgeting-page/budgeting-page.component';
 import { BudgetListPageComponent } from './pages/budget-list-page/budget-list-page.component';
@@ -16,6 +17,10 @@ export const routes: Routes = [
   {
     path: 'budgeting/:budgetId/:year/:month/:categoryId',
     component: AddTransactionPageComponent
+  },
+  {
+    path: 'transactions/:budgetId/:year/:month/:categoryId',
+    component: TransactionListPageComponent
   },
   {
     path: 'create-budget',

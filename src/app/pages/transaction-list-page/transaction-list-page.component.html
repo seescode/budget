@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <span>Transaction List</span>
+</mat-toolbar>
+
+<mat-list>
+  <div *ngFor="let trans of transactions$ | async">
+    <mat-list-item>
+      <h2>{{trans.name}}</h2>
+      <p>{{trans.timestamp}}</p>
+      <mat-chip-list>
+        <mat-chip color="primary" selected="true">{{trans.amount | currency:'USD':true:'1.2-2'}}</mat-chip>
+      </mat-chip-list>   
+      <div class="list-item-button warning" (click)="deleteTransaction(trans)"><mat-icon>delete</mat-icon></div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </div>
+</mat-list>
