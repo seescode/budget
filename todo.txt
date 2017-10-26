@@ -6,7 +6,6 @@ How to deploy to surge:
 
 
 Make it look like ionic:
--Get the budgeting page to render correctly 
 -Setup reactive forms on subcategory page so that you can add transactions
   -Verify that the view category page working 
 -Install ngx charts and d3 

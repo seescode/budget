@@ -14,12 +14,12 @@
 
       <span (click)="addTransaction(category.name)">
         <mat-icon>{{category.icon}}</mat-icon>
-        {{category.name}} 
-        <mat-chip-list>
-          <mat-chip color="primary" selected="true">{{category.amount | currency:'USD':true:'1.2-2'}}</mat-chip>
-        </mat-chip-list>                  
+        {{category.name}}
       </span>
 
+      <mat-chip-list>
+        <mat-chip color="primary" selected="true">{{category.amount | currency:'USD':true:'1.2-2'}}</mat-chip>
+      </mat-chip-list>
       <div class="list-item-button" (click)="viewTransactionList(category.name)">
         <mat-icon>view_list</mat-icon>
       </div>
