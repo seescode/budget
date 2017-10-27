@@ -6,7 +6,6 @@ How to deploy to surge:
 
 
 Make it look like ionic:
--Use the finger icon when hovering over stuff 
 -Delete unused files/folders within budgeting page 
 
 
