@@ -6,8 +6,11 @@ How to deploy to surge:
 
 
 Make it look like ionic:
--Delete unused files/folders within budgeting page 
+-setup animation from going from one month to another month 
+ -
 
+-rename create-budget route to add-budget to be more consistent with 
+the naming of create vs add in the application. 
 
 
 -Setup reactive forms on subcategory page so that you can add transactions

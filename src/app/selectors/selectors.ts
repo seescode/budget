@@ -37,6 +37,29 @@ export const selectionSelector = createSelector(routerSelector, (route) => {
 });
 
 
+export const currentAnimationStateSelector = createSelector(routerSelector, (route) => {
+  if (route == null) {
+    return null;
+  }
+
+  const segments = route.state.url.split('/');
+
+  if (
+    segments[1] === 'budget-list' ||
+    segments[1] === 'create-budget' ||
+    segments[1] === 'transactions') {
+    return segments[1];
+  } else if (segments[1] === 'budgeting') {
+    if (segments.length === 5) {
+      return 'budgeting';
+    } else if (segments.length === 6) {
+      return 'add-transaction';
+    }
+  }
+
+  return null;
+});
+
 export const categoriesForCurrentBudget = createSelector(selectionSelector, categorySelector,
   transactionSelector, (userSelection, categories, transactions) => {
 
