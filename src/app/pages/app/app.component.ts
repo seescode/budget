@@ -1,43 +1,12 @@
+import { forwardAnimation, backAnimation } from './../../animations/key-frames';
 import { currentAnimationStateSelector } from './../../selectors/selectors';
 import { AppState } from './../../reducers/index';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes, query } from '@angular/animations';
 
 
-const forwardAnimation = keyframes([
-  style({
-    transform: 'translateX(10%)',
-    position: 'fixed',
-    height: '100%',
-    width: '100%',
-    offset: 0
-  }),
-  style({
-    transform: 'translateX(0)',
-    position: 'fixed',
-    height: '100%',
-    width: '100%',
-    offset: 1
-  })
-]);
 
-const backAnimation = keyframes([
-  style({
-    transform: 'translateX(-10%)',
-    position: 'fixed',
-    height: '100%',
-    width: '100%',
-    offset: 0
-  }),
-  style({
-    transform: 'translateX(0)',
-    position: 'fixed',
-    height: '100%',
-    width: '100%',
-    offset: 1
-  })
-]);
 
 @Component({
   selector: 'yb-app',
@@ -46,14 +15,14 @@ const backAnimation = keyframes([
             </main>`,
   animations: [
     trigger('pageAnimations', [
-      transition('budget-list => create-budget', animate(200, forwardAnimation)),
-      transition('create-budget => budget-list', animate(200, backAnimation)),
-      transition('budget-list => budgeting', animate(200, forwardAnimation)),
-      transition('budgeting => budget-list', animate(200, backAnimation)),
-      transition('budgeting => transactions', animate(200, forwardAnimation)),
-      transition('transactions => budgeting', animate(200, backAnimation)),
-      transition('budgeting => add-transaction', animate(200, forwardAnimation)),
-      transition('add-transaction => budgeting', animate(200, backAnimation)),
+      transition('budget-list => create-budget', forwardAnimation),
+      transition('create-budget => budget-list', backAnimation),
+      transition('budget-list => budgeting', forwardAnimation),
+      transition('budgeting => budget-list', backAnimation),
+      transition('budgeting => transactions', forwardAnimation),
+      transition('transactions => budgeting', backAnimation),
+      transition('budgeting => add-transaction', forwardAnimation),
+      transition('add-transaction => budgeting', backAnimation),
     ])
   ]
 })
