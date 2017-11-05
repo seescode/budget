@@ -15,8 +15,8 @@ import { trigger, state, style, transition, animate, keyframes, query } from '@a
             </main>`,
   animations: [
     trigger('pageAnimations', [
-      transition('budget-list => create-budget', forwardAnimation),
-      transition('create-budget => budget-list', backAnimation),
+      transition('budget-list => add-budget', forwardAnimation),
+      transition('add-budget => budget-list', backAnimation),
       transition('budget-list => budgeting', forwardAnimation),
       transition('budgeting => budget-list', backAnimation),
       transition('budgeting => transactions', forwardAnimation),

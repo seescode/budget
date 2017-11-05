@@ -46,7 +46,7 @@ export const currentAnimationStateSelector = createSelector(routerSelector, (rou
 
   if (
     segments[1] === 'budget-list' ||
-    segments[1] === 'create-budget' ||
+    segments[1] === 'add-budget' ||
     segments[1] === 'transactions') {
     return segments[1];
   } else if (segments[1] === 'budgeting') {

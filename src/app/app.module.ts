@@ -26,7 +26,7 @@ import { routes } from './routes';
 import { reducers, metaReducers } from './reducers';
 import { schema } from './db';
 import { BudgetListPageComponent } from './pages/budget-list-page/budget-list-page.component';
-import { CreateBudgetPageComponent } from './pages/create-budget-page/create-budget-page.component';
+import { AddBudgetPageComponent } from './pages/add-budget-page/add-budget-page.component';
 import { BudgetingPageComponent } from './pages/budgeting-page/budgeting-page.component';
 import { AppComponent } from './pages/app/app.component';
 import {
@@ -62,7 +62,7 @@ import './app.rxjs-imports';
   declarations: [
     CategoryComponent,
     BudgetListPageComponent,
-    CreateBudgetPageComponent,
+    AddBudgetPageComponent,
     BudgetingPageComponent,
     AddTransactionPageComponent,
     TransactionListPageComponent,

@@ -1,5 +1,5 @@
 import { TransactionListPageComponent } from './pages/transaction-list-page/transaction-list-page.component';
-import { CreateBudgetPageComponent } from './pages/create-budget-page/create-budget-page.component';
+import { AddBudgetPageComponent } from './pages/add-budget-page/add-budget-page.component';
 import { BudgetingPageComponent } from './pages/budgeting-page/budgeting-page.component';
 import { BudgetListPageComponent } from './pages/budget-list-page/budget-list-page.component';
 import { Routes } from '@angular/router';
@@ -23,9 +23,9 @@ export const routes: Routes = [
     component: TransactionListPageComponent
   },
   {
-    path: 'create-budget',
+    path: 'add-budget',
     // canActivate: [ BookExistsGuard ],
-    component: CreateBudgetPageComponent
+    component: AddBudgetPageComponent
   },
   { path: '**', redirectTo: 'budget-list', pathMatch: 'full' }
 ];

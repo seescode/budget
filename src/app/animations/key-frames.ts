@@ -4,7 +4,6 @@ import { keyframes, style, AnimationQueryMetadata, AnimationKeyframesSequenceMet
 
 
 export const forwardAnimation = [
-  // animate the leave page away
   query(':leave', [
     style({ display: 'visible' })
   ]),
@@ -15,14 +14,12 @@ export const forwardAnimation = [
       height: '100%',
       width: '100%',
       offset: 0,
-      zIndex: 500
     }),
     style({
       transform: 'translateY(0)',
       position: 'fixed',
       height: '100%',
       width: '100%',
-      zIndex: 500,      
       offset: 1
     })
   ])))
@@ -33,7 +30,7 @@ export const backAnimation = [
   // animate the leave page away
   query(':leave', animate(200, keyframes([
     style({
-      transform: 'translateX(0)',
+      transform: 'translateY(0%)',
       position: 'fixed',
       height: '100%',
       width: '100%',

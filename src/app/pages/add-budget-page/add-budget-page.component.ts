@@ -10,12 +10,12 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 
 
 @Component({
-  selector: 'yb-create-budget-page',
-  templateUrl: './create-budget-page.component.html',
-  styleUrls: ['./create-budget-page.component.css'],
+  selector: 'yb-add-budget-page',
+  templateUrl: './add-budget-page.component.html',
+  styleUrls: ['./add-budget-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateBudgetPageComponent {
+export class AddBudgetPageComponent {
   budget: FormGroup;
 
   constructor(private store: Store<AppState>, private router: Router,
