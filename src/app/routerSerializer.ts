@@ -13,14 +13,38 @@ import { RouterStateSnapshot, Params } from '@angular/router';
 export interface RouterStateUrl {
   url: string;
   queryParams: Params;
+  pageState: string;
 }
 
 export class CustomRouterStateSerializer
   implements RouterStateSerializer<RouterStateUrl> {
   serialize(routerState: RouterStateSnapshot): RouterStateUrl {
+
     const { url } = routerState;
     const queryParams = routerState.root.queryParams;
+    const pageState = getPageState(routerState);
 
-    return { url, queryParams };
+    return { url, queryParams, pageState };
   }
+}
+
+
+function getPageState(routerState: any) {
+  let child = routerState.root.children[0];
+
+  while (child != null) {
+
+    if (child.data && child.data.pageState) {
+      console.log(child.data.pageState);
+      return child.data.pageState;
+    }
+
+    if (child.children.length > 0) {
+      child = child.children[0];
+    } else {
+      child = null;
+    }
+  }
+
+  return '';
 }

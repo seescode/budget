@@ -8,24 +8,29 @@ import { AddTransactionPageComponent } from './pages/add-transaction-page/add-tr
 export const routes: Routes = [
   {
     path: 'budget-list',
-    component: BudgetListPageComponent
+    component: BudgetListPageComponent,
+    data: { pageState: 'budget-list'}
   },
   {
     path: 'budgeting/:budgetId/:year/:month',
-    component: BudgetingPageComponent
+    component: BudgetingPageComponent,
+    data: { pageState: 'budgeting'}
   },
   {
     path: 'budgeting/:budgetId/:year/:month/:categoryId',
-    component: AddTransactionPageComponent
+    component: AddTransactionPageComponent,
+    data: { pageState: 'add-transaction'}
   },
   {
     path: 'transactions/:budgetId/:year/:month/:categoryId',
-    component: TransactionListPageComponent
+    component: TransactionListPageComponent,
+    data: { pageState: 'transactions'}
   },
   {
     path: 'add-budget',
     // canActivate: [ BookExistsGuard ],
-    component: AddBudgetPageComponent
+    component: AddBudgetPageComponent,
+    data: { pageState: 'add-budget'}
   },
   { path: '**', redirectTo: 'budget-list', pathMatch: 'full' }
 ];

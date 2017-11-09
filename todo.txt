@@ -6,8 +6,6 @@ How to deploy to surge:
 
 
 Make it look like ionic:
--Refactor the current animation selector so that it uses the 
-more scalable custom route info.  
 
 
 

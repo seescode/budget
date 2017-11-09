@@ -97,7 +97,7 @@ export const reducers: ActionReducerMap<AppState> = {
  * that will be composed to form the root meta-reducer.
  */
 var environment = {
-  production: false
+  production: true
 };
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production

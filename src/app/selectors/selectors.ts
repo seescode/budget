@@ -1,3 +1,4 @@
+import { RouterStateSnapshot } from '@angular/router';
 import { Transaction, Budget, TotalBudgetInfo, UserSelection, Category, Subcategory } from './../models/interfaces';
 import { AppState } from '../reducers/index';
 
@@ -15,7 +16,6 @@ export const routerSelector = (state: AppState) => state.routerReducer;
 export const getCurrentMonth = () => {
   return moment([new Date().getFullYear(), new Date().getMonth()]);
 };
-
 
 export const selectionSelector = createSelector(routerSelector, (route) => {
   if (route == null) {
@@ -38,26 +38,11 @@ export const selectionSelector = createSelector(routerSelector, (route) => {
 
 
 export const currentAnimationStateSelector = createSelector(routerSelector, (route) => {
-  if (route == null) {
+  if (route == null || route.state == null) {
     return null;
   }
 
-  const segments = route.state.url.split('/');
-
-  if (
-    segments[1] === 'budget-list' ||
-    segments[1] === 'add-budget' ||
-    segments[1] === 'transactions') {
-    return segments[1];
-  } else if (segments[1] === 'budgeting') {
-    if (segments.length === 5) {
-      return 'budgeting';
-    } else if (segments.length === 6) {
-      return 'add-transaction';
-    }
-  }
-
-  return null;
+  return route.state.pageState;
 });
 
 export const categoriesForCurrentBudget = createSelector(selectionSelector, categorySelector,

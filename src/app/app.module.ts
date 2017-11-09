@@ -1,7 +1,7 @@
+import { CustomRouterStateSerializer } from './routerSerializer';
 import { RoutingEffects } from './effects/routing.effects';
 import { TransactionListPageComponent } from './pages/transaction-list-page/transaction-list-page.component';
 import { AddTransactionPageComponent } from './pages/add-transaction-page/add-transaction-page.component';
-import { CustomRouterStateSerializer } from './routerSerializer';
 import { ActionsCreatorService } from './actions/actionsCreatorService';
 import { BudgetEffects } from './effects/budget.effects';
 import { ReactiveFormsModule } from '@angular/forms';
