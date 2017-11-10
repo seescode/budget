@@ -9,6 +9,7 @@ import { ActiveDate, Budget, Transaction, Category, TotalBudgetInfo } from './..
 import { Observable } from 'rxjs/Observable';
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import * as moment from 'moment';
 
 @Component({
   selector: 'yb-budgeting-page',
@@ -36,9 +37,12 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    // TODO: is this actually being used?  If not remove this window nonsense
     const width = window.innerWidth;
     // this.resizeScreen(width);
 
+    // TODO: move this code to a selector
     this.routeSubscription = this.activatedRoute.params.subscribe(params => {
       this.budgetId = params['budgetId'];
 
@@ -47,45 +51,7 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
         year: parseInt(params['year'])
       };
 
-      // TODO move to a service or pipe
-      switch (this.selectedMonthAndYear.month) {
-        case 1:
-          this.selectedMonthAndYear.fullMonth = 'January';
-          break;
-        case 2:
-          this.selectedMonthAndYear.fullMonth = 'February';
-          break;
-        case 3:
-          this.selectedMonthAndYear.fullMonth = 'March';
-          break;
-        case 4:
-          this.selectedMonthAndYear.fullMonth = 'April';
-          break;
-        case 5:
-          this.selectedMonthAndYear.fullMonth = 'May';
-          break;
-        case 6:
-          this.selectedMonthAndYear.fullMonth = 'June';
-          break;
-        case 7:
-          this.selectedMonthAndYear.fullMonth = 'July';
-          break;
-        case 8:
-          this.selectedMonthAndYear.fullMonth = 'August';
-          break;
-        case 9:
-          this.selectedMonthAndYear.fullMonth = 'September';
-          break;
-        case 10:
-          this.selectedMonthAndYear.fullMonth = 'October';
-          break;
-        case 11:
-          this.selectedMonthAndYear.fullMonth = 'November';
-          break;
-        case 12:
-          this.selectedMonthAndYear.fullMonth = 'December';
-          break;
-      }
+      this.selectedMonthAndYear.fullMonth = moment.months(this.selectedMonthAndYear.month - 1);
     });
   }
 
@@ -94,6 +60,11 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   }
 
   previousMonth() {
+    // TODO: Instead of doing an explicit router.navigate try and use 
+    // a store dispatch to update the url.  That way the reducer would 
+    // contain the code to calculate previous and next month. 
+    // Alternatively you could have the router.navigate happen in a side
+    // effect.  
     let month = this.selectedMonthAndYear.month - 1;
     let year = this.selectedMonthAndYear.year;
 
