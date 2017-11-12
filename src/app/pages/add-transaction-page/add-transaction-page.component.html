@@ -7,20 +7,20 @@
   <mat-list>
 
     <mat-radio-group formControlName="selectedSubcategory">
-        <div *ngFor="let category of subcategories$ | async">
+      <div *ngFor="let category of subcategories$ | async">
         <mat-list-item>
           <mat-radio-button [value]="category" align="end">
-              <span>{{category}}</span>
-          </mat-radio-button>      
+            <span>{{category}}</span>
+          </mat-radio-button>
         </mat-list-item>
         <mat-divider></mat-divider>
       </div>
     </mat-radio-group>
-    
+
     <mat-form-field>
-        <input matInput placeholder="Amount" formControlName="transactionAmount">
+      <input matInput placeholder="Amount" formControlName="transactionAmount">
     </mat-form-field>
-    
+
     <div>
       <button mat-raised-button color="primary" [disabled]="transaction.invalid" type="submit">Submit</button>
     </div>

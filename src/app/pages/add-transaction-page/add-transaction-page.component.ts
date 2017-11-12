@@ -1,11 +1,12 @@
+import { Subscription } from 'rxjs/Subscription';
 import { ActionsCreatorService } from './../../actions/actionsCreatorService';
 import { subcategoriesForSelectedCategorySelector, selectionSelector } from './../../selectors/selectors';
 import { Router } from '@angular/router';
-import { Budget, Category } from './../../models/interfaces';
+import { Budget, Category, Transaction } from './../../models/interfaces';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from './../../reducers/index';
 import { Store } from '@ngrx/store';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { BACK_TO_BUDGETING } from '../../actions/actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -15,12 +16,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./add-transaction-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddTransactionPageComponent implements OnInit {
+export class AddTransactionPageComponent implements OnInit, OnDestroy {
   subcategories$: Observable<string[]>;
+  selectionSubscription: Subscription;
   transaction: FormGroup;
+  selection: any;
 
   constructor(private store: Store<AppState>, private router: Router,
-    private actionsCreatorService: ActionsCreatorService) {
+    private actions: ActionsCreatorService) {
 
     this.transaction = new FormGroup({
       selectedSubcategory: new FormControl(null, [Validators.required]),
@@ -29,7 +32,15 @@ export class AddTransactionPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectionSubscription = this.store.select(selectionSelector)
+      .subscribe(selection => {
+        this.selection = selection;
+      });
     this.subcategories$ = this.store.select(subcategoriesForSelectedCategorySelector);
+  }
+
+  ngOnDestroy() {
+    this.selectionSubscription.unsubscribe();
   }
 
   validAmount(control: FormControl): { [s: string]: boolean } {
@@ -42,20 +53,20 @@ export class AddTransactionPageComponent implements OnInit {
   }
 
   addTransaction() {
-    // const inputs = this.transaction.value;
+    const inputs = this.transaction.value;
 
-    // const transaction: Transaction = {
-    //   name: inputs.selectedSubcategory.toLowerCase(),
-    //   categoryName: this.categoryId,
-    //   amount: parseFloat(inputs.transactionAmount)
-    // };
+    const transaction: Transaction = {
+      name: inputs.selectedSubcategory.toLowerCase(),
+      categoryName: this.selection.categoryId,
+      amount: parseFloat(inputs.transactionAmount)
+    };
 
-    // this.store.dispatch(this.actions.addTransaction(
-    //   transaction, this.budgetId, this.year, this.month
-    // ))
+    this.store.dispatch(this.actions.addTransaction(
+      transaction, this.selection.budgetId, this.selection.year, this.selection.month
+    ));
 
-    // this.navCtrl.pop();
-  }  
+    this.router.navigate(['/budgeting', this.selection.budgetId, this.selection.year, this.selection.month]);
+  }
 
   back() {
     this.store.dispatch({

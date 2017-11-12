@@ -31,7 +31,7 @@ export class RoutingEffects {
     .withLatestFrom(this.store.select(selectionSelector))
     .do(([action, selection]: [any, any]) => {
       this.router.navigate(['/budgeting', selection.budgetId, selection.year,
-        selection.month + 1]);
+        selection.month]);
     });
 
   constructor(private actions$: Actions, private db: Database, private store: Store<AppState>,

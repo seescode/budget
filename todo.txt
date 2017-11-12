@@ -4,23 +4,18 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
+-Get the graphs working
+  -Install ngx charts and d3 
+-fix unit tests 
+-fix e2e tests 
+-service workers
 
-Make it look like ionic:
-
--be able to add a new transaction 
-  -Setup reactive forms on subcategory page so that you can add transactions
-    -Verify that the view category page working 
 
 -Be able to add transactions through speech
 
 -setup a global error handler so that it replaces the current page with a 
 500 error page
 -fix todos
--Get the graphs working
-  -Install ngx charts and d3 
--service workers
--fix unit tests 
--fix e2e tests 
 
 -Make sure to use the built in angular material theme instead of 
 hardcoding colors.  Speaking of which you did hardcode the navbar 
