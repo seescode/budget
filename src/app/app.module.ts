@@ -18,7 +18,8 @@ import { DBModule } from '@ngrx/db';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
   MatListModule, MatButtonModule, MatSnackBarModule, MatToolbarModule,
-  MatIconModule, MatFormFieldModule, MatInputModule, MatChipsModule
+  MatIconModule, MatFormFieldModule, MatInputModule, MatChipsModule,
+  MatRadioModule
 } from '@angular/material';
 // import { NgxChartsModule } from '@swimlane/ngx-charts';
 
@@ -48,6 +49,7 @@ import './app.rxjs-imports';
     MatFormFieldModule,
     MatChipsModule,
     MatInputModule,
+    MatRadioModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { useHash: false }),
     StoreModule.forRoot(reducers, { metaReducers }),

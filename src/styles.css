@@ -57,3 +57,14 @@ body {
 .arrow-button {
   cursor: pointer;
 }
+
+.mat-radio-button {
+  width: 100%;
+  height: 100%;
+  line-height: 46px;  
+}
+
+.mat-radio-button > .mat-radio-label {
+  display: flex;
+  justify-content: space-between;
+}

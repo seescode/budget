@@ -7,12 +7,14 @@ How to deploy to surge:
 
 Make it look like ionic:
 
-
--setup a global error handler so that it replaces the current page with a 
-500 error page
 -be able to add a new transaction 
   -Setup reactive forms on subcategory page so that you can add transactions
     -Verify that the view category page working 
+
+-Be able to add transactions through speech
+
+-setup a global error handler so that it replaces the current page with a 
+500 error page
 -fix todos
 -Get the graphs working
   -Install ngx charts and d3 

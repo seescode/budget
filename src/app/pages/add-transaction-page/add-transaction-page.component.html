@@ -3,18 +3,26 @@
   <h1>Add Transaction</h1>
 </mat-toolbar>
 
-<form [formGroup]="" (ngSubmit)="addTransaction()">
+<form [formGroup]="transaction" (ngSubmit)="addTransaction()">
   <mat-list>
-    <div *ngFor="let category of subcategories$ | async">
-      <mat-list-item>
-        <span>{{category}}</span>
-        <input type="radio" [value]="category">
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </div>
-    <input matInput placeholder="Amount">
+
+    <mat-radio-group formControlName="selectedSubcategory">
+        <div *ngFor="let category of subcategories$ | async">
+        <mat-list-item>
+          <mat-radio-button [value]="category" align="end">
+              <span>{{category}}</span>
+          </mat-radio-button>      
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-radio-group>
+    
+    <mat-form-field>
+        <input matInput placeholder="Amount" formControlName="transactionAmount">
+    </mat-form-field>
+    
     <div>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-raised-button color="primary" [disabled]="transaction.invalid" type="submit">Submit</button>
     </div>
   </mat-list>
 </form>

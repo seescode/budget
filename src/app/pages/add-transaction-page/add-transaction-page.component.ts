@@ -7,6 +7,7 @@ import { AppState } from './../../reducers/index';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BACK_TO_BUDGETING } from '../../actions/actions';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'yb-add-transaction-page',
@@ -16,12 +17,28 @@ import { BACK_TO_BUDGETING } from '../../actions/actions';
 })
 export class AddTransactionPageComponent implements OnInit {
   subcategories$: Observable<string[]>;
+  transaction: FormGroup;
 
   constructor(private store: Store<AppState>, private router: Router,
-    private actionsCreatorService: ActionsCreatorService) { }
+    private actionsCreatorService: ActionsCreatorService) {
+
+    this.transaction = new FormGroup({
+      selectedSubcategory: new FormControl(null, [Validators.required]),
+      transactionAmount: new FormControl(null, [Validators.required, this.validAmount])
+    });
+  }
 
   ngOnInit() {
-    this.subcategories$  = this.store.select(subcategoriesForSelectedCategorySelector);
+    this.subcategories$ = this.store.select(subcategoriesForSelectedCategorySelector);
+  }
+
+  validAmount(control: FormControl): { [s: string]: boolean } {
+
+    if (control.value && control.value.match(/^\d+\.?\d?\d?$/)) {
+      return null;
+    }
+
+    return { 'invalidNumber': true };
   }
 
   addTransaction() {
@@ -38,7 +55,7 @@ export class AddTransactionPageComponent implements OnInit {
     // ))
 
     // this.navCtrl.pop();
-  }
+  }  
 
   back() {
     this.store.dispatch({
