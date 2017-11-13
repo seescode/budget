@@ -1,3 +1,4 @@
+import { MonthGraphComponent } from './components/month-graph/month-graph';
 import { CustomRouterStateSerializer } from './routerSerializer';
 import { RoutingEffects } from './effects/routing.effects';
 import { TransactionListPageComponent } from './pages/transaction-list-page/transaction-list-page.component';
@@ -34,7 +35,10 @@ import {
   StoreRouterConnectingModule,
   RouterStateSerializer,
 } from '@ngrx/router-store';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 import './app.rxjs-imports';
+import { TotalGraphComponent } from './components/total-graph/total-graph';
 
 @NgModule({
   imports: [
@@ -57,7 +61,7 @@ import './app.rxjs-imports';
     EffectsModule.forRoot([BudgetEffects, RoutingEffects]),
     DBModule.provideDB(schema),
     StoreRouterConnectingModule,
-
+    NgxChartsModule
     // NgxChartsModule
 
   ],
@@ -68,6 +72,8 @@ import './app.rxjs-imports';
     BudgetingPageComponent,
     AddTransactionPageComponent,
     TransactionListPageComponent,
+    MonthGraphComponent,
+    TotalGraphComponent,
     AppComponent
   ],
   providers: [

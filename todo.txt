@@ -4,8 +4,9 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
--Get the graphs working
-  -Install ngx charts and d3 
+-get the graphs to appear in different tabs or something 
+
+-test that deletes work 
 -fix unit tests 
 -fix e2e tests 
 -service workers
