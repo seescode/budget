@@ -4,6 +4,20 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
+-have the pills update as you add data 
+-add animations to the pills.  That would be awesome if you can have it 
+animate the number. 
+-when you spend too much make the pills turn red 
+-Have remaining not go to negative numbers.  
+-When you overspend have another pill that shows up that says 
+over spent.  
+-What's the best way to surface how I'm doing on my total 
+budget?
+  -what about a simple toggle.  When you click it, it will 
+  show the yearly amounts on another line.  When you click 
+  again it should hide it. 
+
+
 -get the graphs to appear in different tabs or something 
 
 -test that deletes work 
