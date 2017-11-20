@@ -13,9 +13,9 @@
 
   <mat-list-item>
     <mat-chip-list>
-      <mat-chip *ngFor="let data of monthData$ | async" color="primary" selected="true">
+      <mat-chip *ngFor="let data of monthData$ | async" [color]="data.color" selected="true">
         {{data.name}}: 
-        <span counto [step]="30" [countTo]="data.value" [countFrom]="0" [duration]=".5" (countoChange)="data.counto = $event" (countoEnd)="onCountoEnd()">{{data.counto | currency:'USD':true:'1.2-2'}}</span>
+        <span counto [step]="30" [countTo]="data.value" [countFrom]="0" [duration]=".3" (countoChange)="data.counto = $event" (countoEnd)="onCountoEnd()">{{data.counto | currency:'USD':true:'1.2-2'}}</span>
       </mat-chip>
     </mat-chip-list>
   </mat-list-item>
@@ -30,7 +30,9 @@
       </span>
 
       <mat-chip-list>
-        <mat-chip color="primary" selected="true">{{category.amount | currency:'USD':true:'1.2-2'}}</mat-chip>
+        <mat-chip color="primary" selected="true">
+          <span counto [step]="30" [countTo]="category.amount" [countFrom]="0" [duration]=".3" (countoChange)="category.counto = $event" (countoEnd)="onCountoEnd()">{{category.counto | currency:'USD':true:'1.2-2'}}</span>
+        </mat-chip>
       </mat-chip-list>
       <div class="list-item-button" (click)="viewTransactionList(category.name)">
         <mat-icon>view_list</mat-icon>

@@ -341,30 +341,36 @@ export const getMonthData = createSelector(categoriesForCurrentBudget, calculate
       return [
         {
           name: 'Spent',
-          value: 0
+          value: 0,
+          color: 'primary'
         },
         {
           name: 'Remaining',
-          value: 0
+          value: 0,
+          color: 'primary'
         }
       ];
     }
 
     const spent = categories.reduce((prev, next) => { return prev + next.amount; }, 0);
     let remaining = calculatedBudgetAmount.monthlyBudgetAmount - spent;
+    let color = 'primary';
 
     if (remaining < 0) {
       remaining = 0;
+      color = 'warn';
     }
 
     return [
       {
         name: 'Spent',
-        value: spent
+        value: spent,
+        color: color
       },
       {
         name: 'Remaining',
-        value: remaining
+        value: remaining,
+        color: color
       }
     ]
   });

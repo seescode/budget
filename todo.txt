@@ -4,9 +4,33 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
--when you spend too much make the pills turn red 
--When you overspend have another pill that shows up that says 
-over spent.  
+-When you underspend or overspend have another pill that shows up that says 
+surplus or deficit.    
+
+-What does surplus even mean?
+  -This only appears if the current selected month is the current month
+  -On the very first month with zero transactions it shouldn't have a surplus. 
+  That makes no sense.  Therefore surplus is a summation of all previous months. 
+  If you used less money then what is expected then you have a surplus for the 
+  current month.
+  -Let's not include the current month's numbers in the surplus/deficit.  It 
+  complicates the calculations and it's not as useful as you may think. 
+-Test 1:
+  -1200 budget from Jan to Dec
+  -Current month is Jan so never show surplus/deficit.  Surplus/deficit should only work for 
+  months after the first month.   
+-Test 2:
+  -1200 budget from Jan to Dec
+  -Jan to March spend 250 
+  -Current month is April so surplus would be 50
+-Test 3:
+  -1200 budget from Jan to Dec
+  -Jan to March spend 350 
+  -Current month is April so deficit would be 50
+-Test 4:
+  -1200 budget from Jan to Dec
+  -Jan to March spend 300 
+  -Current month is April so this is a perfect situation so just hide surplus/deficit
 
 
 -Use a route guard to load the data for the budget list page 
