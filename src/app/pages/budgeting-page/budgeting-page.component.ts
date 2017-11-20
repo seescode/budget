@@ -1,7 +1,7 @@
 import { ActionsCreatorService } from './../../actions/actionsCreatorService';
 import { Subscription } from 'rxjs/Subscription';
 import {
-  getSelectedBudgetName, categoriesForCurrentBudget
+  getSelectedBudgetName, categoriesForCurrentBudget, getMonthData
 } from './../../selectors/selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from './../../reducers/index';
@@ -27,13 +27,15 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
   selectedMonthAndYear: ActiveDate;
   budgetId: string;
   selectedBudgetName: Observable<string>;
-  categories$: Observable<any>
+  categories$: Observable<any>;
+  monthData$: Observable<any[]>;
 
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute,
     private router: Router, private actionsCreatorService: ActionsCreatorService) {
     this.selectedBudgetName = store.select(getSelectedBudgetName);
 
     this.categories$ = this.store.select(categoriesForCurrentBudget);
+    this.monthData$ = this.store.select(getMonthData);
   }
 
   ngOnInit() {
@@ -59,12 +61,16 @@ export class BudgetingPageComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
 
+  onCountoEnd() {
+
+  }
+
   previousMonth() {
     // TODO: Instead of doing an explicit router.navigate try and use 
     // a store dispatch to update the url.  That way the reducer would 
     // contain the code to calculate previous and next month. 
     // Alternatively you could have the router.navigate happen in a side
-    // effect.  
+    // effect.
     let month = this.selectedMonthAndYear.month - 1;
     let year = this.selectedMonthAndYear.year;
 

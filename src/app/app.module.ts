@@ -33,6 +33,7 @@ import {
   StoreRouterConnectingModule,
   RouterStateSerializer,
 } from '@ngrx/router-store';
+import { CountoModule } from 'angular2-counto';
 
 import './app.rxjs-imports';
 
@@ -50,6 +51,7 @@ import './app.rxjs-imports';
     MatChipsModule,
     MatInputModule,
     MatRadioModule,
+    CountoModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { useHash: false }),
     StoreModule.forRoot(reducers, { metaReducers }),

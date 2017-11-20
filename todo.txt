@@ -4,16 +4,15 @@ How to deploy to surge:
 -surge --domain ng-budget.surge.sh
 
 
--have the pills update as you add data 
-
-
-
--add animations to the pills.  That would be awesome if you can have it 
-animate the number. 
 -when you spend too much make the pills turn red 
--Have remaining not go to negative numbers.  
 -When you overspend have another pill that shows up that says 
 over spent.  
+
+
+-Use a route guard to load the data for the budget list page 
+-Use a route guard to load the data for budgeting page
+
+
 -What's the best way to surface how I'm doing on my total 
 budget?
   -what about a simple toggle.  When you click it, it will 

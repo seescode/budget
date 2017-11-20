@@ -9,17 +9,17 @@
   <mat-icon (click)="nextMonth()" class="arrow-button">arrow_forward</mat-icon>
 </mat-toolbar>
 
-
-
-
 <mat-list>
 
   <mat-list-item>
     <mat-chip-list>
-      <mat-chip color="primary" selected="true">Spent: {{234 | currency:'USD':true:'1.2-2'}}</mat-chip>
-      <mat-chip color="primary" selected="true">Remaining: {{250 | currency:'USD':true:'1.2-2'}}</mat-chip>
+      <mat-chip *ngFor="let data of monthData$ | async" color="primary" selected="true">
+        {{data.name}}: 
+        <span counto [step]="30" [countTo]="data.value" [countFrom]="0" [duration]=".5" (countoChange)="data.counto = $event" (countoEnd)="onCountoEnd()">{{data.counto | currency:'USD':true:'1.2-2'}}</span>
+      </mat-chip>
     </mat-chip-list>
   </mat-list-item>
+
 
   <div *ngFor="let category of categories$ | async">
     <mat-list-item>

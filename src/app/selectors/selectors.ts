@@ -334,7 +334,7 @@ export const subcategoriesForSelectedCategorySelector = createSelector(subcatego
 
 
 
-export const getMonthGraph = createSelector(categoriesForCurrentBudget, calculatedBudgetAmountSelector,
+export const getMonthData = createSelector(categoriesForCurrentBudget, calculatedBudgetAmountSelector,
   (categories, calculatedBudgetAmount) => {
 
     if (categories == null || calculatedBudgetAmount == null) {
@@ -359,18 +359,18 @@ export const getMonthGraph = createSelector(categoriesForCurrentBudget, calculat
 
     return [
       {
-        name: 'Spent: $' + spent,
+        name: 'Spent',
         value: spent
       },
       {
-        name: 'Remaining: $' + remaining,
+        name: 'Remaining',
         value: remaining
       }
     ]
   });
 
 
-export const getTotalGraph = createSelector(selectionSelector, getSelectedBudget,
+export const getTotalData = createSelector(selectionSelector, getSelectedBudget,
   transactionSelector, (userSelection, selectedBudget, transactions) => {
 
     if (userSelection === null || userSelection.budgetId == null || transactions == null ||
@@ -382,10 +382,6 @@ export const getTotalGraph = createSelector(selectionSelector, getSelectedBudget
         },
         {
           name: 'Remaining',
-          value: 0
-        },
-        {
-          name: 'Surplus',
           value: 0
         }
       ];
@@ -400,16 +396,12 @@ export const getTotalGraph = createSelector(selectionSelector, getSelectedBudget
 
     return [
       {
-        name: 'Spent: $' + spent,
+        name: 'Spent',
         value: spent
       },
       {
-        name: 'Remaining: $' + remaining,
+        name: 'Remaining',
         value: remaining
-      },
-      {
-        name: 'Surplus: $' + 20,
-        value: 20
       }
     ]
   });
