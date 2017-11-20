@@ -5,6 +5,9 @@ How to deploy to surge:
 
 
 -have the pills update as you add data 
+
+
+
 -add animations to the pills.  That would be awesome if you can have it 
 animate the number. 
 -when you spend too much make the pills turn red 
@@ -116,7 +119,6 @@ with end date.
 
 
 Animate:
--graphs should animate using d3
 -use fade in animation for changing budgets and going from 
 one month to the next month
 -when viewing transactions for a category have it come up from
