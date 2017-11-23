@@ -43,10 +43,6 @@ budget?
   show the yearly amounts on another line.  When you click 
   again it should hide it. 
 
-
--get the graphs to appear in different tabs or something 
-
--test that deletes work 
 -fix unit tests 
 -fix e2e tests 
 -service workers
